@@ -53,10 +53,10 @@
       <li><a href="#chips">EEPROM &amp; flash</a></li>
       <li><a href="#c1">1 · Shell Breakout <small>easy</small></a></li>
       <li><a href="#c2">2 · Baud Hunter <small>easy</small></a></li>
-      <li><a href="#c4">4 · Bus Stop <small>med</small></a></li>
-      <li><a href="#c5">5 · EEPROM Raider <small>med</small></a></li>
-      <li><a href="#c6">6 · Flash Raider <small>med</small></a></li>
-      <li><a href="#c8">8 · Target Acquired <small>hard</small></a></li>
+      <li><a href="#c3">3 · Bus Stop <small>med</small></a></li>
+      <li><a href="#c4">4 · EEPROM Raider <small>med</small></a></li>
+      <li><a href="#c5">5 · Flash Raider <small>med</small></a></li>
+      <li><a href="#c6">6 · Target Acquired <small>hard</small></a></li>
     </ol>
   </nav>
 
@@ -145,7 +145,7 @@
        an internal UART bridge between the two chips. None of the bus-sniffing labs below
        use these three, but it's easy to clip onto the wrong one.</p>
     <div class="diagram"><img src="../assets/circuit/photo_headers.jpg" alt="Close-up photo of the H1/H2/H3 headers on the physical board" style="border-radius:3px;"></div>
-    <div class="diagram"><img src="../assets/circuit/sch_headers.jpg" alt="Schematic excerpt of H1/H2/H3 net names, from the board's own KiCad source" style="border-radius:3px;"></div>
+    <div class="diagram"><img src="../assets/board/target_acquired_h3.webp" alt="Real board photo: H3 is the leftmost of the three headers, used for the STM32 SWD challenge" style="border-radius:3px;"></div>
     <table class="pin-table">
       <tr><th>Header</th><th>Pin 1</th><th>Pin 2</th><th>Pin 3</th><th>Pin 4</th></tr>
       <tr><td>H3 (STM32 SWD)</td><td class="sig">SWDIO</td><td class="sig">SWCLK</td><td class="sig">NRST</td><td class="sig">GND</td></tr>
@@ -156,7 +156,8 @@
     <h2 id="chips">Chip-dump targets: EEPROM &amp; flash</h2>
     <p>EEPROM Raider and Flash Raider each target a separate memory chip, each on its own
        bus.</p>
-    <div class="diagram"><img src="../assets/circuit/sch_eeprom_flash.jpg" alt="Schematic of the I2C EEPROM (U2) and SPI flash (U5) chips" style="border-radius:3px;"></div>
+    <div class="diagram"><img src="../assets/board/eeprom_raider_u2.webp" alt="Real board photo: chip U2, the I2C EEPROM" style="border-radius:3px;"></div>
+    <div class="diagram"><img src="../assets/board/flash_raider_u5.webp" alt="Real board photo: chip U5, the SPI NOR flash" style="border-radius:3px;"></div>
     <table class="pin-table">
       <tr><th>Chip</th><th>Bus</th><th>Signals</th></tr>
       <tr><td class="sig">U2 (M24256E)</td><td>I2C, addr 0x50</td><td>I2C_SCL / I2C_SDA (IO22 / IO21)</td></tr>
@@ -216,6 +217,7 @@
          rate from it.</p>
 
       <details class="reveal conn"><summary>Connection</summary><div class="reveal-body">
+        <div class="diagram"><img src="../assets/board/baud_hunter_pins.webp" alt="Real board photo: header U13, where the console and the UART leak live" style="border-radius:3px;"></div>
         <p><b>Where:</b> header <b>U13</b>, the same header you connect the console TTL
            adapter to. The leak is on the console's TX line. See the attachment for which
            header is U13; figuring out the exact pin and baud is the challenge.</p>
@@ -243,8 +245,8 @@
       </div></details>
     </div>
 
-    <div class="entry" id="c4">
-      <div class="entry-head"><span class="entry-num">04</span><h2 style="margin:0;">Bus Stop (SPI)</h2><span class="diff-tag med">Medium</span></div>
+    <div class="entry" id="c3">
+      <div class="entry-head"><span class="entry-num">03</span><h2 style="margin:0;">Bus Stop (SPI)</h2><span class="diff-tag med">Medium</span></div>
       <p>A two-step one: the SPI bus carries a <i>password</i>, not the flag directly.
          Sniff the password, then type it back into the lab's own serial console to
          unlock the flag. It's a small model of a bus leaking a credential rather than
@@ -262,6 +264,7 @@
         over the same pin.</p>
 
       <details class="reveal conn"><summary>Connection</summary><div class="reveal-body">
+        <div class="diagram"><img src="../assets/board/bus_stop_pins.webp" alt="Real board photo: the SPI sniff pins marked on header U13" style="border-radius:3px;"></div>
         <table class="pin-table">
           <tr><th>Badge pin</th><th>Header</th><th>Logic analyzer</th></tr>
           <tr><td class="sig">IO2</td><td>U13 pin 6</td><td>SCK</td></tr>
@@ -302,8 +305,8 @@
       </div></details>
     </div>
 
-    <div class="entry" id="c5">
-      <div class="entry-head"><span class="entry-num">05</span><h2 style="margin:0;">EEPROM Raider</h2><span class="diff-tag med">Medium</span></div>
+    <div class="entry" id="c4">
+      <div class="entry-head"><span class="entry-num">04</span><h2 style="margin:0;">EEPROM Raider</h2><span class="diff-tag med">Medium</span></div>
       <p>The flag lives on the external I2C EEPROM (U2), not inside the ESP32's own
          firmware. A plain single-byte-addressed dump reads the wrong location on this
          chip, it needs two address bytes.</p>
@@ -316,7 +319,7 @@
          single-byte form most dump commands default to.</p>
 
       <details class="reveal conn"><summary>Connection</summary><div class="reveal-body">
-        <div class="diagram"><img src="../assets/circuit/sch_eeprom_flash.jpg" alt="Schematic of the I2C EEPROM U2, from the board's own KiCad source"></div>
+        <div class="diagram"><img src="../assets/board/eeprom_raider_u2.webp" alt="Real board photo showing which chip is U2" style="border-radius:3px;"></div>
         <table class="pin-table">
           <tr><th>CH341A</th><th>U2 (EEPROM)</th></tr>
           <tr><td>SDA</td><td class="sig">SDA</td></tr>
@@ -335,8 +338,8 @@
       <details class="reveal guide locked" data-k="JBT4C2PONBAUEiN7MBUsag==.Io/fpPzeeawDJ2C2.jmCFKV//VEXmqkiMwslB319qaJ7DNFeJKxtdXUgC8yK/4ogdSgcBqHSt9yoBFQ5QNYTWz6va/KqvLaSQgxnPuqMOHJ3nX8Ega6wpJfBc/SVNpDevfscHikjzrV9IP24mrvxyjrUmvP5hUuhOIf36Y801ee+xkg05nMSRltjoevT9+xfaLZMcOzYQhPglXWkuAFS2gaQApt7bbgQKZ8WpeqRU8LnVmMIbED+pdDBwRfwHeqdKSEbhueJYZCTjfHTm+lG4gtbuV/JfB1zYiRQveX6DUwAIkfjErLeGaqXA3fLwF02zass+PkTecsdboB4zMJF/NRGH8au8fvdmLZ3SOwxezAqvz+XiKwDC6E/ZTClYNWlzGo0WOHQqgmgbxROr1vGeYumDESnyAEK7INdGFBW2gOT5SvI2CaEdD9sYQ0EFi+L4CNFz0/zXVDvnlrfBslHWimQHrMlu3dqaMpMg1MhToTQuCUpf/osAel/KKGO7AYys11QdKW89NJaWhtqFO7sldtVOp+felwJ/Z7AtpxdvNVSlvucE5xwJHQSaG7oNdMwKmObz50tjtkCeIua7/n8FHbSWmM1MW0D2lDth5CY9HXPFthfbJMAIOaidPOZBHLWZwA7BEGvpP9RcmeQboxKKFEmjH7L0jhNfxoRqdk6RzqzErHgXgFc7KcBW/MAzwiny/7/b8a/xWR/e3kgboI14Xjzl5pYAXAtajSqV+X2f2mDamjEz2H5tgZetWc2VaM9+tB5eH1EtIGBuvvbqmOrm+pk5E9s5/wzuoswoBbW4cu5VsTyImEZrvU0HPg8G913a5A99KkaOF3IIIRaTzV5phuC/slRjHW5Pp/+B4t8VwBTxTiU2XPRPdHYDhy2FEfdMW+BHTcdfpOiyDN69wgm2PeGAPVPq1FYJMm0ZcdsU9zRZoaFEam+KpfXcKXvEcoUVELMXTIaNqV81Pyao2aBLQUkN2DsPzKhCFa7fM5PLYoeb3zTYXifAZ9lPLJIHimXd34U2P3CsL4tURZvBgGSOTLqADyr3j6ZyLsnEYOtQM86xe97LvPgoVZwRFqmsyFUsxv7vK8YdzuMgkyahPJpp6AwYeTPDHjT1EOuS9JzSWszEidgDpFofvXiAfg=="><summary>Full guide <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
     </div>
 
-    <div class="entry" id="c6">
-      <div class="entry-head"><span class="entry-num">06</span><h2 style="margin:0;">Flash Raider</h2><span class="diff-tag med">Medium</span></div>
+    <div class="entry" id="c5">
+      <div class="entry-head"><span class="entry-num">05</span><h2 style="margin:0;">Flash Raider</h2><span class="diff-tag med">Medium</span></div>
       <p>Same idea as EEPROM Raider, different chip and bus: the flag lives on the external
          SPI NOR flash (U5), not in the ESP32's own program memory. The most hands-on
          challenge on the badge, and the most common real hardware-hacking workflow there
@@ -350,7 +353,7 @@
          banner.</p>
 
       <details class="reveal conn"><summary>Connection</summary><div class="reveal-body">
-        <div class="diagram"><img src="../assets/circuit/sch_eeprom_flash.jpg" alt="Schematic of the SPI flash U5, from the board's own KiCad source"></div>
+        <div class="diagram"><img src="../assets/board/flash_raider_u5.webp" alt="Real board photo showing which chip is U5" style="border-radius:3px;"></div>
         <table class="pin-table">
           <tr><th>CH341A</th><th>U5 (flash)</th></tr>
           <tr><td>CS</td><td class="sig">CS</td></tr>
@@ -371,8 +374,8 @@
       <details class="reveal guide locked" data-k="VGiW6MPkhuAzqe3z9m/ZTA==.bCo6DyHFbohaDdI5.NgU6sy2Mg32gR+zR2T1LZjxlYVmqx8KVGzYcxyOhCpZYt74t4GUraLvPlpZmKEgCHG3OZ3PUUJVZmi0cgs3gbXmoeF6BUB+Drc7Zh6o+NDH6PdXctIyLpc1p/qcLnPefITmLC7I0YoFUcV4Q/LxStHsAC1rlA02fz7k38ZwE48imUXUvwHwcWqGEnRYEKOaKRctccRH4t9iH6bXLLWnJ7byn0uDkGg4iQbQH9q39CxJyiMEXNJ+xpAGGxlwMeWzVQAwJbq2Y4skQotlaqfbolUUMQXVY1iMHH6cxmnQF9KkzR4D5vQcEbOpiOOKfWetjWkniQFCsCylMWPyVAwzmmnxUPVXgmFCq6UZcV78UCXw2SyVHpWjf8YTPHF/WOClXFi0eCVIHs+hugXFwmMKfCP7dJg5TIrUVPwHFYaYZiXhJ6p+dVc7HfB+H8F93nViwIn6+f1tE3eHPQ352lsCR6piF9fON9w9j9mgQm2SqU0siiJ59jF8nOSbFrt9qoTHVfUPlYhodP+/TRyFw/m+9rtU+dD0tFIwxyRkM2vhOGmqHIZxbrXOCV5TgXdTMRa3RZvRwVAZtp8taCTiHTeC9ZbieHrdJJiDB3NXnK9e6TTvGbijxnE1TTXnEnItvizifYMtH6zxRc4q9gx+XNeR+tf+zUgjQhmO+a+UkWUt6KGLe9JAxtZvD5fLk2MCXR0lGLWVVG5JHP2aDzCd82O7TZsNPGbI3MPk34WtP4Q5IRD6p+rj3GmlrHxkty8ML+IADhN2EU77DXDTUHxmKOp/mrSAmpel27MRUgo3+d2Oh2QQE8RVmTS9AD63uIV7BK8I8PfIEZXUl4gD52cZ47MVhxN1A9ykLgKboQec379qR7NAW+Iv+wlb3VPjERk+va1EpM/e94owm/QXsiKfP59RDUwSq7ptIgZE+uIqIO12QKQlLR3XD7+gqA4UU7W88P8ABz2aPKpKg1y9IUHmRHrQgiCRnVvmlTU5owOH2JFUtnHi4Lrv30XYdYqlwzmHYOxjKnRUsee7p5XsD85pJp0jHrjmOSLVH+IHj6vy4LPVQ6kiZZnYeZKweo7du2puDvkz01lgjkaZPwqlaT8VzwZ25hxnV2JJG8USVmGWe43lDWzYxSx5504nF94gm49HCEehgJVeFc30NTNQ="><summary>Full guide <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
     </div>
 
-    <div class="entry" id="c8">
-      <div class="entry-head"><span class="entry-num">08</span><h2 style="margin:0;">Target Acquired (STM32)</h2><span class="diff-tag hard">Hard</span></div>
+    <div class="entry" id="c6">
+      <div class="entry-head"><span class="entry-num">06</span><h2 style="margin:0;">Target Acquired (STM32)</h2><span class="diff-tag hard">Hard</span></div>
       <p>A real firmware-reversing challenge against the badge's second microcontroller:
          an STM32F103C8T6 wired up purely as a training target, unconnected to the ESP32's
          own challenge engine. Its firmware holds the flag encrypted, not in the clear, so
@@ -392,8 +395,8 @@
         SWDIO/SWCLK are swapped.</p>
 
       <details class="reveal conn"><summary>Connection</summary><div class="reveal-body">
-        <p>Full H3 pinout and a real photo of the header are in the
-           <a href="#headers">header reference</a> near the top of this page.</p>
+        <div class="diagram"><img src="../assets/board/target_acquired_h3.webp" alt="Real board photo: H3 is the leftmost of the three headers" style="border-radius:3px;"></div>
+        <p>H3 is the leftmost of the three 2x2 headers (H3, H2, H1). Full pinout below.</p>
         <table class="pin-table">
           <tr><th>H3 pin</th><th>Probe wire</th></tr>
           <tr><td class="sig">SWDIO</td><td>SWDIO</td></tr>
