@@ -45,7 +45,7 @@
 <section class="wrap" style="padding: 36px 24px 0;">
   <p class="crumbs"><a href="../index.html">Wired Village</a><span class="sep">/</span><a href="index.html">Sysrupt V2</a><span class="sep">/</span>Challenges</p>
   <p class="eyebrow">8 challenges &middot; 1800 pts</p>
-  <h1>Challenges</h1>
+  <h1>Challenges</h2>
   <p class="lead">Content on this page is reproduced from the SYSRUPT Portable OT Range V2 repository's own challenge guides, unchanged. Start with Initial Access, then work 01&ndash;08.</p>
 </section>
 
@@ -208,7 +208,7 @@ curl -i -b cookies.txt http://10.0.1.1/hmi
 <p>This weakness is called <strong>SQL Injection</strong>.</p>
 <p>Your job is to discover the historian webpage, find the login credentials, access the Data Browser, exploit the SQL Injection vulnerability, and retrieve the hidden flag.</p>
 <hr />
-<h1>Part 1 — Discover the Historian Webpage</h1>
+<h2>Part 1 — Discover the Historian Webpage</h2>
 <h2>Step 1 — Find the First Clue Using robots.txt</h2>
 <p>We know that the target device is running a web server at:</p>
 <pre><code class="language-text">http://10.0.1.1
@@ -305,7 +305,7 @@ curl -i -b cookies.txt http://10.0.1.1/hmi
 <p>We can now begin testing its search field for SQL Injection.</p>
 </details>
 <hr />
-<h1>Part 2 — Exploit the SQL Injection Vulnerability</h1>
+<h2>Part 2 — Exploit the SQL Injection Vulnerability</h2>
 <h2>What Is SQL Injection?</h2>
 <p>Before continuing, let's understand what SQL Injection means.</p>
 <p>Imagine a website has a search box.</p>
@@ -564,7 +564,7 @@ curl -i -b cookies.txt http://10.0.1.1/hmi
 <p><strong>Challenge completed!</strong></p>
 </details>
 <hr />
-<h1>What You Learned</h1>
+<h2>What You Learned</h2>
 <p>By completing this challenge, you learned:</p>
 <ol>
 <li><strong>robots.txt discovery:</strong> How to investigate a web server and find paths that are not directly linked on its homepage.</li>
@@ -733,7 +733,7 @@ curl -i -b cookies.txt http://10.0.1.1/hmi
 </table>
 <p><strong>Important:</strong> The firmware image values are integers, not strings. Therefore, we must use <code>i</code> when writing the image number.</p>
 <hr />
-<h1>Step 1 — Check Whether the RTU Is Unhealthy</h1>
+<h2>Step 1 — Check Whether the RTU Is Unhealthy</h2>
 <p>Before changing anything, we need to understand the current condition of the device.</p>
 <p>We will use <code>snmpget</code> to read four values:</p>
 <ol>
@@ -836,7 +836,7 @@ iso.3.6.1.4.1.42424.3.0 = INTEGER: 341
 <p><strong>Important:</strong> Do not try to write directly to <code>fwRunningImage</code>. It is read-only. We must use the recovery procedure.</p>
 </details>
 <hr />
-<h1>Step 2 — Find the SNMP Write Community</h1>
+<h2>Step 2 — Find the SNMP Write Community</h2>
 <p>We can read information using the <code>public</code> community, but we need a different community string to change the device's settings.</p>
 <p>Where can we find it?</p>
 <p>The challenge tells us that the write community is stored inside <code>sysContact</code>.</p>
@@ -877,7 +877,7 @@ iso.3.6.1.4.1.42424.3.0 = INTEGER: 341
 <p><strong>Keep this value. We will use it in the next steps.</strong></p>
 </details>
 <hr />
-<h1>Step 3 — Enter Recovery Mode</h1>
+<h2>Step 3 — Enter Recovery Mode</h2>
 <p>Now that we have the write community, we can start the recovery process.</p>
 <p>But before restoring the firmware, we must put the device into recovery mode.</p>
 <h3>What is recovery mode?</h3>
@@ -919,7 +919,7 @@ iso.3.6.1.4.1.42424.3.0 = INTEGER: 341
 <p><strong>We can now restore the firmware image.</strong></p>
 </details>
 <hr />
-<h1>Step 4 — Restore the Last-Known-Good Firmware</h1>
+<h2>Step 4 — Restore the Last-Known-Good Firmware</h2>
 <p>Remember what we discovered in Step 1?</p>
 <table class="pin-table">
 <thead>
@@ -988,7 +988,7 @@ iso.3.6.1.4.1.42424.3.0 = INTEGER: 341
 <p>We must verify the actual running image later.</p>
 </details>
 <hr />
-<h1>Step 5 — Return the RTU to Normal Mode</h1>
+<h2>Step 5 — Return the RTU to Normal Mode</h2>
 <p>We have requested the firmware restoration.</p>
 <p>Now we need to take the device out of recovery mode.</p>
 <p>Remember:</p>
@@ -1025,7 +1025,7 @@ iso.3.6.1.4.1.42424.3.0 = INTEGER: 341
 <p>However, we still need to check whether the firmware restoration was successful.</p>
 </details>
 <hr />
-<h1>Step 6 — Wait Until the Device Becomes Healthy</h1>
+<h2>Step 6 — Wait Until the Device Becomes Healthy</h2>
 <p>After leaving recovery mode, the RTU needs a few seconds to check its firmware.</p>
 <p>It compares:</p>
 <ul>
@@ -1068,7 +1068,7 @@ done
 <p><strong>Note:</strong> Your terminal output did not separately show the result of this polling command. The next step will help us verify the final device state.</p>
 </details>
 <hr />
-<h1>Step 7 — Verify the Firmware and Retrieve the Flag</h1>
+<h2>Step 7 — Verify the Firmware and Retrieve the Flag</h2>
 <p>Now we need to confirm that the firmware was actually restored.</p>
 <p>We will read two OIDs:</p>
 <ol>
@@ -1161,7 +1161,7 @@ iso.3.6.1.4.1.42424.9.0 = &quot;&quot;
 <p><strong>Recovery flag: Not retrieved yet.</strong></p>
 </details>
 <hr />
-<h1>What You Learned</h1>
+<h2>What You Learned</h2>
 <p>By completing this challenge, you learned:</p>
 <ol>
 <li><strong>SNMP basics:</strong> How to communicate with network devices using SNMP.</li>
@@ -1609,7 +1609,7 @@ sort -n bkp_seq
 <p><strong>ARP</strong> helps devices find which MAC address belongs to an IP address.</p>
 <p>A MAC address identifies a network interface, while an IP address identifies its network address.</p>
 <hr />
-<h1>Step 1 — Find the Real Devices</h1>
+<h2>Step 1 — Find the Real Devices</h2>
 <p>First, we need to find which devices are actually registered on the network.</p>
 <p>We will use the DCP Identify responses from the capture.</p>
 <h3>Command</h3>
@@ -1667,7 +1667,7 @@ PROFINET DCP, ServiceID: Identify (5) / Response Success
 <p>We now have a list of legitimate device names and IP addresses to compare against the suspicious traffic.</p>
 </details>
 <hr />
-<h1>Step 2 — Find the Device Pretending to Be the PLC</h1>
+<h2>Step 2 — Find the Device Pretending to Be the PLC</h2>
 <p>Now we need to find out whether another device is claiming the identity of <code>plc-01</code>.</p>
 <p>We will search for two types of messages:</p>
 <ul>
@@ -1746,7 +1746,7 @@ IP: 10.0.1.21
 <p>Next, we need to confirm which MAC address is actually the impostor.</p>
 </details>
 <hr />
-<h1>Step 3 — Check the Asset Inventory and MAC Vendor</h1>
+<h2>Step 3 — Check the Asset Inventory and MAC Vendor</h2>
 <p>Finding two devices with the same identity is suspicious, but we need more evidence before identifying the attacker.</p>
 <p>We will check two things:</p>
 <ol>
@@ -1799,7 +1799,7 @@ IP: 10.0.1.21
 <p>is the impostor MAC address in this challenge.</p>
 </details>
 <hr />
-<h1>Step 4 — Submit the Finding</h1>
+<h2>Step 4 — Submit the Finding</h2>
 <p>We have completed the investigation.</p>
 <p>We found that two devices were claiming the identity of <code>plc-01</code>.</p>
 <p>The real device is registered in the Asset Inventory, while the suspicious device is not.</p>
@@ -1816,7 +1816,7 @@ IP: 10.0.1.21
 <p><strong>Challenge completed!</strong></p>
 </details>
 <hr />
-<h1>What You Learned</h1>
+<h2>What You Learned</h2>
 <ol>
 <li><strong>PROFINET DCP:</strong> How industrial devices discover and identify each other.</li>
 <li><strong>Identify messages:</strong> How to find device names and IP addresses from network traffic.</li>

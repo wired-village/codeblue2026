@@ -197,7 +197,7 @@ sudo ip link set up vcan0</pre></li>
          frame actually came from the badge's own sensors. Find the ID, work out the byte
          layout against a couple of known speed readings, and forge a value past the badge's
          limiter threshold. No flag entry needed, it auto-solves the moment the frame lands.</p>
-      <h4>Tool</h4>
+      <h3>Tool</h3>
       <p><code>candump</code> / <code>cansend</code> (can-utils).</p>
 
       <details class="reveal hint"><summary>Hint</summary><div class="reveal-body">
@@ -224,7 +224,7 @@ sudo ip link set up vcan0</pre></li>
          structured request at all. The badge checks the actual service ID and
          sub-function, not just that something arrived on <code>0x7E0</code>. One
          correctly-formed frame is the whole interaction.</p>
-      <h4>Tool</h4>
+      <h3>Tool</h3>
       <p><code>cansend</code>. The badge parses raw ISO-TP single frames, so every byte
          string below starts with a length byte (the frame's PCI byte, <code>0N</code>
          where N is how many UDS bytes follow), then the UDS service ID and sub-function.
@@ -251,7 +251,7 @@ sudo ip link set up vcan0</pre></li>
          can't do this, since it only ever cycles one at a time. Watch the indicator's CAN
          ID with the badge's own controls to see the bitfield only ever carries one bit,
          then forge a frame with both set together.</p>
-      <h4>Tool</h4>
+      <h3>Tool</h3>
       <p><code>candump</code> to observe, <code>cansend</code> to inject.</p>
 
       <details class="reveal hint"><summary>Hint</summary><div class="reveal-body">
@@ -280,7 +280,7 @@ sudo ip link set up vcan0</pre></li>
          correctly-formatted VIN belonging to an actual production car, and the flag is
          that car's name. Decode the VIN's manufacturer code (its first three characters)
          with any free VIN decoder to find it.</p>
-      <h4>Tool</h4>
+      <h3>Tool</h3>
       <p>Something that speaks ISO-TP and handles the Flow Control handshake for you:
          <code>isotpsend</code>/<code>isotprecv</code>, or <code>python-can</code> with
          <code>can-isotp</code>, or <code>cantools</code>.</p>
@@ -304,7 +304,7 @@ sudo ip link set up vcan0</pre></li>
          random seed each time. The badge gives two worked example seed/key pairs, and the
          relationship between each pair is identical across both. Find it, then apply it
          to your own live seed to compute the key.</p>
-      <h4>Tool</h4>
+      <h3>Tool</h3>
       <p><code>cansend</code>/<code>candump</code> and a calculator.</p>
       <p class="note">A wrong key invalidates the outstanding seed. Request a fresh one
         and try again. No lockout, but every wrong guess costs a round trip.</p>
@@ -319,7 +319,7 @@ sudo ip link set up vcan0</pre></li>
     <div class="entry" id="c6">
       <div class="entry-head"><span class="entry-num">06</span><h2 style="margin:0;">Memory Transfer</h2><span class="diff-tag hard">Hard</span></div>
       <p>A two-step UDS memory exercise that builds directly on <b>Seed &amp; Key</b>. The ECU keeps a 3-byte calibration token in memory at <code>0x40</code> and an unlock register at <code>0xB0</code>. Read the token with <code>ReadMemoryByAddress</code> (<code>0x23</code>) and write it straight into the unlock register with <code>WriteMemoryByAddress</code> (<code>0x3D</code>). Both services are refused outright unless SecurityAccess is already unlocked, and the token is regenerated every boot, so it has to be read off the live bus, not copied from anyone else.</p>
-      <h4>Tool</h4>
+      <h3>Tool</h3>
       <p><code>cansend</code>/<code>candump</code>, plus the SecurityAccess unlock you worked out in <b>Seed &amp; Key</b>.</p>
       <p class="note">Only the <code>0x11</code> address/length form (one address byte, one length byte) is accepted, and only <code>0xB0</code> is writable. Anything else comes back as <code>0x31</code> requestOutOfRange; a locked ECU answers <code>0x33</code> securityAccessDenied.</p>
 

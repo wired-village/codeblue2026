@@ -21,55 +21,79 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-/* ---------- board map: select a part, show its pinout ----------
-   Hover previews, click/Enter pins the selection, and a #bm-XX hash
-   (used by the "see it on the board map" links further down each page)
-   scrolls here and selects that part. */
+/* ---------- board map: pick a part, see it close up ----------
+   Clicking a part on the board (or its legend row) opens the close-up and
+   scrolls down to it. A #bm-XX link from a challenge further down the page
+   scrolls back up to the board instead, so you see where the part lives. */
 (function () {
   var stage = document.querySelector('.bm-stage');
   if (!stage) return;
-  var rows    = [].slice.call(document.querySelectorAll('.bm-row'));
-  var panels  = [].slice.call(document.querySelectorAll('.bm-panel'));
-  var empty   = document.querySelector('.bm-empty');
-  var pinned  = null;
+  var rows   = [].slice.call(document.querySelectorAll('.bm-row'));
+  var legs   = [].slice.call(document.querySelectorAll('.bm-leg'));
+  var panels = [].slice.call(document.querySelectorAll('.bm-panel'));
+  var empty  = document.querySelector('.bm-empty');
+  var detail = document.querySelector('.bm-detail');
+  var board  = document.getElementById('board');
+  var pinned = null;
 
+  function smooth() {
+    return matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+  }
+  function goTo(el, block) {
+    if (el) el.scrollIntoView({ behavior: smooth(), block: block || 'start' });
+  }
   function show(ref) {
-    var any = false;
     rows.forEach(function (r) {
       var on = r.dataset.ref === ref;
       r.classList.toggle('is-active', on);
-      r.classList.toggle('is-dim', !!ref && !on && r.classList.contains('is-interactive') === false ? false : (!!ref && !on));
-      if (on) any = true;
+      r.classList.toggle('is-dim', !!ref && !on);
     });
+    legs.forEach(function (l) { l.classList.toggle('is-active', l.dataset.ref === ref); });
     panels.forEach(function (p) { p.hidden = p.dataset.ref !== ref; });
-    if (empty) empty.hidden = !!ref && any;
-    if (!ref) { rows.forEach(function (r) { r.classList.remove('is-dim', 'is-active'); }); }
+    if (empty) empty.hidden = !!ref;
+  }
+  function pick(ref, where) {
+    pinned = ref;
+    show(ref);
+    if (ref) history.replaceState(null, '', '#bm-' + ref);
+    if (where === 'detail') goTo(detail, 'center');
+    else if (where === 'board') goTo(board, 'start');
   }
 
   stage.addEventListener('mouseover', function (e) {
-    var a = e.target.closest('.bm-hot'); if (!a || pinned) return;
-    show(a.dataset.ref);
+    var a = e.target.closest('.bm-hot');
+    if (a && !pinned) show(a.dataset.ref);
   });
   stage.addEventListener('mouseleave', function () { if (!pinned) show(null); });
   stage.addEventListener('focusin', function (e) {
-    var a = e.target.closest('.bm-hot'); if (a) show(a.dataset.ref);
-  });
-  stage.addEventListener('click', function (e) {
-    var a = e.target.closest('.bm-hot'); if (!a) return;
-    e.preventDefault();
-    pinned = (pinned === a.dataset.ref) ? null : a.dataset.ref;
-    show(pinned);
-    if (pinned) history.replaceState(null, '', '#bm-' + pinned);
+    var a = e.target.closest('.bm-hot');
+    if (a) show(a.dataset.ref);
   });
 
+  // click the part on the board -> open it and scroll to the close-up
+  stage.addEventListener('click', function (e) {
+    var a = e.target.closest('.bm-hot');
+    if (!a) return;
+    e.preventDefault();
+    pick(pinned === a.dataset.ref ? null : a.dataset.ref, 'detail');
+  });
+
+  // click a legend row -> same thing
+  legs.forEach(function (l) {
+    var a = l.querySelector('a');
+    if (!a) return;
+    a.addEventListener('click', function (e) { e.preventDefault(); pick(l.dataset.ref, 'detail'); });
+  });
+
+  // a #bm-XX link from a challenge -> scroll up to the board itself
   function fromHash() {
     var m = /^#bm-([A-Za-z0-9]+)$/.exec(location.hash || '');
     if (!m) return;
     var ref = m[1];
     if (!panels.some(function (p) { return p.dataset.ref === ref; })) return;
-    pinned = ref; show(ref);
-    var el = document.getElementById('board');
-    if (el) el.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+    pinned = ref;
+    show(ref);
+    goTo(board, 'start');
   }
   addEventListener('hashchange', fromHash);
   fromHash();

@@ -156,10 +156,9 @@
 
     <section id="board" class="board-map">
   <h2>Board map</h2>
-  <p>A render of the actual board, built from the KiCad project. Every ring, number and
-     <span class="bm-key"><span class="bm-key-dot" aria-hidden="true"></span>pin&nbsp;1</span>
-     dot is placed from real PCB coordinates rather than drawn by hand. The seven green
-     numbers are clickable — each opens a close-up of that part with its exact pinout.</p>
+  <p>This is a render of the real board. Click any green number to see that part close up,
+     with every pin numbered and named. The positions are read from the KiCad file, so they
+     line up with the badge in your hand.</p>
 
   <div class="bm-stage">
    <div class="bm-inner">
@@ -257,104 +256,104 @@
   </div>
 
   <ol class="bm-legend">
-    <li class="bm-leg is-interactive" data-ref="U13"><a href='#bm-U13'><span class="bm-leg-n">1</span><span class="bm-leg-t">U13 — console UART</span><span class="bm-leg-s">pin 3 RX · pin 4 TX · pin 7 GND</span></a></li>
-    <li class="bm-leg is-interactive" data-ref="U14"><a href='#bm-U14'><span class="bm-leg-n">2</span><span class="bm-leg-t">U14 — SPI / I²C bus</span><span class="bm-leg-s">MOSI · MISO · CLK · SDA · SCL</span></a></li>
-    <li class="bm-leg is-interactive" data-ref="H3"><a href='#bm-H3'><span class="bm-leg-n">3</span><span class="bm-leg-t">H3 — STM32 SWD</span><span class="bm-leg-s">SWDIO · SWCLK · NRST · GND</span></a></li>
+    <li class="bm-leg is-interactive" data-ref="U13"><a href='#bm-U13'><span class="bm-leg-n">1</span><span class="bm-leg-t">U13 — console UART</span><span class="bm-leg-s">pin 3 RX, pin 4 TX, pin 7 GND</span></a></li>
+    <li class="bm-leg is-interactive" data-ref="U14"><a href='#bm-U14'><span class="bm-leg-n">2</span><span class="bm-leg-t">U14 — SPI / I²C bus</span><span class="bm-leg-s">MOSI, MISO, CLK, SDA, SCL</span></a></li>
+    <li class="bm-leg is-interactive" data-ref="H3"><a href='#bm-H3'><span class="bm-leg-n">3</span><span class="bm-leg-t">H3 — STM32 SWD</span><span class="bm-leg-s">SWDIO, SWCLK, NRST, GND</span></a></li>
     <li class="bm-leg is-interactive" data-ref="H2"><a href='#bm-H2'><span class="bm-leg-n">4</span><span class="bm-leg-t">H2 — ESP32 JTAG</span><span class="bm-leg-s">6-pin debug header</span></a></li>
-    <li class="bm-leg is-interactive" data-ref="H1"><a href='#bm-H1'><span class="bm-leg-n">5</span><span class="bm-leg-t">H1 — UART cross-link</span><span class="bm-leg-s">STM32 ↔ ESP32 serial</span></a></li>
-    <li class="bm-leg is-interactive" data-ref="U2"><a href='#bm-U2'><span class="bm-leg-n">6</span><span class="bm-leg-t">U2 — I²C EEPROM</span><span class="bm-leg-s">M24256E · address 0x50</span></a></li>
-    <li class="bm-leg is-interactive" data-ref="U5"><a href='#bm-U5'><span class="bm-leg-n">7</span><span class="bm-leg-t">U5 — SPI NOR flash</span><span class="bm-leg-s">W25Q64 · Flash Raider</span></a></li>
-    <li class="bm-leg" data-ref="U3"><span><span class="bm-leg-n">8</span><span class="bm-leg-t">ESP32-C6-WROOM-1</span><span class="bm-leg-s">main MCU · WiFi + BLE</span></span></li>
-    <li class="bm-leg" data-ref="U7"><span><span class="bm-leg-n">9</span><span class="bm-leg-t">STM32F103C8</span><span class="bm-leg-s">second MCU · Target Acquired</span></span></li>
-    <li class="bm-leg" data-ref="RJ1"><span><span class="bm-leg-n">10</span><span class="bm-leg-t">RJ45 (W5500)</span><span class="bm-leg-s">CAN-over-Ethernet bridge</span></span></li>
-    <li class="bm-leg" data-ref="J1"><span><span class="bm-leg-n">11</span><span class="bm-leg-t">USB-C</span><span class="bm-leg-s">power only — not the console</span></span></li>
-    <li class="bm-leg" data-ref="DISP"><span><span class="bm-leg-n">12</span><span class="bm-leg-t">2.4″ TFT display</span><span class="bm-leg-s">badge UI</span></span></li>
-    <li class="bm-leg" data-ref="LED1"><span><span class="bm-leg-n">13</span><span class="bm-leg-t">LED1 / LED2</span><span class="bm-leg-s">NeoPixels</span></span></li>
+    <li class="bm-leg is-interactive" data-ref="H1"><a href='#bm-H1'><span class="bm-leg-n">5</span><span class="bm-leg-t">H1 — UART cross-link</span><span class="bm-leg-s">STM32 to ESP32 serial</span></a></li>
+    <li class="bm-leg is-interactive" data-ref="U2"><a href='#bm-U2'><span class="bm-leg-n">6</span><span class="bm-leg-t">U2 — I²C EEPROM</span><span class="bm-leg-s">M24256E, address 0x50</span></a></li>
+    <li class="bm-leg is-interactive" data-ref="U5"><a href='#bm-U5'><span class="bm-leg-n">7</span><span class="bm-leg-t">U5 — SPI NOR flash</span><span class="bm-leg-s">W25Q64, used by Flash Raider</span></a></li>
+    <li class="bm-leg" data-ref="U3"><span><span class="bm-leg-n">8</span><span class="bm-leg-t">ESP32-C6-WROOM-1</span><span class="bm-leg-s">the main chip, WiFi and BLE</span></span></li>
+    <li class="bm-leg" data-ref="U7"><span><span class="bm-leg-n">9</span><span class="bm-leg-t">STM32F103C8</span><span class="bm-leg-s">the STM32 you reverse in Target Acquired</span></span></li>
+    <li class="bm-leg" data-ref="RJ1"><span><span class="bm-leg-n">10</span><span class="bm-leg-t">RJ45 (W5500)</span><span class="bm-leg-s">CAN over Ethernet</span></span></li>
+    <li class="bm-leg" data-ref="J1"><span><span class="bm-leg-n">11</span><span class="bm-leg-t">USB-C</span><span class="bm-leg-s">power only, not the console</span></span></li>
+    <li class="bm-leg" data-ref="DISP"><span><span class="bm-leg-n">12</span><span class="bm-leg-t">2.4″ TFT display</span><span class="bm-leg-s">the badge screen</span></span></li>
+    <li class="bm-leg" data-ref="LED1"><span><span class="bm-leg-n">13</span><span class="bm-leg-t">LED1 / LED2</span><span class="bm-leg-s">the two NeoPixels</span></span></li>
   </ol>
 
   <div class="bm-detail" aria-live="polite">
-    <p class="bm-empty">Select a green number above — <b>U13</b>, <b>U14</b>, <b>H1</b>,
-       <b>H2</b>, <b>H3</b>, <b>U2</b> or <b>U5</b> — for a close-up and its exact pinout.</p>
+    <p class="bm-empty">Click a green number above (<b>U13</b>, <b>U14</b>, <b>H1</b>,
+       <b>H2</b>, <b>H3</b>, <b>U2</b> or <b>U5</b>) to see that part close up.</p>
 <div class="bm-panel" id="bm-H1" data-ref="H1" hidden>
   <h3>H1 — UART cross-link <span class="bm-val">M4_X6521WVS-2x02H-C60D74</span></h3>
-  <p class="bm-note">The STM32 ↔ ESP32 serial cross-link.</p>
+  <p class="bm-note">A serial link between the STM32 and the ESP32.</p>
   <div class="bm-panel-grid">
     <figure class="bm-zoom">
       <img src="../assets/board/zoom/H1.webp" width="760" height="547" loading="lazy" decoding="async"
            alt="Close-up of H1 on the board with pin 1 marked">
-      <figcaption>Pin&nbsp;1 is the <span class="bm-key-dot" aria-hidden="true"></span> red dot.</figcaption>
+      <figcaption>Every pin is numbered. Pin&nbsp;1 is the red one.</figcaption>
     </figure>
     <table class="bm-pins"><thead><tr><th>Pin</th><th>Function</th><th>Net</th></tr></thead><tbody><tr class="is-pin1"><td class="bm-pn">1</td><td class="bm-fn">—</td><td class="bm-net">STM32_TX</td></tr><tr><td class="bm-pn">2</td><td class="bm-fn">—</td><td class="bm-net">RX_ESP32</td></tr><tr><td class="bm-pn">3</td><td class="bm-fn">—</td><td class="bm-net">STM32_RX</td></tr><tr><td class="bm-pn">4</td><td class="bm-fn">—</td><td class="bm-net">TX_ESP32</td></tr></tbody></table>
   </div>
 </div>
 <div class="bm-panel" id="bm-U2" data-ref="U2" hidden>
   <h3>U2 — I²C EEPROM <span class="bm-val">M24256E-FMN6TP</span></h3>
-  <p class="bm-note">I²C EEPROM at address 0x50 on the shared I²C bus. Power the board off before clipping onto it.</p>
+  <p class="bm-note">The I2C EEPROM, address 0x50, sharing the I2C bus. Switch the board off before you clip onto it.</p>
   <div class="bm-panel-grid">
     <figure class="bm-zoom">
       <img src="../assets/board/zoom/U2.webp" width="760" height="547" loading="lazy" decoding="async"
            alt="Close-up of U2 on the board with pin 1 marked">
-      <figcaption>Pin&nbsp;1 is the <span class="bm-key-dot" aria-hidden="true"></span> red dot.</figcaption>
+      <figcaption>Every pin is numbered. Pin&nbsp;1 is the red one.</figcaption>
     </figure>
     <table class="bm-pins"><thead><tr><th>Pin</th><th>Function</th><th>Net</th></tr></thead><tbody><tr class="is-pin1"><td class="bm-pn">1</td><td class="bm-fn">NC</td><td class="bm-net"><i>not connected</i></td></tr><tr><td class="bm-pn">2</td><td class="bm-fn">NC</td><td class="bm-net"><i>not connected</i></td></tr><tr><td class="bm-pn">3</td><td class="bm-fn">NC</td><td class="bm-net"><i>not connected</i></td></tr><tr><td class="bm-pn">4</td><td class="bm-fn">VSS</td><td class="bm-net">P,GND</td></tr><tr><td class="bm-pn">5</td><td class="bm-fn">SDA</td><td class="bm-net">I2C_SDA</td></tr><tr><td class="bm-pn">6</td><td class="bm-fn">SCL</td><td class="bm-net">I2C_SCL</td></tr><tr><td class="bm-pn">7</td><td class="bm-fn"><span class="bm-ovl">WC</span></td><td class="bm-net">EEPROM_WP</td></tr><tr><td class="bm-pn">8</td><td class="bm-fn">VCC</td><td class="bm-net">3V3_ESP32</td></tr></tbody></table>
   </div>
 </div>
 <div class="bm-panel" id="bm-H2" data-ref="H2" hidden>
   <h3>H2 — ESP32 JTAG <span class="bm-val">210SMT-2*3P Gold-plated black</span></h3>
-  <p class="bm-note">ESP32-C6 JTAG. Pin 1 carries 3V3.</p>
+  <p class="bm-note">JTAG for the ESP32-C6. Pin 1 is 3V3.</p>
   <div class="bm-panel-grid">
     <figure class="bm-zoom">
       <img src="../assets/board/zoom/H2.webp" width="760" height="545" loading="lazy" decoding="async"
            alt="Close-up of H2 on the board with pin 1 marked">
-      <figcaption>Pin&nbsp;1 is the <span class="bm-key-dot" aria-hidden="true"></span> red dot.</figcaption>
+      <figcaption>Every pin is numbered. Pin&nbsp;1 is the red one.</figcaption>
     </figure>
     <table class="bm-pins"><thead><tr><th>Pin</th><th>Function</th><th>Net</th></tr></thead><tbody><tr class="is-pin1"><td class="bm-pn">1</td><td class="bm-fn">—</td><td class="bm-net">3V3_ESP32</td></tr><tr><td class="bm-pn">2</td><td class="bm-fn">—</td><td class="bm-net">P,GND</td></tr><tr><td class="bm-pn">3</td><td class="bm-fn">—</td><td class="bm-net">JTAG_TDI</td></tr><tr><td class="bm-pn">4</td><td class="bm-fn">—</td><td class="bm-net">JTAG_TDO</td></tr><tr><td class="bm-pn">5</td><td class="bm-fn">—</td><td class="bm-net">JTAG_TMS_DAP_SWDIO</td></tr><tr><td class="bm-pn">6</td><td class="bm-fn">—</td><td class="bm-net">JTAG_TCK_DAP_SWCLK</td></tr></tbody></table>
   </div>
 </div>
 <div class="bm-panel" id="bm-U14" data-ref="U14" hidden>
   <h3>U14 — SPI / I²C bus <span class="bm-val">F1_PM2.54-1x7PLT-H8.5-R</span></h3>
-  <p class="bm-note">The shared SPI and I²C bus. The EEPROM and flash chips sit on these same lines.</p>
+  <p class="bm-note">The SPI and I2C buses come out here. The EEPROM and flash chips sit on these same lines.</p>
   <div class="bm-panel-grid">
     <figure class="bm-zoom">
       <img src="../assets/board/zoom/U14.webp" width="760" height="722" loading="lazy" decoding="async"
            alt="Close-up of U14 on the board with pin 1 marked">
-      <figcaption>Pin&nbsp;1 is the <span class="bm-key-dot" aria-hidden="true"></span> red dot.</figcaption>
+      <figcaption>Every pin is numbered. Pin&nbsp;1 is the red one.</figcaption>
     </figure>
     <table class="bm-pins"><thead><tr><th>Pin</th><th>Function</th><th>Net</th></tr></thead><tbody><tr class="is-pin1"><td class="bm-pn">1</td><td class="bm-fn">—</td><td class="bm-net">BOOT_ESP32</td></tr><tr><td class="bm-pn">2</td><td class="bm-fn">—</td><td class="bm-net">SPI_MOSI</td></tr><tr><td class="bm-pn">3</td><td class="bm-fn">—</td><td class="bm-net">SPI_MISO</td></tr><tr><td class="bm-pn">4</td><td class="bm-fn">—</td><td class="bm-net">SPI_CLK</td></tr><tr><td class="bm-pn">5</td><td class="bm-fn">—</td><td class="bm-net">I2C_SDA</td></tr><tr><td class="bm-pn">6</td><td class="bm-fn">—</td><td class="bm-net">I2C_SCL</td></tr><tr><td class="bm-pn">7</td><td class="bm-fn">—</td><td class="bm-net">LCD_CS</td></tr></tbody></table>
   </div>
 </div>
 <div class="bm-panel" id="bm-H3" data-ref="H3" hidden>
   <h3>H3 — STM32 SWD <span class="bm-val">M4_X6521WVS-2x02H-C60D74</span></h3>
-  <p class="bm-note">STM32 SWD. There is no 3V3 pin on this header — do not wire one.</p>
+  <p class="bm-note">SWD for the STM32. There is no 3V3 pin on this header, so do not wire one.</p>
   <div class="bm-panel-grid">
     <figure class="bm-zoom">
       <img src="../assets/board/zoom/H3.webp" width="760" height="545" loading="lazy" decoding="async"
            alt="Close-up of H3 on the board with pin 1 marked">
-      <figcaption>Pin&nbsp;1 is the <span class="bm-key-dot" aria-hidden="true"></span> red dot.</figcaption>
+      <figcaption>Every pin is numbered. Pin&nbsp;1 is the red one.</figcaption>
     </figure>
     <table class="bm-pins"><thead><tr><th>Pin</th><th>Function</th><th>Net</th></tr></thead><tbody><tr class="is-pin1"><td class="bm-pn">1</td><td class="bm-fn">—</td><td class="bm-net">SWDIO</td></tr><tr><td class="bm-pn">2</td><td class="bm-fn">—</td><td class="bm-net">SWCLK</td></tr><tr><td class="bm-pn">3</td><td class="bm-fn">—</td><td class="bm-net">NRST</td></tr><tr><td class="bm-pn">4</td><td class="bm-fn">—</td><td class="bm-net">P,GND</td></tr></tbody></table>
   </div>
 </div>
 <div class="bm-panel" id="bm-U5" data-ref="U5" hidden>
   <h3>U5 — SPI NOR flash <span class="bm-val">W25Q64JVSSIQ</span></h3>
-  <p class="bm-note">SPI NOR flash on the shared SPI bus. This is the right-hand chip — U2 is the other one.</p>
+  <p class="bm-note">The SPI flash, sharing the SPI bus. It is the chip on the right. U2 is the one on the left.</p>
   <div class="bm-panel-grid">
     <figure class="bm-zoom">
       <img src="../assets/board/zoom/U5.webp" width="760" height="545" loading="lazy" decoding="async"
            alt="Close-up of U5 on the board with pin 1 marked">
-      <figcaption>Pin&nbsp;1 is the <span class="bm-key-dot" aria-hidden="true"></span> red dot.</figcaption>
+      <figcaption>Every pin is numbered. Pin&nbsp;1 is the red one.</figcaption>
     </figure>
     <table class="bm-pins"><thead><tr><th>Pin</th><th>Function</th><th>Net</th></tr></thead><tbody><tr class="is-pin1"><td class="bm-pn">1</td><td class="bm-fn"><span class="bm-ovl">CS</span></td><td class="bm-net">FLASH_CS</td></tr><tr><td class="bm-pn">2</td><td class="bm-fn">DO (IO1)</td><td class="bm-net">SPI_MISO</td></tr><tr><td class="bm-pn">3</td><td class="bm-fn"><span class="bm-ovl">WP</span> (IO2)</td><td class="bm-net"><i>not connected</i></td></tr><tr><td class="bm-pn">4</td><td class="bm-fn">GND</td><td class="bm-net">P,GND</td></tr><tr><td class="bm-pn">5</td><td class="bm-fn">DI (IO0)</td><td class="bm-net">SPI_MOSI</td></tr><tr><td class="bm-pn">6</td><td class="bm-fn">CLK</td><td class="bm-net">SPI_CLK</td></tr><tr><td class="bm-pn">7</td><td class="bm-fn"><span class="bm-ovl">HOLD</span> / <span class="bm-ovl">RESET</span> (IO3)</td><td class="bm-net"><i>not connected</i></td></tr><tr><td class="bm-pn">8</td><td class="bm-fn">VCC</td><td class="bm-net">3V3_ESP32</td></tr></tbody></table>
   </div>
 </div>
 <div class="bm-panel" id="bm-U13" data-ref="U13" hidden>
   <h3>U13 — console UART <span class="bm-val">F1_PM2.54-1x7PLT-H8.5-R</span></h3>
-  <p class="bm-note">This is the console. A USB-to-UART TTL adapter goes here — not the USB-C port. Baud Hunter drops this same UART to 57600 while its lab is open.</p>
+  <p class="bm-note">The console lives here. Your USB-to-UART adapter plugs into this header, not the USB-C port. While the Baud Hunter lab is open this same UART switches to 57600.</p>
   <div class="bm-panel-grid">
     <figure class="bm-zoom">
       <img src="../assets/board/zoom/U13.webp" width="760" height="721" loading="lazy" decoding="async"
            alt="Close-up of U13 on the board with pin 1 marked">
-      <figcaption>Pin&nbsp;1 is the <span class="bm-key-dot" aria-hidden="true"></span> red dot.</figcaption>
+      <figcaption>Every pin is numbered. Pin&nbsp;1 is the red one.</figcaption>
     </figure>
     <table class="bm-pins"><thead><tr><th>Pin</th><th>Function</th><th>Net</th></tr></thead><tbody><tr class="is-pin1"><td class="bm-pn">1</td><td class="bm-fn">—</td><td class="bm-net"><i>not connected</i></td></tr><tr><td class="bm-pn">2</td><td class="bm-fn">—</td><td class="bm-net">GPIO15</td></tr><tr><td class="bm-pn">3</td><td class="bm-fn">—</td><td class="bm-net">RX_ESP32</td></tr><tr><td class="bm-pn">4</td><td class="bm-fn">—</td><td class="bm-net">TX_ESP32</td></tr><tr><td class="bm-pn">5</td><td class="bm-fn">—</td><td class="bm-net">MOD2_CS</td></tr><tr><td class="bm-pn">6</td><td class="bm-fn">—</td><td class="bm-net">MOD1_CS</td></tr><tr><td class="bm-pn">7</td><td class="bm-fn">—</td><td class="bm-net">P,GND</td></tr></tbody></table>
   </div>
@@ -377,7 +376,7 @@
       <p>The badge exposes a minimal UNIX-like shell over USB serial with a small fake
          filesystem. A flag file sits in a hidden directory. A plain directory listing
          won't show it, but that doesn't mean it can't be reached.</p>
-      <h4>Tool</h4>
+      <h3>Tool</h3>
       <p>A serial terminal at 115200 8N1 (PuTTY, <code>screen</code>, <code>minicom</code>).</p>
 
       <details class="reveal conn"><summary>Connection</summary><div class="reveal-body">
@@ -385,7 +384,7 @@
            See <a href="#tools">Connecting to the badge's serial port</a> above for the
            exact commands.</p>
       
-        <p class="bm-jump"><a href="#bm-U13">↑ Show the console header U13 on the board map</a> <span class="bm-jump-note">— exact pinout, straight from the PCB</span></p>
+        <p class="bm-jump"><a href="#bm-U13">↑ See U13 on the board map</a> <span class="bm-jump-note">every pin numbered</span></p>
       </div></details>
       <details class="reveal hint"><summary>Hint</summary><div class="reveal-body">
         <p><code>ls</code> is not the whole truth on a UNIX box. A directory can hold
@@ -417,7 +416,7 @@
          U13 pins your console TTL adapter is wired to, but not at your console's baud
          rate. Your 115200 terminal just shows garbage. The whole puzzle is finding the
          real baud.</p>
-      <h4>Tool</h4>
+      <h3>Tool</h3>
       <p>Your USB-UART TTL adapter and terminal (or a logic analyzer on U13 if you'd
          rather measure the waveform). No extra wiring, it's the pins you're already on.</p>
       <h4>Approach</h4>
@@ -433,7 +432,7 @@
            header is U13; figuring out the exact pin and baud is the challenge.</p>
         <p>Nothing extra to wire, you're already connected for the console.</p>
       
-        <p class="bm-jump"><a href="#bm-U13">↑ Show header U13 — the console UART on the board map</a> <span class="bm-jump-note">— exact pinout, straight from the PCB</span></p>
+        <p class="bm-jump"><a href="#bm-U13">↑ See U13 on the board map</a> <span class="bm-jump-note">every pin numbered</span></p>
       </div></details>
       <details class="reveal hint"><summary>Hint</summary><div class="reveal-body">
         <p>It's a UART, same pins as your console, just a different speed. 9600 and
@@ -463,7 +462,7 @@
          Sniff the password, then type it back into the lab's own serial console to
          unlock the flag. It's a small model of a bus leaking a credential rather than
          the secret itself.</p>
-      <h4>Tool</h4>
+      <h3>Tool</h3>
       <p>Logic analyzer + Logic 2, plus a serial terminal for the console step. Wire to
          <code>SCK (IO2)</code> / <code>MOSI (IO3)</code> / <code>CS (IO15)</code> plus GND.</p>
       <h4>Approach</h4>
@@ -485,13 +484,13 @@
           <tr><td class="sig">GND</td><td>U13 GND</td><td>GND</td></tr>
         </table>
         <p><b>Where:</b> all three land on header <b>U13</b>, same connector as
-           <a href="#headers">IO16 for Baud Hunter</a>. SCK is pin 6 (net
+           <a href="#bm-U13">IO16 for Baud Hunter</a>. SCK is pin 6 (net
            <code>MOD1_CS</code>), MOSI is pin 5 (net <code>MOD2_CS</code>), CS is
            pin 2 (a spare GPIO15, labeled on the schematic as just <code>GPIO15</code>).</p>
         <p>No MISO wire, there isn't one. This is a transmit-only bus, leave that
            channel unassigned in your decoder.</p>
       
-        <p class="bm-jump"><a href="#bm-U13">↑ Show the SPI sniff pins on U13 on the board map</a> <span class="bm-jump-note">— exact pinout, straight from the PCB</span></p>
+        <p class="bm-jump"><a href="#bm-U13">↑ See U13 on the board map</a> <span class="bm-jump-note">every pin numbered</span></p>
       </div></details>
       <details class="reveal hint"><summary>Hint</summary><div class="reveal-body">
         <p>The bus isn't leaking the flag, it's leaking the way in. Mode 0, MSB first,
@@ -524,7 +523,7 @@
       <p>The flag lives on the external I2C EEPROM (U2), not inside the ESP32's own
          firmware. A plain single-byte-addressed dump reads the wrong location on this
          chip, it needs two address bytes.</p>
-      <h4>Tool</h4>
+      <h3>Tool</h3>
       <p>CH341A programmer in I2C mode + <code>i2c-tools</code>.</p>
       <h4>Approach</h4>
       <p>Power the badge off before clipping on. Confirm the chip answers at its address
@@ -545,7 +544,7 @@
            SOIC-8 test clip onto U2, matching pin 1 carefully, the same precision this
            takes on Flash Raider.</p>
       
-        <p class="bm-jump"><a href="#bm-U2">↑ Show chip U2, the I²C EEPROM on the board map</a> <span class="bm-jump-note">— exact pinout, straight from the PCB</span></p>
+        <p class="bm-jump"><a href="#bm-U2">↑ See U2 on the board map</a> <span class="bm-jump-note">every pin numbered</span></p>
       </div></details>
       <details class="reveal hint"><summary>Hint</summary><div class="reveal-body">
         <p>This isn't a 24C02. One address byte reads you garbage from the wrong place,
@@ -560,7 +559,7 @@
          SPI NOR flash (U5), not in the ESP32's own program memory. The most hands-on
          challenge on the badge, and the most common real hardware-hacking workflow there
          is.</p>
-      <h4>Tool</h4>
+      <h3>Tool</h3>
       <p>CH341A programmer in SPI mode + <code>flashrom</code>.</p>
       <h4>Approach</h4>
       <p>Power the badge off and unplug USB entirely before clipping on. Check the
@@ -583,7 +582,7 @@
            voltage jumper is set to 3.3V, not 5V, that's the single most common way to
            damage this chip. Clip the SOIC-8 test clip onto U5, matching pin 1 carefully.</p>
       
-        <p class="bm-jump"><a href="#bm-U5">↑ Show chip U5, the SPI NOR flash on the board map</a> <span class="bm-jump-note">— exact pinout, straight from the PCB</span></p>
+        <p class="bm-jump"><a href="#bm-U5">↑ See U5 on the board map</a> <span class="bm-jump-note">every pin numbered</span></p>
       </div></details>
       <details class="reveal hint"><summary>Hint</summary><div class="reveal-body">
         <p>The flag was never in the microcontroller. Dump the external chip and search
@@ -598,9 +597,9 @@
          an STM32F103C8T6 wired up purely as a training target, unconnected to the ESP32's
          own challenge engine. Its firmware holds the flag encrypted, not in the clear, so
          a plain dump won't hand it over directly.</p>
-      <h4>Tool</h4>
+      <h3>Tool</h3>
       <p>ST-Link or J-Link SWD probe + <code>openocd</code> + <code>arm-none-eabi-gdb</code>
-         (or a disassembler like Ghidra). See the <a href="#headers">H3 header table</a>
+         (or a disassembler like Ghidra). See the <a href="#bm-H3">H3 pinout</a>
          above for wiring.</p>
       <h4>Approach, two valid paths</h4>
       <p><b>Static:</b> dump the flash over SWD, disassemble it, find the small decryption
@@ -625,7 +624,7 @@
         <p>H3 has no 3V3 pin, the STM32 target is already powered from the main board.
            Don't wire 3V3 to this header.</p>
       
-        <p class="bm-jump"><a href="#bm-H3">↑ Show header H3 — the STM32 SWD port on the board map</a> <span class="bm-jump-note">— exact pinout, straight from the PCB</span></p>
+        <p class="bm-jump"><a href="#bm-H3">↑ See H3 on the board map</a> <span class="bm-jump-note">every pin numbered</span></p>
       </div></details>
       <details class="reveal hint"><summary>Hint</summary><div class="reveal-body">
         <p>The flag isn't in flash as plaintext, but the chip already decrypted it once
