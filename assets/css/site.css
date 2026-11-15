@@ -635,13 +635,13 @@ p + h2, ul + h2, ol + h2, pre + h2, table + h2, .note + h2 { margin-top: var(--s
 .foot-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
 /* Both marks are now trimmed to their artwork, so a single shared height
    lines them up optically instead of guessing a number per logo. */
-.partner { display: flex; align-items: center; gap: 20px; }
+.partner { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
 .partner .partner-label {
   font-family: var(--mono); font-size: var(--fs-micro); letter-spacing: .12em;
   text-transform: uppercase; color: var(--text-dimmer);
   padding-right: 20px; border-right: 1px solid var(--border);
 }
-.partner a { border-bottom: none; display: inline-flex; align-items: center;
+.partner a { border-bottom: none; display: inline-flex; align-items: center; flex: 0 0 auto;
              opacity: .82; transition: opacity .15s;
              /* 25px of artwork -> 45px of tap target, same visual position */
              padding: 10px 2px; margin: -10px -2px; }
@@ -649,9 +649,9 @@ p + h2, ul + h2, ol + h2, pre + h2, table + h2, .note + h2 { margin-top: var(--s
 /* Balanced by eye, not by number: Traboda is a long wordmark (aspect 5.2),
    bi0s is a compact stacked lockup (aspect 2.2), so equal heights make bi0s
    look far smaller. */
-.partner img { width: auto; display: block; }
+.partner img { width: auto; display: block; flex: 0 0 auto; }
 .partner img.p-traboda { height: 26px; }
-.partner img.p-bi0s { height: 38px; }
+.partner img.p-bi0s { height: 48px; }
 .partner img.p-bi0s { filter: invert(1); }   /* dark mark on a dark footer */
 
 footer { border-top: 1px solid var(--border); padding: 28px 0 32px; margin-top: 34px; }
@@ -833,7 +833,9 @@ body > footer { position: relative; z-index: 1; }
 
 /* close-up shot inside a challenge's Connection section */
 .diagram.pinshot { margin: var(--sp-4) 0 var(--sp-5); }
-.diagram.pinshot img { max-width: 420px; width: 100%; }
+/* height:auto is essential: the images carry width/height attributes for
+   layout stability, and without it a capped width squashes them. */
+.diagram.pinshot img { max-width: 460px; width: 100%; height: auto; }
 .diagram.pinshot figcaption { font-family: var(--mono); font-size: var(--fs-xs);
   line-height: 1.5; color: var(--text-dimmer); margin-top: 7px; }
 
@@ -874,3 +876,14 @@ body > footer { position: relative; z-index: 1; }
 .closing + .closing { margin-top: 0; color: var(--text-dim); }
 
 /* the home hero shows the wordmark itself as the heading */
+
+/* Home hero: the wordmark acts as the heading, with the copy beside it. */
+.hero-split { display: flex; align-items: center; justify-content: flex-start;
+              gap: clamp(24px, 5vw, 64px); flex-wrap: wrap; }
+.hero-split .hero-text { flex: 1 1 400px; min-width: 280px; }
+.hero-mark { margin: 0; flex: 0 0 auto; line-height: 1; }
+.hero-mark img { width: clamp(200px, 24vw, 310px); height: auto; display: block; }
+@media (max-width: 760px) {
+  .hero-split { flex-direction: column; align-items: flex-start; gap: 18px; }
+  .hero-mark img { width: clamp(180px, 52vw, 240px); }
+}
