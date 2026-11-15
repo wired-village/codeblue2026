@@ -272,14 +272,21 @@ sudo ip link set up vcan0</pre></li>
 
     <div class="entry" id="c4">
       <div class="entry-head"><span class="entry-num">04</span><h2 style="margin:0;">Find the VIN</h2><span class="diff-tag med">Medium</span></div>
-      <p>A real UDS <code>ReadDataByIdentifier</code> request for the vehicle's VIN. The
-         20-byte answer doesn't fit one CAN frame, so the ECU splits it over an
-         <b>ISO-TP</b> First Frame and Consecutive Frames, and needs a Flow Control frame
-         back from you to send the rest. Plain <code>cansend</code>/<code>candump</code>
-         can't complete this alone. Recovering the VIN is only half the job. It's a real,
-         correctly-formatted VIN belonging to an actual production car, and the flag is
-         that car's name. Decode the VIN's manufacturer code (its first three characters)
-         with any free VIN decoder to find it.</p>
+      <p>A real UDS <code>ReadDataByIdentifier</code> request for the vehicle's VIN, on the
+         usual diagnostic addressing: requests go to <code>0x7E0</code>, the ECU answers on
+         <code>0x7E8</code>. Unlike <b>Seed &amp; Key</b>, nothing here is locked. The VIN
+         identifier is readable in the <b>default session</b> with <b>no SecurityAccess and
+         no session change</b>, so a refusal on this one means the request itself was
+         malformed, not that you lack permission.</p>
+      <p>The difficulty is the size of the reply. A VIN is 17 characters, which makes the
+         full response 20 bytes, and a CAN frame carries 8. The ECU therefore answers with
+         an <b>ISO-TP</b> First Frame holding the first six bytes and then stops, waiting
+         for a <b>Flow Control</b> frame from you before it will send the Consecutive
+         Frames. With plain <code>cansend</code> and <code>candump</code> you will see that
+         First Frame and nothing after it, which is the point of the challenge.</p>
+      <p>Reading the 17 characters is only half the job. It is a correctly formatted VIN
+         belonging to a real production car, and the flag is that car's name, so the VIN
+         still has to be decoded once you have it.</p>
       <h3>Tool</h3>
       <p>Something that speaks ISO-TP and handles the Flow Control handshake for you:
          <code>isotpsend</code>/<code>isotprecv</code>, or <code>python-can</code> with
