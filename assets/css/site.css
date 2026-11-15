@@ -659,9 +659,11 @@ body > footer { position: relative; z-index: 1; }
 .index-table tr[data-href]:focus-within td.ix-name a { color: var(--accent-text); }
 .index-table tr[data-href]:focus-within td.ix-arrow { opacity: 1; transform: translateX(0); color: var(--accent-text); }
 
-/* thumbnails sit bare on the page — no frame */
-.index-table .ix-thumb img { width: 160px; height: 160px; }
-@media (max-width: 760px) { .index-table .ix-thumb img { width: 104px; height: 104px; } }
+/* thumbnails sit bare on the page — no frame.
+   The boards are landscape, so a landscape box lets them fill it instead of
+   floating small inside a square. */
+.index-table .ix-thumb img { width: 186px; height: 142px; object-fit: contain; }
+@media (max-width: 760px) { .index-table .ix-thumb img { width: 124px; height: 96px; } }
 
 /* close-up shot inside a challenge's Connection section */
 .diagram.pinshot { margin: 10px 0 18px; }
