@@ -117,16 +117,20 @@
         <p><b>Connecting to the badge's serial port.</b> This is the same every time you
            see "connect at 115200 8N1" below, for Shell Breakout, Bus Stop, and for
            submitting a flag. Everything here assumes Linux (the Arsenal Labs kit).</p>
+        <p class="note">The badge console runs on a <b>USB-to-UART TTL adapter</b>, not the
+           USB-C port. Wire the adapter to header <b>U13</b>: adapter <b>RX &rarr; U13 pin 3</b>,
+           adapter <b>TX &rarr; U13 pin 4</b>, and a shared <b>GND</b>. Use 3.3&nbsp;V logic.</p>
         <ol>
-          <li>Plug the badge into your computer over USB.</li>
+          <li>Wire the TTL adapter to U13 as above and plug the adapter into your computer.</li>
           <li>Find its port name:
-            <pre>ls /dev/ttyACM*</pre>
-            It's usually <code>/dev/ttyACM0</code>.</li>
+            <pre>ls /dev/ttyUSB*</pre>
+            A TTL adapter is usually <code>/dev/ttyUSB0</code> (native USB-C would be
+            <code>/dev/ttyACM*</code> instead).</li>
           <li>Open it with your serial terminal at 115200 baud, 8 data bits, no parity,
             1 stop bit (written as "115200 8N1"). Any of these work:
-            <pre>minicom -D /dev/ttyACM0 -b 115200</pre>
-            <pre>screen /dev/ttyACM0 115200</pre>
-            <pre>putty -serial /dev/ttyACM0 -sercfg 115200,8,n,1,N</pre>
+            <pre>minicom -D /dev/ttyUSB0 -b 115200</pre>
+            <pre>screen /dev/ttyUSB0 115200</pre>
+            <pre>putty -serial /dev/ttyUSB0 -sercfg 115200,8,n,1,N</pre>
             (PuTTY isn't just a Windows tool, <code>sudo apt install putty</code> gets
             you the same program and the same command-line flags on Linux.)</li>
           <li>You should land at a prompt or see the badge printing text. If it's
@@ -198,56 +202,43 @@
 
     <div class="entry" id="c2">
       <div class="entry-head"><span class="entry-num">02</span><h2 style="margin:0;">Baud Hunter (UART)</h2><span class="diff-tag easy">Easy</span></div>
-      <p>A flag streams continuously on a UART TX line, but not at the obvious default
-         rate, so capturing garbage at the standard assumption is expected. The whole
-         puzzle is finding the real baud.</p>
+      <p>While this lab is open, a flag streams on the badge's own UART, the same header
+         U13 pins your console TTL adapter is wired to, but not at your console's baud
+         rate. Your 115200 terminal just shows garbage. The whole puzzle is finding the
+         real baud.</p>
       <h4>Tool</h4>
-      <p>Logic analyzer + Logic 2. Wire a channel to <code>IO16</code> (header U13, pin
-         4) plus GND.</p>
+      <p>Your USB-UART TTL adapter and terminal (or a logic analyzer on U13 if you'd
+         rather measure the waveform). No extra wiring, it's the pins you're already on.</p>
       <h4>Approach</h4>
-      <p>Capture at ≥1 MS/s and add a UART analyzer. The default-rate decode will be
-         garbage. Either measure one bit's duration directly off the waveform and compute
-         the rate from it, or just step through the standard rates until one decodes
-         cleanly.</p>
+      <p>Open the Baud Hunter lab, then either reconnect your terminal while stepping
+         through the standard baud rates until the stream decodes cleanly, or capture
+         U13's TX line on a logic analyzer, measure one bit's width, and compute the
+         rate from it.</p>
 
       <details class="reveal conn"><summary>Connection</summary><div class="reveal-body">
-        <p><b>Where:</b> header <b>U13</b> (one of the 1x7 headers near the ESP32
-           module), pin 4. On the schematic this pin is labeled <code>TX_ESP32</code>
-           rather than "IO16" directly, since it's wired straight out to a UART bridge,
-           but it's the same signal:</p>
-        <div class="diagram"><img src="../assets/circuit/sch_io.jpg" alt="Schematic of the U13 breakout header showing TX_ESP32 on pin 4"></div>
-        <table class="pin-table">
-          <tr><th>Badge pin</th><th>U13 pin</th><th>Logic analyzer</th></tr>
-          <tr><td class="sig">IO16</td><td>4 (TX_ESP32)</td><td>Any free channel</td></tr>
-          <tr><td class="sig">GND</td><td>any GND pin</td><td>GND, do not skip this wire</td></tr>
-        </table>
-        <p>That's it, two wires. There's nothing to receive, so no TX channel on the
-           analyzer side is needed.</p>
+        <p><b>Where:</b> header <b>U13</b>, the same header you connect the console TTL
+           adapter to. The leak is on the console's TX line. See the attachment for which
+           header is U13; figuring out the exact pin and baud is the challenge.</p>
+        <p>Nothing extra to wire, you're already connected for the console.</p>
       </div></details>
       <details class="reveal hint"><summary>Hint</summary><div class="reveal-body">
-        <p>9600 was wrong. Measure a bit's width directly off the waveform instead of
-           guessing, or just try the other standard rates in order.</p>
+        <p>It's a UART, same pins as your console, just a different speed. 9600 and
+           115200 are both wrong. Measure a bit's width off a capture, or try the other
+           standard rates in order.</p>
       </div></details>
       <details class="reveal guide"><summary>Full guide</summary><div class="reveal-body">
         <ol>
-          <li>Wire a logic analyzer channel to <code>IO16</code> on header U13 pin 4,
-            and its GND to any GND pin on the badge. Don't skip the ground wire.</li>
-          <li>In Logic 2, open the channel's sample rate dropdown (top toolbar) and set
-            it to at least 1 MS/s, then click <b>Start</b> to capture 2-3 seconds.</li>
-          <li>Click the <b>+</b> next to "Analyzers" in the right-hand panel, pick
-            <b>Async Serial</b>, set its Input Channel to the one you wired, and leave
-            the baud rate on the default 9600 for now.</li>
-          <li>Look at the decode: at 9600 it's garbage, which just confirms something is
-            transmitting and that 9600 is wrong.</li>
-          <li>Zoom into one data bit on the waveform and measure its width directly
-            (click-drag a measurement across the narrowest pulse, Logic 2 shows the time
-            delta). Baud is 1 divided by that time. Expect something in the tens of
-            microseconds.</li>
-          <li>Re-open the analyzer's settings (gear icon) and set the baud rate to
-            <code>57600</code>. If you'd rather not measure, that's the answer: 9600
-            was the wrong guess, the badge actually transmits at <b>57600 baud</b>.</li>
-          <li>The decoded bytes show in the Data Table at the bottom and annotated on
-            the trace itself, spelling out the flag, repeating once per second.</li>
+          <li>With your TTL adapter already on U13 (RX&rarr;pin3, TX&rarr;pin4, GND),
+            open <b>Embedded &rarr; Baud Hunter</b> on the badge.</li>
+          <li>Your 115200 terminal now shows garbage, that confirms something is
+            transmitting at a different rate.</li>
+          <li>Either: reconnect your terminal at each standard rate in turn
+            (9600, 19200, 38400, <b>57600</b>, 115200) until the text decodes cleanly;</li>
+          <li>Or: clip a logic analyzer onto U13's TX line, capture at ≥1 MS/s, add an
+            <b>Async Serial</b> analyzer, measure one data bit's width, and baud = 1 / that
+            time (expect tens of microseconds).</li>
+          <li>The answer is <b>57600 baud</b>. At that rate the flag decodes, repeating
+            once per second.</li>
         </ol>
       </div></details>
     </div>
