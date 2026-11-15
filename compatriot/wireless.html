@@ -73,7 +73,7 @@
 
     <div class="entry" id="c1">
       <div class="entry-head"><span class="entry-num">01</span><h2 style="margin:0;">PIN Crack (BLE)</h2><span class="diff-tag easy">Easy</span></div>
-      <p class="note">Advertises as <code>compatriot-ble1</code>.</p>
+      <p class="note">Advertises as <code>compatriot-ble1-XXXX</code>, where <code>XXXX</code> is your badge's own id (shown on the badge under Settings &rarr; About). Every badge in the room has a different suffix, so scan for yours.</p>
       <p>The simplest possible BLE attack: a short numeric PIN gate on a writable
          characteristic, with no rate limiting at all.</p>
       <h4>Tool</h4>
@@ -105,7 +105,7 @@
 
     <div class="entry" id="c2">
       <div class="entry-head"><span class="entry-num">02</span><h2 style="margin:0;">Honeypot (WiFi)</h2><span class="diff-tag easy">Easy</span></div>
-      <p class="note">Open AP, SSID <code>compatriot-wifi1</code>.</p>
+      <p class="note">Open AP, SSID <code>compatriot-wifi1-XXXX</code>, with your badge's own id as the suffix.</p>
       <p>A small, realistic web-recon chain. One misconfiguration leaks a path, that path
          leaks a credential, and the credential unlocks a session-gated endpoint. It's
          exactly how real attackers chain together "boring" mistakes.</p>
@@ -143,7 +143,7 @@ curl -X POST http://192.168.4.1/maintenance/diagnostic -H 'Cookie: sid=&lt;paste
 
     <div class="entry" id="c3">
       <div class="entry-head"><span class="entry-num">03</span><h2 style="margin:0;">Double Decode (BLE HexLock)</h2><span class="diff-tag med">Medium</span></div>
-      <p class="note">Advertises as <code>compatriot-ble2</code>.</p>
+      <p class="note">Advertises as <code>compatriot-ble2-XXXX</code>, with your badge's own id as the suffix.</p>
       <p>A two-stage BLE puzzle. One characteristic hands you an encoded clue. Decoding it
          tells you what to do next, not what to send, which are two different things.</p>
       <h4>Tool</h4>
@@ -178,7 +178,7 @@ curl -X POST http://192.168.4.1/maintenance/diagnostic -H 'Cookie: sid=&lt;paste
 
     <div class="entry" id="c4">
       <div class="entry-head"><span class="entry-num">04</span><h2 style="margin:0;">Subscribe &amp; Conquer (BLE NotifyLock)</h2><span class="diff-tag med">Medium</span></div>
-      <p class="note">Advertises as <code>compatriot-ble3</code>.</p>
+      <p class="note">Advertises as <code>compatriot-ble3-XXXX</code>, with your badge's own id as the suffix.</p>
       <p>Tests whether you understand BLE <b>notifications</b>, not just read/write. You
          have to subscribe to a characteristic <i>and</i> satisfy an authentication write
          before anything happens. Neither alone is enough, and the order between them
@@ -216,7 +216,7 @@ curl -X POST http://192.168.4.1/maintenance/diagnostic -H 'Cookie: sid=&lt;paste
 
     <div class="entry" id="c5">
       <div class="entry-head"><span class="entry-num">05</span><h2 style="margin:0;">Packet Ghost (WiFi)</h2><span class="diff-tag hard">Hard</span></div>
-      <p class="note">Beacons under SSID <code>compatriot-wifi2</code>.</p>
+      <p class="note">Beacons under SSID <code>compatriot-wifi2-XXXX</code>, with your badge's own id as the suffix.</p>
       <p>802.11 monitor-mode packet capture. The flag is split across two beacon frames
          sent well apart in time, so this takes patience and a filter, not just a single
          capture. It's the only wireless challenge requiring monitor mode.</p>
