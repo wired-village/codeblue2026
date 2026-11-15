@@ -282,9 +282,11 @@ sudo ip link set up vcan0</pre></li>
       <p>Something that speaks ISO-TP and handles the Flow Control handshake for you:
          <code>isotpsend</code>/<code>isotprecv</code>, or <code>python-can</code> with
          <code>can-isotp</code>, or <code>cantools</code>.</p>
-      <p class="note">If a receive call hangs, check that your Flow Control is going out
-        on the request ID, not the response ID. ISO-TP flow control always flows opposite
-        the data.</p>
+      <p class="note">Start the receiver before you send the request, and leave it running.
+        The ECU sends its First Frame straight away and needs your Flow Control back; if
+        nothing is listening yet, the transfer dies there. If a receive call hangs anyway,
+        check your Flow Control is going out on the request ID, not the response ID.
+        ISO-TP flow control always flows opposite the data.</p>
 
       <details class="reveal hint"><summary>Hint</summary><div class="reveal-body">
         <p>Look up the UDS service for reading a data identifier, and the standard
