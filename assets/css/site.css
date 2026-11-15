@@ -636,3 +636,39 @@ footer { border-top: 1px solid var(--border); padding: 24px 0 36px; margin-top: 
   .bm-stage { overflow-x: auto; padding: 8px; }
   .bm-inner { min-width: 760px; }
 }
+
+/* ---------- home: minimal matrix flow behind the content ---------- */
+#matrix-bg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  /* fade it out down the page so it never fights the content below the fold */
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,.9) 0%, rgba(0,0,0,.5) 45%, rgba(0,0,0,0) 85%);
+          mask-image: linear-gradient(to bottom, rgba(0,0,0,.9) 0%, rgba(0,0,0,.5) 45%, rgba(0,0,0,0) 85%);
+}
+/* lift real content above the canvas */
+body > header.topbar,
+body > main,
+body > footer { position: relative; z-index: 1; }
+
+/* ---------- index rows: give keyboard users the same feedback as hover ---------- */
+.index-table tr[data-href]:focus-within { background: rgba(53,193,94,.055); }
+.index-table tr[data-href]:focus-within td.ix-name a { color: var(--accent-text); }
+.index-table tr[data-href]:focus-within td.ix-arrow { opacity: 1; transform: translateX(0); color: var(--accent-text); }
+
+/* a consistent plate behind thumbnails of differing shapes */
+.index-table .ix-thumb img {
+  background: var(--bg-inset);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px;
+}
+
+/* close-up shot inside a challenge's Connection section */
+.diagram.pinshot { margin: 10px 0 18px; }
+.diagram.pinshot img { max-width: 420px; width: 100%; }
+.diagram.pinshot figcaption { font-family: var(--mono); font-size: 11.5px;
+  color: var(--text-dimmer); margin-top: 7px; }
