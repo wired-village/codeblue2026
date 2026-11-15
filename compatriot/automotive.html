@@ -318,13 +318,26 @@ sudo ip link set up vcan0</pre></li>
 
     <div class="entry" id="c6">
       <div class="entry-head"><span class="entry-num">06</span><h2 style="margin:0;">Memory Transfer</h2><span class="diff-tag hard">Hard</span></div>
-      <p>A two-step UDS memory exercise that builds directly on <b>Seed &amp; Key</b>. The ECU keeps a 3-byte calibration token in memory at <code>0x40</code> and an unlock register at <code>0xB0</code>. Read the token with <code>ReadMemoryByAddress</code> (<code>0x23</code>) and write it straight into the unlock register with <code>WriteMemoryByAddress</code> (<code>0x3D</code>). Both services are refused outright unless SecurityAccess is already unlocked, and the token is regenerated every boot, so it has to be read off the live bus, not copied from anyone else.</p>
+      <p>Picks up where <b>Seed &amp; Key</b> left off. The ECU keeps a short calibration token
+         tucked away in memory, and a separate register that unlocks the moment it sees that
+         exact token written into it. Your job is to move one into the other.</p>
+      <p>Memory is off limits until the ECU is already unlocked, and the token is regenerated
+         every time the badge boots &mdash; so you have to read yours off the live bus. Nobody
+         else's value will work.</p>
       <h3>Tool</h3>
-      <p><code>cansend</code>/<code>candump</code>, plus the SecurityAccess unlock you worked out in <b>Seed &amp; Key</b>.</p>
-      <p class="note">Only the <code>0x11</code> address/length form (one address byte, one length byte) is accepted, and only <code>0xB0</code> is writable. Anything else comes back as <code>0x31</code> requestOutOfRange; a locked ECU answers <code>0x33</code> securityAccessDenied.</p>
+      <p><code>cansend</code>/<code>candump</code>, plus the SecurityAccess unlock you worked out
+         in <b>Seed &amp; Key</b>.</p>
+      <p class="note">This ECU is fussy about how you ask. It accepts exactly one address/length
+        format and exactly one writable destination; everything else is refused. When it refuses,
+        read the negative response code it sends back &mdash; it tells you whether you are locked
+        out or simply asking the wrong way.</p>
 
       <details class="reveal hint"><summary>Hint</summary><div class="reveal-body">
-        <p>Unlock SecurityAccess first (same handshake as Seed &amp; Key). Then read three bytes from <code>0x40</code> and write those same three bytes to <code>0xB0</code> &mdash; the ALFID byte is <code>0x11</code> and the length is <code>03</code>.</p>
+        <p>Get through SecurityAccess first; nothing below works while the ECU is locked.</p>
+        <p>UDS has one service for reading memory and another for writing it &mdash; look them up
+           in ISO&nbsp;14229. Both take an address-and-length format byte before the address
+           itself, and this ECU only tolerates the smallest form of it. Dump the memory region
+           the objective points at, then put what you find where it belongs.</p>
       </div></details>
       <details class="reveal guide locked" data-k="clOALqdOjO0ZipVKq+ooaQ==.Yf6RdgP/kbENHsrq.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"><summary>Full guide <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
     </div>
