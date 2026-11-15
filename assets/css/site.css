@@ -36,6 +36,43 @@ body {
 a { color: var(--accent-text); text-decoration: none; border-bottom: 1px solid transparent; }
 a:hover { border-bottom-color: var(--accent-dim); }
 
+/* ---------- keyboard accessibility ---------- */
+/* One visible ring for every focusable thing. :focus-visible keeps it off
+   mouse clicks but always on for keyboard users. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 8px;
+  top: -48px;                 /* parked off-screen until focused */
+  z-index: 100;
+  background: var(--accent);
+  color: #07140b;
+  font-family: var(--mono);
+  font-size: 13px;
+  padding: 9px 14px;
+  border-radius: 4px;
+  border-bottom: none;
+  transition: top .15s ease;
+}
+.skip-link:focus { top: 8px; }
+main:focus { outline: none; }
+
+/* ---------- reduced motion ---------- */
+/* Anything decorative stops; the page must still read as complete. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 img { max-width: 100%; display: block; }
 
 code, .mono { font-family: var(--mono); }
@@ -215,11 +252,15 @@ li::marker { color: var(--text-dimmer); }
 /* ---------- docs layout: sidebar + content ---------- */
 .docs {
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: 200px minmax(0, 1fr);
   gap: 48px;
   align-items: start;
 }
-@media (max-width: 760px) { .docs { grid-template-columns: 1fr; } }
+/* Grid items default to min-width:auto, so a wide child (a pin table, a long
+   code span) can force the whole column wider than the viewport. Pin them to 0
+   and let the individual wide things scroll inside themselves instead. */
+.docs > * { min-width: 0; }
+@media (max-width: 760px) { .docs { grid-template-columns: minmax(0, 1fr); } }
 
 .toc {
   position: sticky;
@@ -361,6 +402,9 @@ li::marker { color: var(--text-dimmer); }
   margin: 10px 0 18px;
   overflow-x: auto;
 }
+/* viewBox + width:100% scales the drawing; height must come from CSS, because
+   height="auto" is not a valid SVG length attribute (it throws in the console). */
+.diagram svg { display: block; width: 100%; height: auto; }
 .diagram svg text { font-family: var(--mono); }
 
 /* ---------- tool cards ---------- */
@@ -502,7 +546,7 @@ footer { border-top: 1px solid var(--border); padding: 24px 0 36px; margin-top: 
   background: var(--bg-inset); border: 1px solid var(--border-strong); color: var(--text);
   font-family: var(--mono); font-size: 13px; padding: 9px 11px; border-radius: 4px;
 }
-.pinin:focus { outline: none; border-color: var(--accent-dim); }
+.pinin:focus { border-color: var(--accent-dim); }
 .pinbtn {
   background: var(--accent); color: #07140b; border: none; cursor: pointer;
   font-family: var(--mono); font-size: 12.5px; font-weight: 600;
@@ -511,3 +555,84 @@ footer { border-top: 1px solid var(--border); padding: 24px 0 36px; margin-top: 
 .pinbtn:hover { background: var(--accent-text); }
 .pinmsg { font-family: var(--mono); font-size: 12px; color: var(--text-dimmer); margin: 9px 0 0; min-height: 1em; }
 .pinmsg.bad { color: var(--red); }
+
+/* ---------- board map (3D render + PCB-accurate callouts) ---------- */
+.board-map { margin: 26px 0 34px; }
+.bm-key { white-space: nowrap; }
+.bm-key-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%;
+              background: #ff5a4e; margin-right: 5px; vertical-align: baseline; }
+
+.bm-stage { background: var(--bg-inset); border: 1px solid var(--border);
+            border-radius: 6px; padding: 10px; margin: 14px 0 16px; }
+.bm-inner { position: relative; }
+.bm-svg { display: block; width: 100%; height: auto; border-radius: 3px; }
+
+.bm-ring  { fill: none; stroke: #6d6d6d; stroke-width: 3; opacity: .85; }
+.bm-tick  { stroke: #7a7a7a; stroke-width: 2; opacity: .55; }
+.bm-badge { fill: #14181a; stroke: #6d6d6d; stroke-width: 2.5; }
+.bm-num   { font-family: var(--mono); font-size: 19px; font-weight: 600; fill: #e8e8e8; }
+
+.bm-row.is-interactive .bm-ring,
+.bm-row.is-interactive .bm-tick  { stroke: var(--accent); opacity: .95; }
+.bm-row.is-interactive .bm-badge { fill: #06240f; stroke: var(--accent); }
+.bm-row.is-interactive .bm-num   { fill: #8ef5ab; }
+
+.bm-pin1 { fill: #ff5a4e; stroke: #2b0b08; stroke-width: 2.5; }
+
+.bm-hot circle { fill: transparent; cursor: pointer; }
+.bm-hot:focus-visible circle { outline: none; fill: rgba(53,193,94,.2);
+                               stroke: var(--accent); stroke-width: 3; }
+.bm-row.is-active .bm-ring  { stroke: var(--accent); stroke-width: 5; opacity: 1; }
+.bm-row.is-active .bm-badge { fill: var(--accent); stroke: #d6ffe2; }
+.bm-row.is-active .bm-num   { fill: #06240f; }
+
+/* legend */
+.bm-legend { list-style: none; margin: 0 0 16px; padding: 0;
+             display: grid; grid-template-columns: repeat(auto-fit, minmax(265px, 1fr)); gap: 2px 18px; }
+.bm-leg a, .bm-leg span.bm-wrap, .bm-leg > span { display: grid;
+  grid-template-columns: 26px 1fr; gap: 2px 10px; padding: 6px 8px; border-radius: 4px;
+  border-bottom: none; color: var(--text-dim); }
+.bm-leg a { color: var(--text-dim); }
+.bm-leg a:hover, .bm-leg.is-active a { background: var(--bg-alt); color: var(--text); }
+.bm-leg-n { grid-row: span 2; font-family: var(--mono); font-size: 12px; color: var(--text-dimmer);
+            border: 1px solid var(--border-strong); border-radius: 50%; width: 24px; height: 24px;
+            display: grid; place-items: center; align-self: start; }
+.bm-leg.is-interactive .bm-leg-n { color: var(--accent-text); border-color: var(--accent-dim); }
+.bm-leg.is-active .bm-leg-n { background: var(--accent); color: #06240f; border-color: var(--accent); }
+.bm-leg-t { font-family: var(--mono); font-size: 13px; color: var(--text); }
+.bm-leg.is-interactive .bm-leg-t { color: var(--accent-text); }
+.bm-leg-s { font-size: 12px; color: var(--text-dimmer); grid-column: 2; }
+
+/* detail panel */
+.bm-detail { border: 1px solid var(--border); border-radius: 6px; padding: 16px 18px;
+             background: var(--bg-alt); min-height: 92px; }
+.bm-detail h3 { margin: 0 0 4px; font-size: 16px; }
+.bm-val { font-family: var(--mono); font-size: 11.5px; color: var(--text-dimmer); margin-left: 6px; }
+.bm-note, .bm-empty { margin: 0 0 12px; color: var(--text-dim); font-size: 14px; }
+.bm-empty { margin: 0; }
+.bm-panel-grid { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
+                 gap: 18px; align-items: start; }
+.bm-zoom { margin: 0; }
+.bm-zoom img { width: 100%; height: auto; border: 1px solid var(--border-strong);
+               border-radius: 4px; display: block; background: var(--bg-inset); }
+.bm-zoom figcaption { font-size: 11.5px; color: var(--text-dimmer); margin-top: 6px;
+                      font-family: var(--mono); }
+.bm-pins { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12.5px; }
+.bm-pins th { text-align: left; color: var(--text-dimmer); font-weight: 500; text-transform: uppercase;
+              font-size: 10.5px; letter-spacing: .05em; padding: 4px 10px 4px 0;
+              border-bottom: 1px solid var(--border); }
+.bm-pins td { padding: 5px 10px 5px 0; border-bottom: 1px solid var(--border); color: var(--text-dim); }
+.bm-pins .bm-pn { color: var(--text); width: 3em; }
+.bm-pins .bm-net { color: var(--accent-text); }
+.bm-pins tr.is-pin1 .bm-pn { color: #ff8a80; font-weight: 700; }
+.bm-pins i { color: var(--text-dimmer); font-style: normal; }
+.bm-ovl { text-decoration: overline; }
+
+.bm-jump { margin: 10px 0 2px; font-family: var(--mono); font-size: 12.5px; }
+.bm-jump-note { color: var(--text-dimmer); }
+
+@media (max-width: 760px) {
+  .bm-panel-grid { grid-template-columns: minmax(0, 1fr); }
+  .bm-stage { overflow-x: auto; padding: 8px; }
+  .bm-inner { min-width: 760px; }
+}
