@@ -908,3 +908,6 @@ body > footer { position: relative; z-index: 1; }
 .sec-collapse > summary { min-height: 44px; box-sizing: border-box; }
 .navlinks a { display: inline-flex; align-items: center; }
 .skip-link, .pinin, .pinbtn { min-height: 44px; box-sizing: border-box; }
+.foot-li { margin-left: 14px; padding-left: 14px; border-left: 1px solid var(--border);
+           border-bottom: none; color: var(--text-dim); }
+.foot-li:hover { color: var(--accent-text); }
