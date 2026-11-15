@@ -124,9 +124,8 @@
     <div class="entry" id="c2">
       <div class="entry-head"><span class="entry-num">02</span><h2 style="margin:0;">Honeypot (WiFi)</h2><span class="diff-tag easy">Easy</span></div>
       <p class="note">Open AP, SSID <code>compatriot-wifi1-XXXX</code>, with your badge's own id as the suffix.</p>
-      <p>A small, realistic web-recon chain. One misconfiguration leaks a path, that path
-         leaks a credential, and the credential unlocks a session-gated endpoint. It's
-         exactly how real attackers chain together "boring" mistakes.</p>
+      <p>A short web-recon chain. One misconfiguration is enough to start it; each thing
+         you find leads to the next.</p>
       <h3>Tool</h3>
       <p>Any browser.</p>
       <h4>Approach</h4>
@@ -197,10 +196,9 @@ curl -X POST http://192.168.4.1/maintenance/diagnostic -H 'Cookie: sid=&lt;paste
     <div class="entry" id="c4">
       <div class="entry-head"><span class="entry-num">04</span><h2 style="margin:0;">Subscribe &amp; Conquer (BLE NotifyLock)</h2><span class="diff-tag med">Medium</span></div>
       <p class="note">Advertises as <code>compatriot-ble3-XXXX</code>, with your badge's own id as the suffix.</p>
-      <p>Tests whether you understand BLE <b>notifications</b>, not just read/write. You
-         have to subscribe to a characteristic <i>and</i> satisfy an authentication write
-         before anything happens. Neither alone is enough, and the order between them
-         doesn't matter.</p>
+      <p>Read and write alone will not do it. A <b>notification</b> subscription and an
+         authentication write are both needed before anything happens; neither on its own
+         is enough, and the order between them does not matter.</p>
       <h3>Tool</h3>
       <p>nRF Connect for Mobile, plus a base64 decoder.</p>
       <h4>Approach</h4>
@@ -224,8 +222,7 @@ curl -X POST http://192.168.4.1/maintenance/diagnostic -H 'Cookie: sid=&lt;paste
       <div class="entry-head"><span class="entry-num">05</span><h2 style="margin:0;">Packet Ghost (WiFi)</h2><span class="diff-tag hard">Hard</span></div>
       <p class="note">Beacons under SSID <code>compatriot-wifi2-XXXX</code>, with your badge's own id as the suffix.</p>
       <p>802.11 monitor-mode packet capture. The flag is split across two beacon frames
-         sent well apart in time, so this takes patience and a filter, not just a single
-         capture. It's the only wireless challenge requiring monitor mode.</p>
+         sent apart in time, so one short capture will only ever give you half of it.</p>
       <h3>Tool</h3>
       <p>A monitor-mode-capable USB WiFi adapter + Wireshark.</p>
       <h4>Approach</h4>

@@ -457,10 +457,8 @@
 
     <div class="entry" id="c3">
       <div class="entry-head"><span class="entry-num">03</span><h2 style="margin:0;">Bus Stop (SPI)</h2><span class="diff-tag med">Medium</span></div>
-      <p>A two-step one: the SPI bus carries a <i>password</i>, not the flag directly.
-         Sniff the password, then type it back into the lab's own serial console to
-         unlock the flag. It's a small model of a bus leaking a credential rather than
-         the secret itself.</p>
+      <p>Two steps: the SPI bus carries a <i>password</i>, not the flag. Sniff it off the
+         bus, then type it back into the lab's own serial console to get the flag.</p>
       <h3>Tool</h3>
       <p>Logic analyzer + Logic 2, plus a serial terminal for the console step. Wire to
          <code>SCK (IO2)</code> / <code>MOSI (IO3)</code> / <code>CS (IO15)</code> plus GND.</p>
@@ -520,8 +518,9 @@
     <div class="entry" id="c4">
       <div class="entry-head"><span class="entry-num">04</span><h2 style="margin:0;">EEPROM Raider</h2><span class="diff-tag med">Medium</span></div>
       <p>The flag lives on the external I2C EEPROM (U2), not inside the ESP32's own
-         firmware. A plain single-byte-addressed dump reads the wrong location on this
-         chip, it needs two address bytes.</p>
+         firmware. Read the part number off the chip before you dump it: how it expects to
+         be addressed is not what the default one-byte tooling assumes, and a dump that
+         ignores that comes back from the wrong place looking perfectly valid.</p>
       <h3>Tool</h3>
       <p>CH341A programmer in I2C mode + <code>i2c-tools</code>.</p>
       <h4>Approach</h4>
@@ -555,9 +554,8 @@
     <div class="entry" id="c5">
       <div class="entry-head"><span class="entry-num">05</span><h2 style="margin:0;">Flash Raider</h2><span class="diff-tag med">Medium</span></div>
       <p>Same idea as EEPROM Raider, different chip and bus: the flag lives on the external
-         SPI NOR flash (U5), not in the ESP32's own program memory. The most hands-on
-         challenge on the badge, and the most common real hardware-hacking workflow there
-         is.</p>
+         SPI NOR flash (U5), not in the ESP32's own program memory. U5 shares its bus with
+         the ESP32, so the two will fight over it unless you stop that happening.</p>
       <h3>Tool</h3>
       <p>CH341A programmer in SPI mode + <code>flashrom</code>.</p>
       <h4>Approach</h4>
