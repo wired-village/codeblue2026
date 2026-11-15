@@ -278,26 +278,7 @@ sudo ip link set up vcan0</pre></li>
            VIN's identifier is a standard one you can look up. Once you have the 17
            characters, the first 3 tell you who made the car.</p>
       </div></details>
-      <details class="reveal guide"><summary>Full guide</summary><div class="reveal-body">
-        <ol>
-          <li>Start the receiver <b>first</b>, in its own terminal, and leave it
-            running: <code>isotprecv -s 7E0 -d 7E8 vcan0</code>. It needs to already be
-            listening before the request goes out, so it can answer the ECU's First
-            Frame with a Flow Control in time. (<code>-s</code> is the ID <i>this tool</i>
-            sends on, here the Flow Control back to the ECU on the request ID;
-            <code>-d</code> is the ID it listens for data on, the response ID.)</li>
-          <li>In a second terminal, send the request:
-            <code>echo "22 F1 90" | isotpsend -s 7E0 -d 7E8 vcan0</code></li>
-          <li>Back in the first terminal, the reassembled 20-byte reply prints out.</li>
-          <li>Strip the 3-byte UDS header (<code>62 F1 90</code>) off the front. The
-            remaining 17 bytes are the VIN in ASCII.</li>
-          <li>The badge auto-solves the moment the last Consecutive Frame goes out, so this
-            part is already scored.</li>
-          <li>Decode the VIN's first 3 characters (its World Manufacturer Identifier) with
-            a free online VIN decoder to find out which real car it belongs to. The flag is
-            that car's name, not the VIN.</li>
-        </ol>
-      </div></details>
+      <details class="reveal guide locked" data-k="NfPNBIEcQcXxvJzmgwbJew==.3SnU8edTPlfN7wsj.MxQGp8DYjOgtQynFgeFdjuB6L2nj/r4bTRxM4KUW5ek8QtOwO/DSE/gXNA0HS9TIjsnCFmTpoxMpsufmtUlYQeWCjjKBwnyoGtjmZWxamlKbZrEK5IycRn7wHtepbujIXD73ImGv73noZs52zXNrcWwTSS84UfD3kmBkojmlDA3z+7/R5w0Nb7PD7bI/ERqcqebzgK3gj/6z1/OCFOLW5fLWVO5W9nn+6A8QKWhc3AA70WXuRSqwu66xWoK0MhqzMelknL6IMnIQqozVXEpGgfryiE9qyY/V3K8qm21T739BYycFNxwZGUwER7vCMjrI1hsvVqH+rUMi+9/9AE4d/9+5cv4ZVcInbTlawy5z7SR3cACUlDqJ53WINSY3SwA9PHfWEl0KtO89c4j7NZeAgEY/8Bflfq07F1xb1aqfD30wPPcHH2eh1vuGZmX5bziCHCs46qNNI3n6BK33vCtemlSReL/JbT5aVVRHedRW3hhR2JsdfDuwDelxCOSyali2T3xtZLfet1BKjKjIaeXfNFW3xx8bIm9B6zA6Empw8ZIjKdNZPfZLG4+WHn2PjrYywNN1YkkcZh4b+YRFwWHwHYtgu0MRijW2+cJ1UrSMNHjdP1RNMMcpuCKxAnEr89zLiOdVK10ebuSmptRf9g8RlFat0oj+J9SzdOZIkOLCy59Wgio6jTVaZofatt26AJg0OtQWqHosG7r2FVMlyzoFSEfUq++UiOERex6gBH28QCTbat/a1mJKpf6Sv4UvmH/gff78lJrphYipXm2R/2n4TS3wBAEUTui8mDtiIG/89swA+hBiaxgsf2/07+4BqsV/jPrdlQWkfwf+NcAzdW0rQiVd+IMgvOLUPCHbRBWquJV/C2NvfaienUuOcgJoWQ4241g+qp7w9BgPHcF51ZtxzDu0glUgpI7M3WZvz80c1Q6gNJJPrulvFHREDpZlYq3ArpKxyZCUoOwyWDWwpswq81TJsWRP9rhMKa0H5/ZcR2Of3UUKC9aGCJMhP3RrfIODwpxo5XitdIpfz/qBt46OYf3AOJeUSktm96c8zse2wxxZdOt1TAHDyPzsQFi6nSoDoPqqU/NPLuySwPwvWo1ZGED4FUCXj9DU+jcJuxediL7FGjmLi8w+XIybRSZZuax9zZ8PSKaH7A/2jb7rk26edUo+5uIE2rfoNNnFmh9/iQ/SSdhFqWtvsXmWnzTySaaV9CWpj9Bm8gkWedo7R7uHaD8SyRpx+3N6jzWpd8HbHXeRH87epAWTmfyKzshfIweHyC1CFDzuCQkcWF/ihSVHDF/ZB0bnK7ErrWHnU3230PU3NdMDBq3Dh6Dj1yKzq3rj0CJu7Lp42xfgSUxblW3mW3rH6ihpCofwmOoUytrobDdYZXN2tJPAmtZXw4zhTHUchhgfGwjzZ9k86tYR7tVpyXaYP/X2zQrevDNMlaB98bHZHzlgc1RF8Yxemc0W+78sdexRd3xvdEJYObtofcR6W7NYNJeTR834CaHG0oUCo+G99Fw+ocRiKsCghOfwCV/B2BRkbJ63hEvYj5d/l5Hf5ouU2PcWEcxqpWazEKWwQgfLSGWCp5KqsyVgaYwsBOP3VszE3AJds0L+OZpTDwvaMu8Xi2GwJMBy0SVVztO1tRXYNy+TvzDw8tqy4PxSvW9piiGQ0udAT7yrYgAjIFeZwK5iwBiAA71J+yKDub8n94w5juTdNg=="><summary>Full guide <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
     </div>
 
     <div class="entry" id="c5">
@@ -317,28 +298,7 @@ sudo ip link set up vcan0</pre></li>
         <p>XOR each example pair together. If you get the same result both times, that
            result is the constant the badge uses on every seed, including yours.</p>
       </div></details>
-      <details class="reveal guide"><summary>Full guide</summary><div class="reveal-body">
-        <p>Every frame here is a raw ISO-TP single frame, so each starts with a length
-           byte (PCI) before the actual UDS bytes: <code>02</code> for a 2-byte UDS
-           payload, <code>04</code> for a 4-byte one.</p>
-        <ol>
-          <li>Open the extended diagnostic session: <code>cansend vcan0 7E0#021003</code>
-            (<code>02</code> = length, <code>10 03</code> = DiagnosticSessionControl,
-            extended. The ECU should answer with a positive response, <code>02 50 03</code>,
-            on <code>0x7E8</code>).</li>
-          <li>Request a seed: <code>cansend vcan0 7E0#022701</code> (<code>27 01</code> =
-            SecurityAccess, request seed). The ECU replies on <code>0x7E8</code> with
-            <code>04 67 01 &lt;seedHi&gt; &lt;seedLo&gt;</code>, your live seed.</li>
-          <li>Work out the XOR constant from the two example pairs shown on the badge
-            (they both XOR to the same value).</li>
-          <li>Compute your key: <code>key = your_seed XOR constant</code>.</li>
-          <li>Send it back: <code>cansend vcan0 7E0#042702&lt;keyHi&gt;&lt;keyLo&gt;</code>
-            (<code>04</code> = length, 4 UDS bytes follow: <code>27 02</code> + your
-            2-byte key).</li>
-          <li>A correct key gets a positive response (<code>02 67 02</code>) and the badge
-            shows SOLVED immediately.</li>
-        </ol>
-      </div></details>
+      <details class="reveal guide locked" data-k="Mg/1rd6GXpnjSyRm3CAG/g==.pT1mdtjfuzOFXaxT.Au27ebLBvqZ4yUD4uaGvJOB0oSloyKbLWOiXQmJYiaPN5SSHEq53JeZaAG1Y/f5KHREyuF9yZt7+Ywryh8S8+w0X1fxXFY/HBm2hKrcDbZSUK+0QCVCOIc5OPxx4xnX2hBvJQp2O3tSfs5A5XKdwDoPcCDVzm6xFklyxy6q1EfCATe/cNrHZuI4XKJAnLrRZwLQAWwXZRdt1runwN0ifSsAz9tWY5kV7nSVuy6oscWsAE8mEw3jN6c2js+xu+6TjnstxZtmhYdDfSkY4wwYMsstIauXmsFBMrMiI++vIwwK0BJ84NkoB8pYWPOl11815XTc2mmmLyC2TX5ETK0t41C1YmOlNgXJL/JLcS/jcT5CFTCf/D5rszUMlrK3dQjkVeJ4q5JI8yEsPYhhN+V8ShuiqyUcwpfRkxx+oulDQX678xe5cWJZN15HlPIFkBn5YBovd943hJ3FlvQfowgz90cPdi1njzqo9PfeYMIue9qu5PwormzYAGriE3mN6Cwr2ROmJKO4NxHoRAIp+n7YOyaJQAJcHn6fEeNyxSd7GllOyps2gNp9rfQeAWiv6IHFWVGgcshT66iAhMgPJSjLsfXFCL2baTxDS2mNjhvCPuOB5ZDuVqqktlaghxCocH5QFoyQL1nkVSFrT5wkolBBC6sTf1hdltGpKCNeLorxnLpfy4n/tm3TnqKzvcwoe8EnV555lOt1YRCiAjoAIEtSBEkgsN6DZcKetX/vBJi9SbVPJEet1dt5OaSVK7cHiG9KQ9lm2v6gsZCbDkenqnij1yDFnN7dcAEQxzbBIA+HwqQ5vim4kbBI0xOCguMeJiFiWwyQ5aL3xl/QmRVazKZJsHofAeWf60PqNmzcXS9yoXVqDRrwx0Knv4jgEqFOeeQaS6bOS+/Z5NksORFoVjv73b9hNBno+Buw3IL+shsKBRSK4DGwsMiyTZQelfLOMNBdwP+vHxcXicKcSDvnopWABE3qU8/7nPAgMLp/PtU2ImjEvH1yfa0P73TqI6TPPpGWsyy+OwftAVGanjpEh5u1soiIxENrbyF868+wjkAd9IeqSETmB+Z7JsA1GD+uRRkCBufJU1Lw2Mo1A9zAnO+fNTlltLokfWSlVzG3+1ZgWtM6d1Ii/z2t9E4AkqnJ3khw8aUPDb58ZH3x2HZl2l9tOm0fWinHN0e9y+8C7esmKHSJYSef2yWEuG/dYQ+wBnePtokWZXWyMz7y918G8RqbaUXCgFJL17qRI0GDeAhVq3IcuP3eVzwDkZhXajip1qiVidxZGVgGlUKY48hVE0irY6hnSLp5VuayddIvqnN7uZJ7j/+H6ZOg3kZLsrQIp6yDV5QEP2IuURIiO1MbmNMlwtJ3E8Tu8pcfFzCUorLWxX0nIk/biEcVa2q9uJFv/5uKrzM/g5zVTlExS0+4yhTp49JuRUVug6GEbjxYZNFX6Sw8FYn4qmRvXH60EKUhdeBIDLVpqLXQ98QzOTGxJz+6lPaMqNa58l8u1O5KerCsA+bDCdSOxpeqXGr90mu9qHnn+mFQyBpfJkz8VoNnnoIBCUej1meYMLTZvsCVTLxCGFyLKQewrW7wpvTIO8f6sdTvs+jHd69Oaywls7eMgBrrkAjq/7rjZ61whITc4nFyr8AcumJBc3aZWXSG1+UW548N1kn/z5hnIilP9ynPPdyktsT7FXN9oCbXAOaZEHeNMDPdfznNj+ZGR1W8TqYuWWs30kVTCgiftkFk1WbN9IyR+lICIgjm590N23TobIVrMLQpf+bDO5k+ka9vp8Wl2Ep5HKLwrVsmC2z12ZSyXLK4WX5H+hNchP4/vMte98lL6qsNIW+TgIhYxwjfUS07c82Kj6UrVGmLmY8kxhnx2Mv8ep+vu"><summary>Full guide <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
     </div>
 
   </div>

@@ -199,19 +199,7 @@ curl -X POST http://192.168.4.1/maintenance/diagnostic -H 'Cookie: sid=&lt;paste
         <p>Two things need to be true at once: you're listening, and you've proven who
            you are. Base64-decode the clue to find the exact auth string.</p>
       </div></details>
-      <details class="reveal guide"><summary>Full guide</summary><div class="reveal-body">
-        <ol>
-          <li>Connect and expand the service. Three characteristics: a read-only clue, a
-            write-only auth, and a notify-only event.</li>
-          <li>Read the clue. Its value is base64. Decode it (CyberChef's "From Base64",
-            or <code>python3 -c "import base64; print(base64.b64decode('...').decode())"</code>).</li>
-          <li>Enable notifications on the event characteristic.</li>
-          <li>Write the decoded string to the auth characteristic, exactly as decoded, no
-            stray leading or trailing space.</li>
-          <li>Watch the event characteristic. Once both steps are done, a notification
-            carrying the flag arrives on its own.</li>
-        </ol>
-      </div></details>
+      <details class="reveal guide locked" data-k="g9CENsmpGScazf+YkSu4ow==.N3/BF2TN5awI4br+./x5AttgdaSwpzZPrO/CR7SAqXSVLJVV4mVWyvvVYln5S2eCtAqW655MYukhISOg0Q7VhUFKg6B+2UjWfyHd4KVKKDUFsIKGsyN9KZfxeMQMCSXvHzV+2K8WpDfL7vnQag4g3VRHz0afDwkrNobNOQnO5ajN8xFV5hEGhie1pYqlF+3tq7q2Yj12RymdB0QCiBWwZuWJK/FRSPivirYK2398zUoK2estskDTRQ7WGB5aeAA/Hllx+kb67ENBEnNvoxiDpd5krGNDgWB7+uKbFnQzcrMO9DZTujUXzOmFA6M1GJxUxw2CYQ6J96PW+j3m9uTMloSUIeMrP7iT6iqpHxRtBsVxg0MfRVNOleQQNwMJ7n9I6qm/T0l+DdATyqDzZPSKy8Kqy6L0KBIWivzdN/f3qnrD8y9S5lphRh27CQGf4wZ9+vv8fnKq8C0q3DeHXoI+s1aTeIXvAkPfSmoI0XEJnipBxPbTP/EgRiMAS+t7heRk32hKS1LotdBf/tK7nqDnc/2BbfvIaSoybZx9APr2IU45R4V/10V89R6O6sVXHfgBiEfbXX1B24IM0YiBf2vIVTbPKlN51kEI+XW40JtozupPq2hFpDMX7FAbe8wZpdj0CWGgi617tT1MP/Z0hCIysmx06/hkqPCbEiz5i1x6Bjgra0ep9oiwfvGxTc2jiIC8PckKWygPUiSyd9WMGNQZByZayHvh48Akk9g5B1wd/IPiXyDxrMG3zej2h/0riSdveTDFM0SEaNppU+aptYFvcNph76+DT4ZWvgynuX5olUOtMJMbjn4FhGO7BgevGYjDJQx5OaICVAusVHgG7ApdSGGF/0+qkErv4nU+S/rpYC0Dmtq1FvnvobeMRf7VxHneB1cfvMgYhPBNkWk5suYmG8vI8Dn1b58hKyFNI8mB2Zu0FM9f2YFq4lHHD7c1gxEXmRqFrw3jgQMdvYeluxZp8U4r7Qtywz8TnozeQFFuoERs="><summary>Full guide <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
     </div>
 
     <div class="entry" id="c5">
@@ -234,22 +222,7 @@ curl -X POST http://192.168.4.1/maintenance/diagnostic -H 'Cookie: sid=&lt;paste
         <p>One beacon won't have the whole flag. Wait for the second one, it's sent on a
            longer delay than the first.</p>
       </div></details>
-      <details class="reveal guide"><summary>Full guide</summary><div class="reveal-body">
-        <ol>
-          <li>Put your adapter into monitor mode on the badge's channel
-            (<code>airmon-ng start &lt;iface&gt; &lt;channel&gt;</code>, or the
-            equivalent <code>iw</code> commands).</li>
-          <li>Start Wireshark on the monitor interface and filter on
-            <code>wlan.ssid == "..."</code> to cut the noise down to just this badge.</li>
-          <li>Let it capture for at least 10-12 seconds, long enough to see a full
-            cycle of both fragments.</li>
-          <li>Click a beacon frame and expand the vendor-specific information element
-            under the 802.11 management tag. The raw bytes there are fragment text.</li>
-          <li>Check a second, later beacon frame the same way. You should find a
-            different fragment there.</li>
-          <li>Join the two fragments in the order they appeared in time.</li>
-        </ol>
-      </div></details>
+      <details class="reveal guide locked" data-k="H8xLtE737TeeLBvgzZCs/w==.jbxlixV4p+OqqpR4.wjYtn2XHDsAov2TBqNc9B/BmrGFMKPAU4nYdc6hMejkAvv5gunkSwPO/tr+E8TUI5V5WtGZUbyd02XkrAaWA2k9TLEyPi0/sBsj2IVVOOt7Fa2JANvvxYf9BONb+sIrDZVoE+ZbsSLehAK4I6oRwSpdX9CMJ5hA1XdBKz5sZoN1rE4paBu+iasgz37FkZ8Q3kGo57sXYB7SkqCXfk/9M6aS4/3sh9LyX7yxpv+HYoYovx536dVWnzjll9pi6taIZQVNgCuzXHFZzRLrOBOvz2TxQsOIybm/3aIwBftt747yPpFeRAIbpf8lEhaUtVuGdgkZGzsm00KT0JYC2Sxi1BWjCdBLURGovCdkhRf8ame4Ko+IRGZCnsL4UyJEJTN9n7YdXioOlzJLtVcMKdO/DuTYxjLitxaU+AY36hNe84X+0Wk5ETBQIsmOWE6moMUKekw+OGcOcVyk/Izek2zHhm/nvrWs2J/hYlc7vdLwnLEkE2ccrF8uqElbwtGGBl2P3onPYJuon08/CEbvSA7yt56b68i43lkXl6hfa53WXWTjPqnlItYva5TYW87kfx8IIJzvKLwII75QueqmGloE831rAzhuLlyhZaITSsPSwchIMhLS22SbfhE8Gkc+wbRIgNEyMgcOdDXM16VmLEO3B2xFlAiR8zRXaVG7v0ZX46MdHLvvd3H1T15t+kOYSTK2mYITCKbIea9+1COe5Xo+xWH0jiYaCm2tFTzJduhcOcCsURKeb9G6Dr+hPHMAN/ZEiNsp44UQGJvLQ1C6BD0ucN6QOBhY8fXGBzW9kPqc9FC63toyN15HUrNJjDO8He5cfNO9CePLzLEVTDhlJL/i9EmwBjFiVvWmG4iHAGzPT1V+zgIpqTTcJJwdOWa5lii3k3bEp4hg7VJ7XgBdacSZwBp+7j8UN8S4HleefgdclDwoAOgtPhExKCPv9l/9wsZu05XUYruWaGYfS69rhpScEjSleiFPkoVZ2ztRZ2xCksyjn08YUqL1Ke8YMwmU5TYgRaMNJhlmXx31K30nOi1aIE3Tu1gxfZoMIfPdOdWJzU2lpaH583XIJCpMTJ1XfKWbNONNMoUPBGhMfFJao0RIj+yCT90Z8Q3Mn+1RPsWolt/KLHl2+65honqOwTZIQxIT4dyBDs53Hr7rP/6G11ldt+KuLfeU1YE6yARbKs+FoOG0FP868SIHZh/VWJiYzLv7yGiViBc06yQ=="><summary>Full guide <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
     </div>
 
   </div>

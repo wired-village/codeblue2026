@@ -341,22 +341,7 @@
         <p>This isn't a 24C02. One address byte reads you garbage from the wrong place,
            this chip needs two.</p>
       </div></details>
-      <details class="reveal guide"><summary>Full guide</summary><div class="reveal-body">
-        <ol>
-          <li>Power the badge off. Switch the CH341A to I2C mode and clip it onto U2:
-            SDA, SCL, VCC (3.3V), GND.</li>
-          <li>Find which <code>/dev/i2c-N</code> bus it registered as with
-            <code>i2cdetect -l</code>.</li>
-          <li>Confirm the chip answers: <code>i2cdetect -y &lt;bus&gt;</code>. You should
-            see <code>50</code> in the grid.</li>
-          <li>Don't reach for plain <code>i2cdump</code>, it assumes single-byte
-            addressing, which is wrong for a 32 KB part. Use
-            <code>i2ctransfer -y &lt;bus&gt; w2@0x50 0x00 0x00 r128@0x50</code> instead.
-            This writes the two-byte address 0x0000, then reads 128 bytes back from
-            there.</li>
-          <li>The output is the banner in ASCII, flag included.</li>
-        </ol>
-      </div></details>
+      <details class="reveal guide locked" data-k="GtlAMS/Fl0GRe16ZZJ0ZPQ==.kVSE8VJB2R4HdVQn.2Fd4GmueBjqbrbMj+HhcYM/Q7GJm4QjNfRLM7hAU/B2WltC0WDGZ/uumXpEwbip6/5+xMs5o30VgflOEKYhhLzv2c9WUVUJ0kx3gJrPeqq2xtBvXcnVAgEdZnDH7XY2v0/dBL2f2FeuOaLU8Re1gM7Rsj84Op9mDuYOz98FQxaDjYgaGAyFjNXfv4uTXDw7+pfIATnw92JPpeXOYPHn/LK8Tf3XabMXGJlh73LlxZsdxYjdFbKQislRjsfrVm+grqmKjuRpg9oGc5k/DAdAuddG9A5v9dKcUojJU2XrHtZKCFL4PBEBcnRHbJqqINqXGCLqhYR05DXLdgQ+O3T0SvgNhXAu2VpA4qq/+U9ns5njBxZCGAGuDJEkicvANCBP+HZsEePMBuUl4ghSRHvm115MI6ILvqSQ+zP10ByMY79gdlcsBRCjT46nABK1MlDpdDXw3l1+dDYZrowjeKrlETOl+4BVmW83sFLkTUN017jNx3Nn6ONXMvLijlRPxZM2Zd6vFYt6qC/P876dwXfOmF/pJ7wXUsDwriC5Rqf7ERZsQw6Ga4XaN+UwbpGvrSnVQvg5TZMA4PHpxW/Fzrn27kHF4CzmfMIy3yiVUII97J/S1QST8VORaOXyESph2V1lcKI2BfIFaz2DXH+HK723afzvF+LgqOjjf7aMHwDaoIGivH+JbC8wrxPV7EiPu0NG+aI6rYvCmqbVvicfUYSr+41aQXTCUNKoA2sYg01tJSGfNQwXZeMkzasYGxAS5O76zkGjyGGZnflCs281HvS6/NxX5qlB350FI4MFTwOtn9XQg3WeUTKse99AhaTRNTJP2i+cga3/pSjP0l8xSzCyTn0odI843JUHELZw8u8KWB/K6X3+A7M/ep/flhac/cpJJ1nuSgpvoF7tzdQnsWqEegeP7IqtbOkJDxnyEFL7pnhwvwAopPiix+0H/2igSKRhlR6r/gffLnksd4KBMAXBqpEk+m6gfrL8oHv/1Addgc6zr9mL8ALrKhmsmqGKEG1pKVLBGw6h9v+lRMb3sBnYLLwpyby5ffj66erUrPxEBkjaEfcaP+J7kT0MXnE9BO0h7Lu2IWnzqV2ozS5XgCvwbrzRmcjWwqGnVz38+S+oFZw=="><summary>Full guide <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
     </div>
 
     <div class="entry" id="c6">
@@ -392,21 +377,7 @@
         <p>The flag was never in the microcontroller. Dump the external chip and search
            the raw bytes for readable text.</p>
       </div></details>
-      <details class="reveal guide"><summary>Full guide</summary><div class="reveal-body">
-        <ol>
-          <li>Power the badge off and unplug USB entirely. Never clip onto a chip another
-            master is actively driving.</li>
-          <li>Check the CH341A's voltage jumper is set to 3.3V, not 5V. This is the
-            single most common way to damage the chip.</li>
-          <li>Clip the SOIC-8 test clip onto U5, matching pin 1 carefully. A clip
-            rotated or offset by one pin is the usual cause of a failed read.</li>
-          <li>Confirm the programmer sees the chip: <code>flashrom -p ch341a_spi</code>.
-            It should identify a W25Q64. Don't proceed until this succeeds cleanly.</li>
-          <li>Dump it: <code>flashrom -p ch341a_spi -r dump.bin</code>.</li>
-          <li>Search the image: <code>strings dump.bin | grep wired{</code>. The banner
-            sits at offset 0.</li>
-        </ol>
-      </div></details>
+      <details class="reveal guide locked" data-k="T9QLWPk6aAAiKGPFOtwRaQ==.crVpz/vwMDx5rf9f.qoEolRe6THqWoNuRRg93KaTtFDZo7fa9cETT7uBvXOekwYxyySvMMzqbos6Ynj3GnpClT6DRynChbrko2ROmM4PH58Een/LEzDPkgCLtBW7rCITB1uovwz2HkDOhd2SesYL+bhJcEdtSy/TX4TT6Slb4UsAe8iviP1664BdZhV0x1eQQWzuOn2gKkhMzP+n2DvNNH24sj1Zah44Ip19dnaDzbOKtgX+1yqrQgI2iX67G5TJpXgQ03l+MUCZZ7mCzESOXn1ZxNn+zR5gMUCmBEa0aC0O9MAb1kKA5xEMB7HCy47CR7QXkEgzFEJJFbPl1eXzMB5pbn5ExN5zrgHChuhe0KTL92nZyLlP7ZU5+CreAtKTDR8llW+1TMHsNRYl78pogBBqt9OxfoqZhD9h93FGXJkwA3T/u/Dqt9TPqnD6YyKDi0icAe9xMeyZDYNN8tG6Y0y4nPPuKSzTSDA1YxHfum9vfB9AqytqpR+HHfsE4gUWVDm2rnqUGS/pb6jDUF75KmY0oGkOjkok4Xh62TKg1pHOWAjTfU3JqVZCzraEQVEBo2lcIZ1GPu4Fssw83xx+6XhQ8TrEW6JD3VQ50h9yoXzUyZCjYFDHSDNfaoSqXeQcY55r65JeVbfIN8/y23r6OwDe2bxvQSZlQ327YAbmJZStQfeK4GxHmUd14hh6IKrWfY3n3SlRY6NWnja0NZ2yGL4l5q5YCarEQLjd8tMUqOY5C9K7ixrk+hd1hLyDzHo4XYVb9NLZwOV0bQE3NjWNB3Eqd3shOiepqXKqvHiMSONhwZfIvg4JF+SvOXX4/lDhC55IyinjVXAtxLN84HAMcY7FN53w0pPN8SgS4bIFL/EUEhJ9QUuAwqyJEOONzsBU2y+l5DSqVM7cmr0XvH+my+y2huAHrjR6k6f6UVsPSkGUexHKi7RID6Lyrq/qEoIz/hQQB+QlWP4KFq/fHj11Ri8mBorOdNavKKS8WL56xuehclRyK0YcKn0CBResb0//ldosmPJOPoY9a28DouilbgX0L8liS2+AdGESnRxxr06/SDhDW/lEzHpFSjrrnnnP8aUZaZM0ybt3UsGmohADIg2vS+4FmWnKWLkw0HzrIo4SYRfjn4dBRAYqEooe2KLr7VaJkkgKkjAUv5uTwy2cbKtLC1Ac="><summary>Full guide <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
     </div>
 
     <div class="entry" id="c8">
@@ -447,35 +418,7 @@
            into RAM at boot. You can watch it happen, or redo the single instruction that
            undoes it.</p>
       </div></details>
-      <details class="reveal guide"><summary>Full guide</summary><div class="reveal-body">
-        <p><b>Static path.</b></p>
-        <ol>
-          <li>Wire the probe to H3 (see Connection above): SWDIO, SWCLK, GND, and NRST
-            if your probe has it.</li>
-          <li>Dump flash over SWD:
-            <code>openocd -f interface/stlink.cfg -f target/stm32f1x.cfg -c "init" -c "reset halt" -c "dump_image dump.bin 0x08000000 0x10000" -c "shutdown"</code></li>
-          <li>Confirm it's encrypted: <code>strings dump.bin | grep wired{</code> finds
-            nothing.</li>
-          <li>Disassemble: <code>arm-none-eabi-objdump -D -b binary -m arm --no-show-raw-insn dump.bin | less</code>
-            (or import into Ghidra as raw ARM Cortex at base 0x08000000).</li>
-          <li>Find the small loop that reads a byte, XORs it with an immediate, and
-            writes it elsewhere. That immediate is the key.</li>
-          <li>XOR the ciphertext sitting next to it in <code>.rodata</code> with that key
-            to get the flag.</li>
-        </ol>
-        <p><b>Live path, faster.</b></p>
-        <ol>
-          <li>Start OpenOCD and leave it running:
-            <code>openocd -f interface/stlink.cfg -f target/stm32f1x.cfg</code></li>
-          <li>In a second terminal, attach GDB:
-            <code>arm-none-eabi-gdb</code>, then <code>target remote localhost:3333</code>.</li>
-          <li>Disassemble the start of flash to find the key and the RAM address the
-            decrypted bytes land in: <code>x/40i 0x08000000</code>.</li>
-          <li>Read that RAM address as a string, e.g. <code>x/29bs 0x20000000</code>
-            (adjust to whatever address your disassembly actually points at). The flag
-            prints already decrypted.</li>
-        </ol>
-      </div></details>
+      <details class="reveal guide locked" data-k="+0azI+8ew+dQP3dzz59OIA==.nxV1p5rmsGYPL7aI.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"><summary>Full guide <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
     </div>
 
   </div>
