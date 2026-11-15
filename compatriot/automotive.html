@@ -298,12 +298,13 @@ sudo ip link set up vcan0</pre></li>
 
     <div class="entry" id="c5">
       <div class="entry-head"><span class="entry-num">05</span><h2 style="margin:0;">Seed &amp; Key</h2><span class="diff-tag hard">Hard</span></div>
-      <p>A real UDS <code>SecurityAccess</code> seed/key handshake, gated behind an
-         extended diagnostic session. Requesting a seed before opening that session gets
-         refused outright. Once you're in the extended session, a request returns a fresh
-         random seed each time. The badge gives two worked example seed/key pairs, and the
-         relationship between each pair is identical across both. Find it, then apply it
-         to your own live seed to compute the key.</p>
+      <p>A real UDS <code>SecurityAccess</code> seed/key handshake at <b>security level 1</b>:
+         sub-function <code>01</code> asks for the seed, <code>02</code> sends the key back.
+         It sits behind the <b>extended diagnostic session</b>, a separate thing from the
+         security level, which has to be opened first or the seed request is refused. Each
+         request returns a fresh random seed. The badge gives two worked seed/key pairs, and
+         the relationship is identical across both. Find it, then apply it to your own live
+         seed.</p>
       <h3>Tool</h3>
       <p><code>cansend</code>/<code>candump</code> and a calculator.</p>
       <p class="note">A wrong key invalidates the outstanding seed. Request a fresh one
