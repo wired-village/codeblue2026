@@ -84,7 +84,7 @@ hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
   letter-spacing: .02em;
   color: var(--text);
 }
-.brand img { height: 48px; width: auto; border-radius: 4px; }
+.brand img { height: 30px; width: auto; }
 .brand .sep { color: var(--text-dimmer); }
 .brand .sub { color: var(--text-dim); }
 .navlinks {
@@ -113,15 +113,15 @@ hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
   gap: 28px;
   flex-wrap: wrap;
 }
+/* wide wordmark: fix the width and let the height follow, so it never squashes */
 .hero-row img.hero-logo {
-  width: 128px;
-  height: 128px;
+  width: 240px;
+  height: auto;
   flex-shrink: 0;
-  border-radius: 10px;
 }
 .hero-row .hero-text { flex: 1 1 360px; min-width: 260px; }
 @media (max-width: 560px) {
-  .hero-row img.hero-logo { width: 88px; height: 88px; }
+  .hero-row img.hero-logo { width: 180px; }
 }
 
 .iot { color: var(--accent-text); }

@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Wireless · Compatriot · Wired Village</title>
-<link rel="icon" href="../assets/img/wired-village-logo.png">
+<title>Wireless · Compatriot · Traboda</title>
+<link rel="icon" href="../assets/img/traboda-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -16,7 +16,7 @@
   <div class="topbar-inner">
     <div class="brand">
       <a href="../index.html" style="display:flex;align-items:center;gap:9px;color:inherit;border-bottom:none;">
-        <img src="../assets/img/wired-village-logo.png" alt="Wired Village">
+        <img src="../assets/img/traboda-logo.png" alt="Traboda">
       </a>
     </div>
     <nav class="navlinks">
@@ -29,7 +29,7 @@
 </header>
 
 <section class="wrap" style="padding: 36px 24px 0;">
-  <p class="crumbs"><a href="../index.html">Wired Village</a><span class="sep">/</span><a href="index.html">Compatriot</a><span class="sep">/</span>Wireless</p>
+  <p class="crumbs"><a href="../index.html">Traboda</a><span class="sep">/</span><a href="index.html">Compatriot</a><span class="sep">/</span>Wireless</p>
   <p class="eyebrow">Category · 5 challenges · 800 pts</p>
   <h1>Wireless</h1>
   <p class="lead">
@@ -73,6 +73,7 @@
 
     <div class="entry" id="c1">
       <div class="entry-head"><span class="entry-num">01</span><h2 style="margin:0;">PIN Crack (BLE)</h2><span class="diff-tag easy">Easy</span></div>
+      <p class="note">Advertises as <code>compatriot-ble1</code>.</p>
       <p>The simplest possible BLE attack: a short numeric PIN gate on a writable
          characteristic, with no rate limiting at all.</p>
       <h4>Tool</h4>
@@ -104,6 +105,7 @@
 
     <div class="entry" id="c2">
       <div class="entry-head"><span class="entry-num">02</span><h2 style="margin:0;">Honeypot (WiFi)</h2><span class="diff-tag easy">Easy</span></div>
+      <p class="note">Open AP, SSID <code>compatriot-wifi1</code>.</p>
       <p>A small, realistic web-recon chain. One misconfiguration leaks a path, that path
          leaks a credential, and the credential unlocks a session-gated endpoint. It's
          exactly how real attackers chain together "boring" mistakes.</p>
@@ -141,6 +143,7 @@ curl -X POST http://192.168.4.1/maintenance/diagnostic -H 'Cookie: sid=&lt;paste
 
     <div class="entry" id="c3">
       <div class="entry-head"><span class="entry-num">03</span><h2 style="margin:0;">Double Decode (BLE HexLock)</h2><span class="diff-tag med">Medium</span></div>
+      <p class="note">Advertises as <code>compatriot-ble2</code>.</p>
       <p>A two-stage BLE puzzle. One characteristic hands you an encoded clue. Decoding it
          tells you what to do next, not what to send, which are two different things.</p>
       <h4>Tool</h4>
@@ -175,6 +178,7 @@ curl -X POST http://192.168.4.1/maintenance/diagnostic -H 'Cookie: sid=&lt;paste
 
     <div class="entry" id="c4">
       <div class="entry-head"><span class="entry-num">04</span><h2 style="margin:0;">Subscribe &amp; Conquer (BLE NotifyLock)</h2><span class="diff-tag med">Medium</span></div>
+      <p class="note">Advertises as <code>compatriot-ble3</code>.</p>
       <p>Tests whether you understand BLE <b>notifications</b>, not just read/write. You
          have to subscribe to a characteristic <i>and</i> satisfy an authentication write
          before anything happens. Neither alone is enough, and the order between them
@@ -212,6 +216,7 @@ curl -X POST http://192.168.4.1/maintenance/diagnostic -H 'Cookie: sid=&lt;paste
 
     <div class="entry" id="c5">
       <div class="entry-head"><span class="entry-num">05</span><h2 style="margin:0;">Packet Ghost (WiFi)</h2><span class="diff-tag hard">Hard</span></div>
+      <p class="note">Beacons under SSID <code>compatriot-wifi2</code>.</p>
       <p>802.11 monitor-mode packet capture. The flag is split across two beacon frames
          sent well apart in time, so this takes patience and a filter, not just a single
          capture. It's the only wireless challenge requiring monitor mode.</p>
@@ -253,12 +258,8 @@ curl -X POST http://192.168.4.1/maintenance/diagnostic -H 'Cookie: sid=&lt;paste
 
 <footer>
   <div class="wrap foot-inner">
-    <div class="foot-left">WIRED VILLAGE · hardware hacking guides</div>
-    <div class="partner">
-      <span>Partner</span>
-      <img src="../assets/img/bi0s-hardware-logo.png" alt="bi0s hardware">
+    <div class="foot-left">TRABODA · hardware hacking guides</div>
     </div>
-  </div>
 </footer>
 
 </body>

@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Embedded · Compatriot · Wired Village</title>
-<link rel="icon" href="../assets/img/wired-village-logo.png">
+<title>Embedded · Compatriot · Traboda</title>
+<link rel="icon" href="../assets/img/traboda-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -16,7 +16,7 @@
   <div class="topbar-inner">
     <div class="brand">
       <a href="../index.html" style="display:flex;align-items:center;gap:9px;color:inherit;border-bottom:none;">
-        <img src="../assets/img/wired-village-logo.png" alt="Wired Village">
+        <img src="../assets/img/traboda-logo.png" alt="Traboda">
       </a>
     </div>
     <nav class="navlinks">
@@ -29,8 +29,8 @@
 </header>
 
 <section class="wrap" style="padding: 36px 24px 0;">
-  <p class="crumbs"><a href="../index.html">Wired Village</a><span class="sep">/</span><a href="index.html">Compatriot</a><span class="sep">/</span>Embedded</p>
-  <p class="eyebrow">Category · 8 challenges · 925 pts</p>
+  <p class="crumbs"><a href="../index.html">Traboda</a><span class="sep">/</span><a href="index.html">Compatriot</a><span class="sep">/</span>Embedded</p>
+  <p class="eyebrow">Category · 6 challenges · 750 pts</p>
   <h1>Embedded</h1>
   <p class="lead">
     Each challenge here only runs while it's the selected lab on the badge. Opening a
@@ -53,11 +53,9 @@
       <li><a href="#chips">EEPROM &amp; flash</a></li>
       <li><a href="#c1">1 · Shell Breakout <small>easy</small></a></li>
       <li><a href="#c2">2 · Baud Hunter <small>easy</small></a></li>
-      <li><a href="#c3">3 · Two-Wire Tap <small>med</small></a></li>
       <li><a href="#c4">4 · Bus Stop <small>med</small></a></li>
       <li><a href="#c5">5 · EEPROM Raider <small>med</small></a></li>
       <li><a href="#c6">6 · Flash Raider <small>med</small></a></li>
-      <li><a href="#c7">7 · Blinkenlights <small>med</small></a></li>
       <li><a href="#c8">8 · Target Acquired <small>hard</small></a></li>
     </ol>
   </nav>
@@ -65,10 +63,8 @@
   <div class="content">
 
     <h2 id="tools">Tools</h2>
-    <p>Four pieces of hardware cover most of the eight challenges below. None of it needs
-       to be expensive, the cheap clones of each work fine. Two-Wire Tap additionally
-       needs a second microcontroller with I2C slave support (any spare Arduino, ESP32,
-       or STM32 board), see that challenge for why.</p>
+    <p>Four pieces of hardware cover the six challenges below. None of it needs
+       to be expensive, the cheap clones of each work fine.</p>
     <div class="tools-grid">
       <div class="tool-card">
         <div class="shot"><img src="../assets/tools/usb-ttl-adapter.jpg" alt="USB-TTL serial adapter"></div>
@@ -76,7 +72,7 @@
       </div>
       <div class="tool-card">
         <div class="shot"><img src="../assets/tools/logic-analyzer.jpg" alt="USB logic analyzer"></div>
-        <div class="info"><div class="name">Logic analyzer</div><div class="desc">Saleae-compatible, run with the Logic 2 app. Used for Baud Hunter, Two-Wire Tap, Bus Stop.</div></div>
+        <div class="info"><div class="name">Logic analyzer</div><div class="desc">Saleae-compatible, run with the Logic 2 app. Used for Baud Hunter and Bus Stop.</div></div>
       </div>
       <div class="tool-card">
         <div class="shot"><img src="../assets/tools/ch341a.jpg" alt="CH341A SPI/I2C programmer with SOIC-8 clip"></div>
@@ -256,58 +252,6 @@
       </div></details>
     </div>
 
-    <div class="entry" id="c3">
-      <div class="entry-head"><span class="entry-num">03</span><h2 style="margin:0;">Two-Wire Tap (I2C)</h2><span class="diff-tag med">Medium</span></div>
-      <p>Not a pure sniffing challenge: the badge tries to write the flag to I2C address
-         <code>0x42</code>, but nothing on the bus answers, so the write gets NAK'd on the
-         address byte and aborts before any data goes out. That's real I2C behavior, not a
-         bug. To see anything at all, you have to supply the missing device.</p>
-      <h4>Tool</h4>
-      <p>A second microcontroller with I2C slave support (any 3.3&nbsp;V board: Arduino,
-         another ESP32, STM32, whatever you have), plus a logic analyzer + Logic 2 to
-         confirm the capture. Wire to <code>SDA (IO21)</code> / <code>SCL (IO22)</code>
-         (header U14, pins 5 and 6) plus GND.</p>
-      <h4>Approach</h4>
-      <p>Wire your own board onto the same bus and program it as an I2C slave that ACKs
-         address <code>0x42</code>. Once something answers, the badge's write completes
-         for real and the flag goes out on the wire where you can capture it.</p>
-
-      <details class="reveal conn"><summary>Connection</summary><div class="reveal-body">
-        <p><b>Where:</b> header <b>U14</b> (one of the 1x7 headers near the ESP32
-           module), pin 5 = SDA, pin 6 = SCL. Straight from the board's own schematic:</p>
-        <div class="diagram"><img src="../assets/circuit/sch_io.jpg" alt="Schematic of the U14 breakout header showing I2C_SDA/I2C_SCL on pins 5/6"></div>
-        <table class="pin-table">
-          <tr><th>Badge pin</th><th>U14 pin</th><th>Wire to</th></tr>
-          <tr><td class="sig">IO21</td><td>5 (I2C_SDA)</td><td>your board's SDA + logic analyzer</td></tr>
-          <tr><td class="sig">IO22</td><td>6 (I2C_SCL)</td><td>your board's SCL + logic analyzer</td></tr>
-          <tr><td class="sig">GND</td><td>any GND pin</td><td>shared GND, both devices</td></tr>
-        </table>
-        <p>Same bus the EEPROM Raider chip sits on. Don't drive 5&nbsp;V logic onto these
-           pins, only 3.3&nbsp;V.</p>
-      </div></details>
-      <details class="reveal hint"><summary>Hint</summary><div class="reveal-body">
-        <p>Nothing answers at 0x42 yet. Build the thing that should.</p>
-      </div></details>
-      <details class="reveal guide"><summary>Full guide</summary><div class="reveal-body">
-        <ol>
-          <li>Wire a second microcontroller onto the bus: its SDA to <code>IO21</code>
-            (U14 pin 5), its SCL to <code>IO22</code> (U14 pin 6), and a shared GND.</li>
-          <li>Program it as an I2C slave on address <code>0x42</code> (e.g. Arduino
-            <code>Wire.begin(0x42)</code> with an <code>onReceive()</code> handler). It
-            doesn't need to do anything with the bytes, it just has to exist and ACK.</li>
-          <li>Also clip a logic analyzer onto IO21/IO22 + GND. Set the sample rate to
-            ≥1 MS/s and click <b>Start</b>.</li>
-          <li>Click the <b>+</b> next to Analyzers, pick <b>I2C</b>, and set its SDA/SCL
-            inputs to the matching channels.</li>
-          <li>With your slave running, the Data Table now shows a Start, an address byte
-            with a Write flag that's <b>ACKed</b> this time, a run of data bytes, then a
-            Stop, repeating about once a second.</li>
-          <li>Read the data bytes as ASCII directly from the Data Table (it has an ASCII
-            column), or by hand from the hex. Together they spell the flag.</li>
-        </ol>
-      </div></details>
-    </div>
-
     <div class="entry" id="c4">
       <div class="entry-head"><span class="entry-num">04</span><h2 style="margin:0;">Bus Stop (SPI)</h2><span class="diff-tag med">Medium</span></div>
       <p>A two-step one: the SPI bus carries a <i>password</i>, not the flag directly.
@@ -465,44 +409,6 @@
       </div></details>
     </div>
 
-    <div class="entry" id="c7">
-      <div class="entry-head"><span class="entry-num">07</span><h2 style="margin:0;">Blinkenlights (LED)</h2><span class="diff-tag med">Medium</span></div>
-      <p>An optical side-channel. The flag is blinked out in Morse on the badge's
-         on-board LED. No wires needed, but decoding it takes patience, which is why it
-         sits here rather than earlier.</p>
-      <h4>Tool</h4>
-      <p>Nothing but a phone camera.</p>
-      <h4>Approach</h4>
-      <p>Film at least one full loop, including the longer gap that marks where the
-         message repeats, then scrub frame-by-frame. The shortest flash is one unit.
-         Everything else (dashes, gaps between symbols and characters) is a whole-number
-         multiple of it.</p>
-
-      <details class="reveal conn"><summary>Connection</summary><div class="reveal-body">
-        <p>Nothing to wire up. The NeoPixel is on-board (IO10), there's no external
-           hardware for this one at all, just point a phone camera at the badge.</p>
-      </div></details>
-
-      <details class="reveal hint"><summary>Hint</summary><div class="reveal-body">
-        <p>Shortest flash equals one unit. Every other flash and gap is a whole-number
-           multiple of that same length.</p>
-      </div></details>
-      <details class="reveal guide"><summary>Full guide</summary><div class="reveal-body">
-        <ol>
-          <li>Film the LED in video mode for 10-15 seconds, long enough to catch one
-            full loop including the long repeat gap.</li>
-          <li>Scrub the video frame by frame to tell short flashes from long ones
-            precisely.</li>
-          <li>Identify the unit length from the shortest flash. Dashes, inter-symbol
-            gaps and inter-character gaps are all whole-number multiples of it.</li>
-          <li>Transcribe what you see into dots and dashes, using gap length to tell
-            where one symbol, one character, and the whole message end.</li>
-          <li>Decode the Morse with any reference. Watch for the less common sequences
-            that spell the flag's punctuation.</li>
-        </ol>
-      </div></details>
-    </div>
-
     <div class="entry" id="c8">
       <div class="entry-head"><span class="entry-num">08</span><h2 style="margin:0;">Target Acquired (STM32)</h2><span class="diff-tag hard">Hard</span></div>
       <p>A real firmware-reversing challenge against the badge's second microcontroller:
@@ -578,12 +484,8 @@
 
 <footer>
   <div class="wrap foot-inner">
-    <div class="foot-left">WIRED VILLAGE · hardware hacking guides</div>
-    <div class="partner">
-      <span>Partner</span>
-      <img src="../assets/img/bi0s-hardware-logo.png" alt="bi0s hardware">
+    <div class="foot-left">TRABODA · hardware hacking guides</div>
     </div>
-  </div>
 </footer>
 
 </body>
