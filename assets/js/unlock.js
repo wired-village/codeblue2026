@@ -14,6 +14,11 @@
   var ITERATIONS = 600000;
   var KEY = "cmp_guide_pass";
 
+  // sessionStorage throws in some privacy modes / sandboxed iframes - never let that
+  // break the unlock flow, it's only a per-tab convenience.
+  function ssGet() { try { return sessionStorage.getItem(KEY); } catch (e) { return null; } }
+  function ssSet(v) { try { sessionStorage.setItem(KEY, v); } catch (e) { /* ignore */ } }
+
   function b64(s) {
     var bin = atob(s), out = new Uint8Array(bin.length);
     for (var i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
@@ -46,7 +51,7 @@
     try {
       var html = await decrypt(details.dataset.k, pass);
       reveal(details, html);
-      sessionStorage.setItem(KEY, pass);
+      ssSet(pass);
       unlockAll(pass);                       // open any others already on the page
       return true;
     } catch (e) {
@@ -74,7 +79,7 @@
       return;
     }
 
-    var saved = sessionStorage.getItem(KEY);
+    var saved = ssGet();
     if (saved) unlockAll(saved);
 
     document.addEventListener("submit", function (ev) {

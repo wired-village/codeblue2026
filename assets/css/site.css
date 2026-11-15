@@ -46,6 +46,7 @@ code {
   padding: 1px 5px;
   border-radius: 3px;
   font-size: .87em;
+  overflow-wrap: anywhere;   /* long inline tokens wrap instead of forcing page scroll on phones */
 }
 pre {
   background: var(--bg-inset);

@@ -2,8 +2,10 @@
 document.addEventListener("DOMContentLoaded", function () {
   // if the URL points at a <details> element (a collapsed section or a
   // challenge's hint/guide), open it and scroll to it
-  if (location.hash) {
-    var target = document.querySelector(location.hash);
+  if (location.hash && location.hash.length > 1) {
+    // getElementById avoids querySelector throwing on hashes that aren't valid CSS
+    // selectors (bare "#", ids starting with a digit, ids containing spaces, etc.)
+    var target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
     if (target && target.tagName === "DETAILS") {
       target.open = true;
       setTimeout(function () { target.scrollIntoView({ behavior: "smooth", block: "start" }); }, 50);
