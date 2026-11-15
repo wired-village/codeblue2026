@@ -661,7 +661,7 @@ p + h2, ul + h2, ol + h2, pre + h2, table + h2, .note + h2 { margin-top: var(--s
    look far smaller. */
 .partner img { width: auto; display: block; flex: 0 0 auto; }
 .partner img.p-traboda { height: 26px; }
-.partner img.p-bi0s { height: 58px; }
+.partner img.p-bi0s { height: 42px; }
 .partner img.p-bi0s { filter: invert(1); }   /* dark mark on a dark footer */
 
 footer { border-top: 1px solid var(--border); padding: 28px 0 32px; margin-top: 34px; }
@@ -898,3 +898,13 @@ body > footer { position: relative; z-index: 1; }
   .hero-split { flex-direction: column; align-items: flex-start; gap: 18px; }
   .hero-mark img { width: clamp(180px, 52vw, 240px); }
 }
+
+/* ---------- comfortable tap targets ----------
+   WCAG 2.2 AA needs 24px; 44px is the comfortable thumb target. These are the
+   rows people actually tap: nav, TOC entries and the hint/guide toggles. */
+.navlinks a,
+.toc a,
+.reveal summary,
+.sec-collapse > summary { min-height: 44px; box-sizing: border-box; }
+.navlinks a { display: inline-flex; align-items: center; }
+.skip-link, .pinin, .pinbtn { min-height: 44px; box-sizing: border-box; }
