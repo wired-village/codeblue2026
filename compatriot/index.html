@@ -28,8 +28,8 @@
 <header class="topbar">
   <div class="topbar-inner">
     <div class="brand">
-      <a href="../index.html" style="display:flex;align-items:center;gap:9px;color:inherit;border-bottom:none;">
-        <img src="../assets/img/wired-village-logo.png" alt="Wired Village">
+      <a href="../index.html" class="brand-link">
+        <img src="../assets/img/wired-village-wordmark.png" alt="Wired Village">
       </a>
     </div>
     <nav class="navlinks">
@@ -42,33 +42,33 @@
 
 <main id="main">
 
-<section class="wrap" style="padding: 40px 24px 10px;">
+<section class="wrap sec-first">
   <p class="crumbs"><a href="../index.html">Wired Village</a><span class="sep">/</span>Compatriot</p>
-  <div style="display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center;">
+  <div class="split">
     <div>
       <p class="eyebrow">Hardware training badge</p>
       <h1>Compatr<span class="iot">IoT</span></h1>
       <p class="lead">
         An ESP32-C6 badge with a second STM32 target chip, a real Ethernet-bridged CAN/UDS
         bus, and exposed peripherals (UART, I2C, SPI, SWD, BLE, WiFi) built to be sniffed,
-        dumped and poked at. Sixteen challenges, three categories, each solved by actually
+        dumped and poked at. Seventeen challenges, three categories, each solved by actually
         driving the hardware.
       </p>
-      <p class="note" style="max-width:62ch;">
+      <p class="note">
         <b>How to use this guide.</b> Each category lists its challenges easiest to
         hardest. You'll get what a challenge is testing, the tool it needs, and the
         pins/bus to connect to. Getting the actual flag is still up to you on the badge.
         This guide just gets you to where you can see the data.
       </p>
-      <p style="font-size:13px;">New to all this? Start with
+      <p class="sub-note">New to all this? Start with
         <a href="#glossary">the glossary</a> below before diving into a category.</p>
     </div>
-    <img src="../assets/img/compatriot-board.webp" alt="Compatriot badge" style="width:100%;height:auto;">
+    <img src="../assets/img/compatriot-board.webp" alt="Compatriot badge">
   </div>
 </section>
 <style>@media (max-width: 760px){ .wrap div[style*="grid-template-columns"]{ display:block !important; } }</style>
 
-<section class="wrap" style="padding: 20px 24px 10px;">
+<section class="wrap sec-tight">
   <table class="index-table">
     <tr data-href="automotive.html">
       <td class="ix-name"><a href="automotive.html">Automotive</a></td>
@@ -100,8 +100,8 @@
   </table>
 </section>
 
-<section class="wrap" style="padding: 10px 24px 20px;">
-  <h2 style="margin-top:0;">What you'll see on every category page</h2>
+<section class="wrap sec-tight">
+  <h2>What you'll see on every category page</h2>
   <div class="legend-grid">
     <div class="legend-item">
       <span class="diff-tag easy">Easy</span>
@@ -126,9 +126,9 @@
   </div>
 </section>
 
-<section class="wrap" id="glossary" style="padding: 10px 24px 60px;">
-  <h2 style="margin-top:0;">Glossary</h2>
-  <p style="font-size:13.5px;">Terms used across all three categories. Each category page
+<section class="wrap sec-last" id="glossary">
+  <h2>Glossary</h2>
+  <p class="sub-note">Terms used across all three categories. Each category page
      also explains its own jargon inline, this is just a quick reference.</p>
   <dl class="glossary">
     <dt>Terminal</dt><dd>A text window where you type a command and press Enter to run it. On Linux, search your applications menu for "Terminal". It's the primary tool for almost everything in this guide.</dd>
@@ -150,7 +150,7 @@
   <div class="wrap foot-inner">
     <div class="foot-left">WIRED VILLAGE · hardware hacking guides</div>
     <div class="partner">
-      <span>Partners</span>
+      <span class="partner-label">Partners</span>
       <a href="https://traboda.com" target="_blank" rel="noopener" aria-label="Traboda"><img class="p-traboda" src="../assets/img/traboda-logo.png" alt="Traboda"></a>
       <a href="https://www.bi0shardware.in/" target="_blank" rel="noopener" aria-label="bi0s hardware"><img class="p-bi0s" src="../assets/img/bi0s-hardware-logo.png" alt="bi0s hardware"></a>
     </div>

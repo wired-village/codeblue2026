@@ -28,8 +28,8 @@
 <header class="topbar">
   <div class="topbar-inner">
     <div class="brand">
-      <a href="../index.html" style="display:flex;align-items:center;gap:9px;color:inherit;border-bottom:none;">
-        <img src="../assets/img/wired-village-logo.png" alt="Wired Village">
+      <a href="../index.html" class="brand-link">
+        <img src="../assets/img/wired-village-wordmark.png" alt="Wired Village">
       </a>
     </div>
     <nav class="navlinks">
@@ -43,7 +43,7 @@
 
 <main id="main">
 
-<section class="wrap" style="padding: 36px 24px 0;">
+<section class="wrap sec-first">
   <p class="crumbs"><a href="../index.html">Wired Village</a><span class="sep">/</span><a href="index.html">Compatriot</a><span class="sep">/</span>Automotive</p>
   <p class="eyebrow">Category · 6 challenges · 1450 pts</p>
   <h1>Automotive</h1>
@@ -51,14 +51,14 @@
     Compatriot bridges a real CAN bus over Ethernet, so standard Linux SocketCAN tools like
     <code>candump</code>, <code>cansend</code> and <code>isotpsend</code>/<code>isotprecv</code>
     work against it exactly like they would against a real car. A small UDS diagnostic stack
-    runs on top: request ID <code>0x7E0</code>, response <code>0x7E8</code>. All five
+    runs on top: request ID <code>0x7E0</code>, response <code>0x7E8</code>. All six
     challenges auto-solve the instant the badge sees the correct interaction on the bus.
   </p>
-  <p style="font-size:13px;">New to CAN/UDS? Check the
+  <p class="sub-note">New to CAN/UDS? Check the
      <a href="index.html#glossary">glossary</a> first.</p>
 </section>
 
-<section class="wrap" style="padding: 24px 24px 60px;">
+<section class="wrap sec-docs">
 <div class="docs">
 
   <nav class="toc">
@@ -71,6 +71,7 @@
       <li><a href="#c3">3 · Both Indicators <small>easy</small></a></li>
       <li><a href="#c4">4 · Find the VIN <small>med</small></a></li>
       <li><a href="#c5">5 · Seed &amp; Key <small>hard</small></a></li>
+      <li><a href="#c6">6 · Memory Transfer <small>hard</small></a></li>
     </ol>
   </nav>
 
@@ -174,8 +175,8 @@ sudo ip link set up vcan0</pre></li>
         and recheck the earlier steps before trying any individual challenge.</li>
     </ol>
 
-    <div class="diagram"><img src="../assets/circuit/photo_ethernet.jpg" alt="Close-up photo of the W5500 Ethernet module (RJ1) on the physical board" style="border-radius:3px;"></div>
-    <p style="font-size:12.5px;color:var(--text-dimmer);margin-top:-8px;">The RJ1 jack (WIZ850io module), photographed off the board. This is what the badge's one Ethernet port looks like.</p>
+    <div class="diagram"><img src="../assets/circuit/photo_ethernet.jpg" alt="The W5500 Ethernet module on the badge, with the RJ45 socket opening facing the top edge of the board" style="border-radius:3px;"></div>
+    <p class="caption">RJ1, the WIZ850io (W5500) module, on the top edge of the board. The RJ45 opening facing up is where your Ethernet cable goes.</p>
 
     <table class="pin-table">
       <tr><th>CAN ID</th><th>Signal</th><th>Layout</th></tr>
@@ -352,7 +353,7 @@ sudo ip link set up vcan0</pre></li>
   <div class="wrap foot-inner">
     <div class="foot-left">WIRED VILLAGE · hardware hacking guides</div>
     <div class="partner">
-      <span>Partners</span>
+      <span class="partner-label">Partners</span>
       <a href="https://traboda.com" target="_blank" rel="noopener" aria-label="Traboda"><img class="p-traboda" src="../assets/img/traboda-logo.png" alt="Traboda"></a>
       <a href="https://www.bi0shardware.in/" target="_blank" rel="noopener" aria-label="bi0s hardware"><img class="p-bi0s" src="../assets/img/bi0s-hardware-logo.png" alt="bi0s hardware"></a>
     </div>

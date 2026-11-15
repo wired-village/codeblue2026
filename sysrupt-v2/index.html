@@ -28,8 +28,8 @@
 <header class="topbar">
   <div class="topbar-inner">
     <div class="brand">
-      <a href="../index.html" style="display:flex;align-items:center;gap:9px;color:inherit;border-bottom:none;">
-        <img src="../assets/img/wired-village-logo.png" alt="Wired Village">
+      <a href="../index.html" class="brand-link">
+        <img src="../assets/img/wired-village-wordmark.png" alt="Wired Village">
       </a>
     </div>
     <nav class="navlinks">
@@ -42,11 +42,11 @@
 
 <main id="main">
 
-<section class="wrap" style="padding: 36px 24px 0;">
+<section class="wrap sec-first">
   <p class="crumbs"><a href="../index.html">Wired Village</a><span class="sep">/</span>Sysrupt V2</p>
-  <div style="display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center;">
+  <div class="split">
     <div>
-      <h1 style="margin-top:0;">SYSRUPT Portable OT Range V2</h1>
+      <h1>SYSRUPT Portable OT Range V2</h1>
       <p class="lead">
         Join a Wi-Fi network. Hack a power plant. Learn ICS/SCADA security.
       </p>
@@ -64,12 +64,12 @@
         LCD and survive a reboot.
       </p>
     </div>
-    <img src="../assets/sysrupt-v2/board.webp" alt="The Vanguard ESP32-S3 badge" style="width:100%;height:auto;border-radius:4px;">
+    <img src="../assets/sysrupt-v2/board.webp" alt="The Vanguard ESP32-S3 badge" style="border-radius:4px;">
   </div>
 </section>
 <style>@media (max-width: 760px){ .wrap div[style*="grid-template-columns"]{ display:block !important; } }</style>
 
-<section class="wrap" style="padding: 32px 24px 0;">
+<section class="wrap sec">
   <h2>Getting Started</h2>
   <ol>
     <li>Flash the badge (see <a href="https://github.com/Alwin111/Sysrupt-Portable-OT-Range-V2/blob/main/INSTALL.md" target="_blank" rel="noopener">INSTALL.md</a>).</li>
@@ -85,7 +85,7 @@ unzip toolkit.zip && cd sysrupt-toolkit-1.0.0
     low rate. Aggressive scans make ports read "filtered", not "closed".</p>
 </section>
 
-<section class="wrap" style="padding: 32px 24px 0;">
+<section class="wrap sec">
   <h2>Challenges</h2>
   <p>8 challenges &middot; 1800 total points &middot; scoreboard on the badge LCD updates automatically.
      Numbered defensive-first: 01&ndash;04 Defensive, 05&ndash;08 Offensive.</p>
@@ -136,7 +136,7 @@ unzip toolkit.zip && cd sysrupt-toolkit-1.0.0
   <p>The guides are spoiler-free, they explain the protocol, the surface and the idea, not the answer.</p>
 </section>
 
-<section class="wrap" style="padding: 32px 24px 0;">
+<section class="wrap sec">
   <h2>Network Map</h2>
   <p>The badge is the whole network: a Wi-Fi AP at <code>10.0.1.1</code> that hosts every service.</p>
   <table class="pin-table">
@@ -151,7 +151,7 @@ unzip toolkit.zip && cd sysrupt-toolkit-1.0.0
      console), not a separate port; it backs #01.</p>
 </section>
 
-<section class="wrap" style="padding: 32px 24px 0;">
+<section class="wrap sec">
   <h2>The sysrupt Toolkit</h2>
   <p>A dependency-free Python 3.9+ CLI, served by the badge, that speaks the challenge protocols:</p>
   <pre>./bin/sysrupt help            # all command groups
@@ -167,7 +167,7 @@ unzip toolkit.zip && cd sysrupt-toolkit-1.0.0
      <a href="https://github.com/Alwin111/Sysrupt-Portable-OT-Range-V2/blob/main/Devices/vanguard/tools/sysrupt/COMMANDS.md" target="_blank" rel="noopener">COMMANDS.md</a>.</p>
 </section>
 
-<section class="wrap" style="padding: 32px 24px 0;">
+<section class="wrap sec">
   <h2>Hardware</h2>
   <p>The "Vanguard" badge is a custom ESP32-S3 board.</p>
   <table class="pin-table">
@@ -181,7 +181,7 @@ unzip toolkit.zip && cd sysrupt-toolkit-1.0.0
     buzzer on the board are not driven by the firmware.</p>
 </section>
 
-<section class="wrap" style="padding: 32px 24px 60px;">
+<section class="wrap sec-last">
   <h2>Tips</h2>
   <ul>
     <li>Industrial protocols live on non-standard ports, scan specifically, don't rely on nmap's top-1000.</li>
@@ -190,8 +190,8 @@ unzip toolkit.zip && cd sysrupt-toolkit-1.0.0
     <li>Watch the HMI. Your attacks have visible impact on the process mimic and gauges.</li>
     <li>The badge LCD shows per-challenge objectives and two optional hint tiers (they cost points).</li>
   </ul>
-  <p style="text-align:center;margin-top:28px;"><b>Flash it. Join the Wi-Fi. Hack the plant.</b></p>
-  <p style="text-align:center;"><a href="https://github.com/Alwin111/Sysrupt-Portable-OT-Range-V2" target="_blank" rel="noopener">github.com/Alwin111/Sysrupt-Portable-OT-Range-V2</a></p>
+  <p class="closing"><b>Flash it. Join the Wi-Fi. Hack the plant.</b></p>
+  <p class="closing"><a href="https://github.com/Alwin111/Sysrupt-Portable-OT-Range-V2" target="_blank" rel="noopener">github.com/Alwin111/Sysrupt-Portable-OT-Range-V2</a></p>
 </section>
 
 </main>
@@ -200,7 +200,7 @@ unzip toolkit.zip && cd sysrupt-toolkit-1.0.0
   <div class="wrap foot-inner">
     <div class="foot-left">WIRED VILLAGE · hardware hacking guides</div>
     <div class="partner">
-      <span>Partners</span>
+      <span class="partner-label">Partners</span>
       <a href="https://traboda.com" target="_blank" rel="noopener" aria-label="Traboda"><img class="p-traboda" src="../assets/img/traboda-logo.png" alt="Traboda"></a>
       <a href="https://www.bi0shardware.in/" target="_blank" rel="noopener" aria-label="bi0s hardware"><img class="p-bi0s" src="../assets/img/bi0s-hardware-logo.png" alt="bi0s hardware"></a>
     </div>

@@ -28,8 +28,8 @@
 <header class="topbar">
   <div class="topbar-inner">
     <div class="brand">
-      <a href="../index.html" style="display:flex;align-items:center;gap:9px;color:inherit;border-bottom:none;">
-        <img src="../assets/img/wired-village-logo.png" alt="Wired Village">
+      <a href="../index.html" class="brand-link">
+        <img src="../assets/img/wired-village-wordmark.png" alt="Wired Village">
       </a>
     </div>
     <nav class="navlinks">
@@ -42,12 +42,12 @@
 
 <main id="main">
 
-<section class="wrap" style="padding: 36px 24px 0;">
+<section class="wrap sec-first">
   <p class="crumbs"><a href="../index.html">Wired Village</a><span class="sep">/</span>Sysrupt</p>
-  <div style="display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center;">
+  <div class="split">
     <div>
       <img src="../assets/sysrupt/logo.webp" alt="Sysrupt" style="height:48px;width:auto;margin-bottom:16px;">
-      <h1 style="margin-top:0;">Portable OT Range</h1>
+      <h1>Portable OT Range</h1>
       <p class="lead">
         A hands-on ICS/SCADA cybersecurity training platform that fits in your backpack.
       </p>
@@ -61,12 +61,12 @@
         progressive CTF challenges.
       </p>
     </div>
-    <img src="../assets/sysrupt/board.webp" alt="Sysrupt board" style="width:100%;height:auto;">
+    <img src="../assets/sysrupt/board.webp" alt="Sysrupt board">
   </div>
 </section>
 <style>@media (max-width: 760px){ .wrap div[style*="grid-template-columns"]{ display:block !important; } }</style>
 
-<section class="wrap" style="padding: 32px 24px 0;">
+<section class="wrap sec">
   <h2>Getting Started</h2>
   <ol>
     <li>Plug your Ethernet cable into the OT Range board</li>
@@ -78,7 +78,7 @@
   </ol>
 </section>
 
-<section class="wrap" style="padding: 32px 24px 0;">
+<section class="wrap sec">
   <h2>Challenges</h2>
   <p>10 progressive challenges. 4700 total points. The scoreboard updates automatically.</p>
   <table class="index-table">
@@ -135,10 +135,10 @@
   </table>
 </section>
 
-<section class="wrap" style="padding: 32px 24px 0;">
+<section class="wrap sec">
   <h2>Network Map</h2>
   <div class="diagram" style="background:#05070f;">
-    <img src="../assets/sysrupt/architecture.svg" alt="Architecture" style="width:100%;height:auto;">
+    <img src="../assets/sysrupt/architecture.svg" alt="Architecture">
   </div>
   <p>Five network zones based on the IEC 62443 Purdue Model:</p>
   <table class="pin-table">
@@ -151,7 +151,7 @@
   </table>
 </section>
 
-<section class="wrap" style="padding: 32px 24px 0;">
+<section class="wrap sec">
   <h2>Protocol Tools</h2>
   <p>Six custom tools are pre-installed on your Kali machine:</p>
   <pre>python3 ~/tools/bacnet-tool.py  -h    # BACnet/IP (Building Automation)
@@ -165,7 +165,7 @@ python3 ~/tools/s7comm-tool.py  -h    # S7comm (Siemens Safety)</pre>
   <p>Common commands: <code>scan</code>, <code>read</code>, <code>write</code></p>
 </section>
 
-<section class="wrap" style="padding: 32px 24px 0;">
+<section class="wrap sec">
   <h2>Kali Setup</h2>
   <p>If tools aren't installed yet:</p>
   <pre>cd kali-setup
@@ -173,7 +173,7 @@ sudo bash kali-setup.sh</pre>
   <p>This installs: nmap, sshpass, opcua-client, pymodbus, python-snap7, c104, cpppo, and all 6 protocol tools.</p>
 </section>
 
-<section class="wrap" style="padding: 32px 24px 0;">
+<section class="wrap sec">
   <h2>Protocols You'll Encounter</h2>
   <table class="pin-table">
     <tr><th>Protocol</th><th>Port</th><th>Real-World Use</th></tr>
@@ -188,7 +188,7 @@ sudo bash kali-setup.sh</pre>
   </table>
 </section>
 
-<section class="wrap" style="padding: 32px 24px 60px;">
+<section class="wrap sec-last">
   <h2>Tips</h2>
   <ul>
     <li>Default nmap only scans top 1000 TCP ports. Industrial protocols use non-standard ports. Scan specifically.</li>
@@ -197,8 +197,8 @@ sudo bash kali-setup.sh</pre>
     <li>Watch the SCADA HMI. Your attacks have visual impact.</li>
     <li>The scoreboard display shows hints after 15, 30, and 45 minutes.</li>
   </ul>
-  <p style="text-align:center;margin-top:28px;"><b>Plug in. Hack the plant. Learn ICS security.</b></p>
-  <p style="text-align:center;"><a href="https://github.com/s34s0n/sysrupt-portable-ot-range" target="_blank" rel="noopener">github.com/s34s0n/sysrupt-portable-ot-range</a></p>
+  <p class="closing"><b>Plug in. Hack the plant. Learn ICS security.</b></p>
+  <p class="closing"><a href="https://github.com/s34s0n/sysrupt-portable-ot-range" target="_blank" rel="noopener">github.com/s34s0n/sysrupt-portable-ot-range</a></p>
 </section>
 
 </main>
@@ -207,7 +207,7 @@ sudo bash kali-setup.sh</pre>
   <div class="wrap foot-inner">
     <div class="foot-left">WIRED VILLAGE · hardware hacking guides</div>
     <div class="partner">
-      <span>Partners</span>
+      <span class="partner-label">Partners</span>
       <a href="https://traboda.com" target="_blank" rel="noopener" aria-label="Traboda"><img class="p-traboda" src="../assets/img/traboda-logo.png" alt="Traboda"></a>
       <a href="https://www.bi0shardware.in/" target="_blank" rel="noopener" aria-label="bi0s hardware"><img class="p-bi0s" src="../assets/img/bi0s-hardware-logo.png" alt="bi0s hardware"></a>
     </div>
