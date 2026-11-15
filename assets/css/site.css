@@ -188,14 +188,16 @@ hr { border: none; border-top: 1px solid var(--border); margin: var(--sp-6) 0; }
   color: var(--text);
 }
 /* transparent wordmark, so no tile/plate behind it */
+/* Home already carries the big hero wordmark, so its topbar mark stays small;
+   subpages have no hero logo, so theirs is larger. */
 .brand img { height: 23px; width: auto; display: block; }
+.brand-link img { height: 34px; }
 /* The wordmark is only ~23px tall, so the link around it was a 23px tap
    target. Padding + an equal negative margin grows the hit area to 45px
    without moving anything on the page. */
 .brand-link { display: flex; align-items: center; gap: 9px; color: inherit; border-bottom: none;
               padding: 11px 6px; margin: -11px -6px; }
 .brand .sep { color: var(--text-dimmer); }
-.brand .sub { color: var(--text-dim); }
 .navlinks {
   display: flex;
   gap: 4px;
@@ -694,6 +696,7 @@ footer { border-top: 1px solid var(--border); padding: 28px 0 32px; margin-top: 
 @media (max-width: 420px) {
   .wrap { padding: 0 16px; }
   .brand img { height: 19px; }
+  .brand-link img { height: 26px; }
   .hero-row { gap: var(--sp-5); }
 }
 
