@@ -864,15 +864,6 @@ body > footer { position: relative; z-index: 1; }
   .split > img { max-width: 480px; margin: 0 auto; }
 }
 
-/* a caption that sits directly under a figure or diagram */
-.caption {
-  font-family: var(--mono);
-  font-size: var(--fs-xs);
-  line-height: 1.5;
-  color: var(--text-dimmer);
-  max-width: var(--measure);
-  margin: calc(var(--sp-4) * -1) 0 var(--sp-5);
-}
 /* centred closing lines */
 .closing { text-align: center; max-width: none; margin: var(--sp-6) auto var(--sp-2); color: var(--text); }
 .closing + .closing { margin-top: 0; color: var(--text-dim); }
