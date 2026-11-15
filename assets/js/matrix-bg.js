@@ -34,7 +34,7 @@
       if (Math.random() > 0.86) continue;          // leave gaps: not every column every frame
       var ch = GLYPHS[(Math.random() * GLYPHS.length) | 0];
       var x = i * FS * GAP, y = drops[i] * FS;
-      ctx.fillStyle = Math.random() < 0.05 ? 'rgba(160,240,186,0.40)' : 'rgba(53,193,94,0.17)';
+      ctx.fillStyle = Math.random() < 0.05 ? 'rgba(170,245,195,0.52)' : 'rgba(53,193,94,0.26)';
       ctx.fillText(ch, x, y);
       if (y > h && Math.random() > 0.982) drops[i] = Math.floor(Math.random() * -30);
       drops[i]++;

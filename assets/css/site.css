@@ -659,13 +659,9 @@ body > footer { position: relative; z-index: 1; }
 .index-table tr[data-href]:focus-within td.ix-name a { color: var(--accent-text); }
 .index-table tr[data-href]:focus-within td.ix-arrow { opacity: 1; transform: translateX(0); color: var(--accent-text); }
 
-/* a consistent plate behind thumbnails of differing shapes */
-.index-table .ix-thumb img {
-  background: var(--bg-inset);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 8px;
-}
+/* thumbnails sit bare on the page — no frame */
+.index-table .ix-thumb img { width: 160px; height: 160px; }
+@media (max-width: 760px) { .index-table .ix-thumb img { width: 104px; height: 104px; } }
 
 /* close-up shot inside a challenge's Connection section */
 .diagram.pinshot { margin: 10px 0 18px; }
