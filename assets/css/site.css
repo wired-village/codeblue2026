@@ -651,7 +651,7 @@ p + h2, ul + h2, ol + h2, pre + h2, table + h2, .note + h2 { margin-top: var(--s
    look far smaller. */
 .partner img { width: auto; display: block; flex: 0 0 auto; }
 .partner img.p-traboda { height: 26px; }
-.partner img.p-bi0s { height: 48px; }
+.partner img.p-bi0s { height: 58px; }
 .partner img.p-bi0s { filter: invert(1); }   /* dark mark on a dark footer */
 
 footer { border-top: 1px solid var(--border); padding: 28px 0 32px; margin-top: 34px; }
