@@ -55,7 +55,7 @@
   <nav class="toc">
     <div class="toc-label">On this page</div>
     <ol>
-      <li><a href="#initial-access">Initial Access — Hacking into the IT Server (before the OT)</a></li>
+      <li><a href="#initial-access">Initial Access - Hacking into the IT Server (before the OT)</a></li>
       <li><a href="#ch01">01 &middot; Historian SQL Injection <small>250</small></a></li>
       <li><a href="#ch02">02 &middot; Field Device Recovery <small>250</small></a></li>
       <li><a href="#ch03">03 &middot; Trojan Historian <small>150</small></a></li>
@@ -70,7 +70,7 @@
   <div class="content">
 
     <div class="entry" id="initial-access">
-<h2 class="entry-title">Initial Access — Hacking into the IT Server (before the OT)</h2>
+<h2 class="entry-title">Initial Access - Hacking into the IT Server (before the OT)</h2>
 <p>Before starting the OT challenges, we need to gain access to the industrial web portal running on the
 target device. This is the IT foothold: get into the corporate/engineering console first, <em>then</em> pivot
 to the OT protocols the rest of the challenges live on.</p>
@@ -79,23 +79,23 @@ inspect its source code, and find the login credentials.</p>
 <p>We can do this using either a web browser or <code>curl</code>.</p>
 <hr />
 <h2>Step 1: Access the Web Server</h2>
-<h3>Method 1 — Web Browser</h3>
+<h3>Method 1 - Web Browser</h3>
 <p>Open your browser and visit:</p>
 <pre><code class="language-text">http://10.0.1.1
 </code></pre>
-<h3>Method 2 — Terminal</h3>
+<h3>Method 2 - Terminal</h3>
 <pre><code class="language-bash">curl -i http://10.0.1.1
 </code></pre>
-<p>This connects to the web server and displays its HTTP response — a plain corporate login gate.</p>
+<p>This connects to the web server and displays its HTTP response - a plain corporate login gate.</p>
 <hr />
 <h2>Step 2: Discover robots.txt</h2>
 <p>Websites use <code>robots.txt</code> to tell search-engine crawlers which paths they should or should not access.
 Sometimes it also reveals interesting paths we can investigate.</p>
-<h3>Method 1 — Web Browser</h3>
+<h3>Method 1 - Web Browser</h3>
 <p>Visit:</p>
 <pre><code class="language-text">http://10.0.1.1/robots.txt
 </code></pre>
-<h3>Method 2 — Terminal</h3>
+<h3>Method 2 - Terminal</h3>
 <pre><code class="language-bash">curl http://10.0.1.1/robots.txt
 </code></pre>
 <p>Look through the output. You should discover:</p>
@@ -103,27 +103,27 @@ Sometimes it also reveals interesting paths we can investigate.</p>
 Disallow: /control
 Disallow: /hist-config
 </code></pre>
-<p><code>Disallow</code> is <strong>not</strong> access control — it's a polite request to crawlers, enforced by nothing. Those
+<p><code>Disallow</code> is <strong>not</strong> access control - it's a polite request to crawlers, enforced by nothing. Those
 paths are just as reachable as any other. <code>/control</code> is the one we want next.</p>
 <hr />
 <h2>Step 3: Open the Hidden Control Page</h2>
-<h3>Method 1 — Web Browser</h3>
+<h3>Method 1 - Web Browser</h3>
 <p>Visit:</p>
 <pre><code class="language-text">http://10.0.1.1/control
 </code></pre>
 <p>Once the page loads, press:</p>
 <pre><code class="language-text">Ctrl + U
 </code></pre>
-<p>This opens the page's HTML source code. Search through the source for the username and password — the
+<p>This opens the page's HTML source code. Search through the source for the username and password - the
 rendered page shows an "engineering maintenance notice" with no visible credentials.</p>
-<h3>Method 2 — Terminal</h3>
+<h3>Method 2 - Terminal</h3>
 <p>Retrieve the page source directly:</p>
 <pre><code class="language-bash">curl -s http://10.0.1.1/control
 </code></pre>
 <p>Read through the HTML and look for the login credentials.</p>
 <hr />
 <h2>Step 4: Find the Login Credentials</h2>
-<p>The <code>/control</code> page hides the credentials <strong>in an HTML comment</strong> — invisible on the rendered page, but
+<p>The <code>/control</code> page hides the credentials <strong>in an HTML comment</strong> - invisible on the rendered page, but
 right there in the source:</p>
 <pre><code class="language-html">&lt;!-- maintenance window: shared engineering account still active - eng / Rec0ncile!42 ... --&gt;
 </code></pre>
@@ -151,14 +151,14 @@ comments, hidden elements, and other information not visible in the normal brows
 inspecting the source reveals the credentials needed to access the portal.</p>
 <hr />
 <h2>Step 5: Log In to the Portal</h2>
-<h3>Method 1 — Web Browser</h3>
+<h3>Method 1 - Web Browser</h3>
 <ol>
 <li>Go to the console root <code>http://10.0.1.1/</code>.</li>
 <li>Enter the username <code>eng</code>.</li>
 <li>Enter the password <code>Rec0ncile!42</code>.</li>
-<li>Click <strong>Sign In</strong> — you land on the operator HMI (<code>/hmi</code>).</li>
+<li>Click <strong>Sign In</strong> - you land on the operator HMI (<code>/hmi</code>).</li>
 </ol>
-<h3>Method 2 — Terminal using curl</h3>
+<h3>Method 2 - Terminal using curl</h3>
 <p>The login form posts to <code>/login</code> with the fields <code>user</code> and <code>pass</code>. The <code>!</code> in the password must be
 URL-encoded as <code>%21</code> in the form body.</p>
 <pre><code class="language-bash"># authenticate and save the session cookie
@@ -181,7 +181,7 @@ curl -i -b cookies.txt http://10.0.1.1/hmi
 <li>Cookies maintain an authenticated web session.</li>
 </ul>
 <p><strong>Objective:</strong> Discover <code>/control</code>, inspect its source, recover the login credentials (<code>eng</code> /
-<code>Rec0ncile!42</code>), and access the industrial web portal — your IT foothold before the OT challenges.</p>
+<code>Rec0ncile!42</code>), and access the industrial web portal - your IT foothold before the OT challenges.</p>
 </div>
 
     <div class="entry" id="ch01">
@@ -208,8 +208,8 @@ curl -i -b cookies.txt http://10.0.1.1/hmi
 <p>This weakness is called <strong>SQL Injection</strong>.</p>
 <p>Your job is to discover the historian webpage, find the login credentials, access the Data Browser, exploit the SQL Injection vulnerability, and retrieve the hidden flag.</p>
 <hr />
-<h2>Part 1 — Discover the Historian Webpage</h2>
-<h2>Step 1 — Find the First Clue Using robots.txt</h2>
+<h2>Part 1 - Discover the Historian Webpage</h2>
+<h2>Step 1 - Find the First Clue Using robots.txt</h2>
 <p>We know that the target device is running a web server at:</p>
 <pre><code class="language-text">http://10.0.1.1
 </code></pre>
@@ -241,7 +241,7 @@ curl -i -b cookies.txt http://10.0.1.1/hmi
 <p><strong>Remember:</strong> <code>robots.txt</code> is not a security mechanism. It does not prevent users from opening the paths listed inside it.</p>
 </details>
 <hr />
-<h2>Step 2 — Investigate the Historian Configuration Page</h2>
+<h2>Step 2 - Investigate the Historian Configuration Page</h2>
 <p>We discovered <code>/hist-config</code> in the previous step.</p>
 <p>Now let's open it.</p>
 <h3>Open this address</h3>
@@ -269,7 +269,7 @@ curl -i -b cookies.txt http://10.0.1.1/hmi
 <p>We can now move to the login page.</p>
 </details>
 <hr />
-<h2>Step 3 — Open the Historian Login Page</h2>
+<h2>Step 3 - Open the Historian Login Page</h2>
 <p>Now that we have discovered the webpage and login credentials, let's access the application.</p>
 <h3>Open this address</h3>
 <pre><code class="language-text">http://10.0.1.1/hist
@@ -305,7 +305,7 @@ curl -i -b cookies.txt http://10.0.1.1/hmi
 <p>We can now begin testing its search field for SQL Injection.</p>
 </details>
 <hr />
-<h2>Part 2 — Exploit the SQL Injection Vulnerability</h2>
+<h2>Part 2 - Exploit the SQL Injection Vulnerability</h2>
 <h2>What Is SQL Injection?</h2>
 <p>Before continuing, let's understand what SQL Injection means.</p>
 <p>Imagine a website has a search box.</p>
@@ -325,7 +325,7 @@ curl -i -b cookies.txt http://10.0.1.1/hmi
 <li>Retrieve the hidden flag.</li>
 </ol>
 <hr />
-<h2>Step 4 — Check Whether the Search Box Is Vulnerable</h2>
+<h2>Step 4 - Check Whether the Search Box Is Vulnerable</h2>
 <p>Before extracting anything, we need to confirm that SQL Injection actually works.</p>
 <h3>Query</h3>
 <p>Enter this into the <code>source</code> field:</p>
@@ -334,9 +334,9 @@ curl -i -b cookies.txt http://10.0.1.1/hmi
 <h3>What does this query do?</h3>
 <p>Let's break it into small parts:</p>
 <ul>
-<li><code>'</code> — Closes the text value that the application may have started.</li>
-<li><code>OR</code> — Tells the database that either condition can be true.</li>
-<li><code>'1'='1</code> — Compares 1 with 1. This condition is always TRUE.</li>
+<li><code>'</code> - Closes the text value that the application may have started.</li>
+<li><code>OR</code> - Tells the database that either condition can be true.</li>
+<li><code>'1'='1</code> - Compares 1 with 1. This condition is always TRUE.</li>
 </ul>
 <p>In simple words, we are telling the database:</p>
 <p><strong>"Show me the records if the source matches my search OR if 1 equals 1."</strong></p>
@@ -351,10 +351,10 @@ curl -i -b cookies.txt http://10.0.1.1/hmi
 <h3>What does this tell us?</h3>
 <p>It suggests that the application is putting our input directly into its SQL query instead of safely treating it as text.</p>
 <p>This means we may be able to control parts of the database query.</p>
-<p><strong>SQL Injection confirmed — continue to the next step.</strong></p>
+<p><strong>SQL Injection confirmed - continue to the next step.</strong></p>
 </details>
 <hr />
-<h2>Step 5 — Find the Number of Columns</h2>
+<h2>Step 5 - Find the Number of Columns</h2>
 <p>Now that we have confirmed the injection point, we need to understand the structure of the original database query.</p>
 <h3>What is a column?</h3>
 <p>Think of a database table like an Excel spreadsheet.</p>
@@ -398,11 +398,11 @@ curl -i -b cookies.txt http://10.0.1.1/hmi
 <h3>What does this query do?</h3>
 <p>Let's break it down:</p>
 <ul>
-<li><code>'</code> — Closes the original text value.</li>
-<li><code>UNION SELECT</code> — Tries to combine our query with the original query.</li>
-<li><code>NULL</code> — Represents an empty value. We use it as a placeholder because we do not know the column types yet.</li>
-<li>Ten <code>NULL</code> values — Our attempt to match the original query's ten columns.</li>
-<li><code>--</code> — Tells SQLite to ignore the remaining part of the original SQL statement.</li>
+<li><code>'</code> - Closes the original text value.</li>
+<li><code>UNION SELECT</code> - Tries to combine our query with the original query.</li>
+<li><code>NULL</code> - Represents an empty value. We use it as a placeholder because we do not know the column types yet.</li>
+<li>Ten <code>NULL</code> values - Our attempt to match the original query's ten columns.</li>
+<li><code>--</code> - Tells SQLite to ignore the remaining part of the original SQL statement.</li>
 </ul>
 <p>If the query works without a column-count error, we have found the correct number of columns.</p>
 <p>If it gives an error, adjust the number of <code>NULL</code> values until the query works.</p>
@@ -415,7 +415,7 @@ curl -i -b cookies.txt http://10.0.1.1/hmi
 <p>We can now use those column positions to retrieve information from other database tables.</p>
 </details>
 <hr />
-<h2>Step 6 — Discover the Database Tables</h2>
+<h2>Step 6 - Discover the Database Tables</h2>
 <p>Now we know how many columns the original query returns.</p>
 <p>The next question is:</p>
 <p><strong>What tables exist inside the database?</strong></p>
@@ -430,13 +430,13 @@ curl -i -b cookies.txt http://10.0.1.1/hmi
 <h3>What does this query do?</h3>
 <p>Let's break it down:</p>
 <ul>
-<li><code>'</code> — Closes the original text value.</li>
-<li><code>UNION SELECT</code> — Combines our results with the original query.</li>
-<li><code>name</code> — Asks SQLite to show the names of database objects.</li>
-<li><code>NULL</code> — Fills the remaining columns because our original query expects ten columns.</li>
-<li><code>FROM sqlite_master</code> — Reads information from SQLite's database structure table.</li>
-<li><code>WHERE type='table'</code> — Shows only objects that are tables.</li>
-<li><code>--</code> — Ignores the remaining part of the original query.</li>
+<li><code>'</code> - Closes the original text value.</li>
+<li><code>UNION SELECT</code> - Combines our results with the original query.</li>
+<li><code>name</code> - Asks SQLite to show the names of database objects.</li>
+<li><code>NULL</code> - Fills the remaining columns because our original query expects ten columns.</li>
+<li><code>FROM sqlite_master</code> - Reads information from SQLite's database structure table.</li>
+<li><code>WHERE type='table'</code> - Shows only objects that are tables.</li>
+<li><code>--</code> - Ignores the remaining part of the original query.</li>
 </ul>
 <p>In simple words:</p>
 <p><strong>"Go through the database's list of tables and show me their names."</strong></p>
@@ -453,7 +453,7 @@ curl -i -b cookies.txt http://10.0.1.1/hmi
 <p>We now need to discover what information is stored inside this table.</p>
 </details>
 <hr />
-<h2>Step 7 — Discover the Columns Inside the Flags Table</h2>
+<h2>Step 7 - Discover the Columns Inside the Flags Table</h2>
 <p>We found a table called <code>flags</code>.</p>
 <p>But we do not yet know what information it contains.</p>
 <p>For example, it might have columns such as:</p>
@@ -481,12 +481,12 @@ curl -i -b cookies.txt http://10.0.1.1/hmi
 <h3>What does this query do?</h3>
 <p>Let's understand it:</p>
 <ul>
-<li><code>sql</code> — Requests the SQL statement used to create the table.</li>
-<li><code>FROM sqlite_master</code> — Reads the database structure information.</li>
-<li><code>WHERE type='table'</code> — Searches only for tables.</li>
-<li><code>AND name='flags'</code> — Selects only the table named <code>flags</code>.</li>
-<li><code>NULL</code> — Fills the remaining columns.</li>
-<li><code>--</code> — Ignores the rest of the original query.</li>
+<li><code>sql</code> - Requests the SQL statement used to create the table.</li>
+<li><code>FROM sqlite_master</code> - Reads the database structure information.</li>
+<li><code>WHERE type='table'</code> - Searches only for tables.</li>
+<li><code>AND name='flags'</code> - Selects only the table named <code>flags</code>.</li>
+<li><code>NULL</code> - Fills the remaining columns.</li>
+<li><code>--</code> - Ignores the rest of the original query.</li>
 </ul>
 <p>Remember that <code>sqlite_master</code> stores the original <code>CREATE TABLE</code> statement.</p>
 <p>For example, a table might have been created using:</p>
@@ -525,7 +525,7 @@ curl -i -b cookies.txt http://10.0.1.1/hmi
 <p>We can now use these column names to retrieve the actual data.</p>
 </details>
 <hr />
-<h2>Step 8 — Retrieve the Hidden Flag</h2>
+<h2>Step 8 - Retrieve the Hidden Flag</h2>
 <p>We have completed the important discovery steps:</p>
 <ul>
 <li>We found an injectable search field.</li>
@@ -542,14 +542,14 @@ curl -i -b cookies.txt http://10.0.1.1/hmi
 <h3>What does this query do?</h3>
 <p>Let's break it down:</p>
 <ul>
-<li><code>'</code> — Closes the original text value.</li>
-<li><code>UNION SELECT</code> — Combines our results with the original query.</li>
-<li><code>id</code> — Retrieves the record ID.</li>
-<li><code>flag</code> — Retrieves the hidden flag.</li>
-<li><code>description</code> — Retrieves the description.</li>
-<li><code>NULL</code> — Fills the remaining seven columns.</li>
-<li><code>FROM flags</code> — Reads the information from the <code>flags</code> table.</li>
-<li><code>--</code> — Ignores the remaining part of the original query.</li>
+<li><code>'</code> - Closes the original text value.</li>
+<li><code>UNION SELECT</code> - Combines our results with the original query.</li>
+<li><code>id</code> - Retrieves the record ID.</li>
+<li><code>flag</code> - Retrieves the hidden flag.</li>
+<li><code>description</code> - Retrieves the description.</li>
+<li><code>NULL</code> - Fills the remaining seven columns.</li>
+<li><code>FROM flags</code> - Reads the information from the <code>flags</code> table.</li>
+<li><code>--</code> - Ignores the remaining part of the original query.</li>
 </ul>
 <p>In simple words:</p>
 <p><strong>"Open the flags table and show me the ID, flag, and description."</strong></p>
@@ -591,7 +591,7 @@ curl -i -b cookies.txt http://10.0.1.1/hmi
 <strong>Target:</strong> RTU-07<br />
 <strong>IP Address:</strong> <code>10.0.1.1</code><br />
 <strong>Port:</strong> <code>161/UDP</code><br />
-<strong>Toolkit module:</strong> None — use standard Net-SNMP tools.</p>
+<strong>Toolkit module:</strong> None - use standard Net-SNMP tools.</p>
 <hr />
 <h2>The Story</h2>
 <p>RTU-07 is a Remote Terminal Unit (RTU) used in an industrial environment.</p>
@@ -614,7 +614,7 @@ curl -i -b cookies.txt http://10.0.1.1/hmi
 <li>Retrieve the recovery flag.</li>
 </ol>
 <hr />
-<h2>About the Protocol — SNMP</h2>
+<h2>About the Protocol - SNMP</h2>
 <p>SNMP stands for <strong>Simple Network Management Protocol</strong>.</p>
 <p>It is used to monitor and manage network devices.</p>
 <p>For example, administrators can use SNMP to:</p>
@@ -680,8 +680,8 @@ curl -i -b cookies.txt http://10.0.1.1/hmi
 <p>A community string works like a password for SNMP access.</p>
 <p>In this challenge, we have two community strings:</p>
 <ul>
-<li><code>public</code> — Allows us to read information.</li>
-<li><code>r3c0v3ry-07</code> — Allows us to perform recovery operations.</li>
+<li><code>public</code> - Allows us to read information.</li>
+<li><code>r3c0v3ry-07</code> - Allows us to perform recovery operations.</li>
 </ul>
 <hr />
 <h2>Understanding the Recovery OIDs</h2>
@@ -733,7 +733,7 @@ curl -i -b cookies.txt http://10.0.1.1/hmi
 </table>
 <p><strong>Important:</strong> The firmware image values are integers, not strings. Therefore, we must use <code>i</code> when writing the image number.</p>
 <hr />
-<h2>Step 1 — Check Whether the RTU Is Unhealthy</h2>
+<h2>Step 1 - Check Whether the RTU Is Unhealthy</h2>
 <p>Before changing anything, we need to understand the current condition of the device.</p>
 <p>We will use <code>snmpget</code> to read four values:</p>
 <ol>
@@ -753,7 +753,7 @@ snmpget -v2c -c public 10.0.1.1 1.3.6.1.4.1.42424.2.0
 snmpget -v2c -c public 10.0.1.1 1.3.6.1.4.1.42424.3.0
 </code></pre>
 <h3>What do these commands do?</h3>
-<p><strong>Command 1 — Read the device description</strong></p>
+<p><strong>Command 1 - Read the device description</strong></p>
 <pre><code class="language-bash">snmpget -v2c -c public 10.0.1.1 1.3.6.1.2.1.1.1.0
 </code></pre>
 <ul>
@@ -764,7 +764,7 @@ snmpget -v2c -c public 10.0.1.1 1.3.6.1.4.1.42424.3.0
 <li><code>1.3.6.1.2.1.1.1.0</code> points to <code>sysDescr</code>.</li>
 </ul>
 <p>This tells us what firmware or system description the device is reporting.</p>
-<p><strong>Command 2 — Check device health</strong></p>
+<p><strong>Command 2 - Check device health</strong></p>
 <pre><code class="language-bash">snmpget -v2c -c public 10.0.1.1 1.3.6.1.4.1.42424.5.0
 </code></pre>
 <p>This reads <code>deviceHealth</code>.</p>
@@ -772,12 +772,12 @@ snmpget -v2c -c public 10.0.1.1 1.3.6.1.4.1.42424.3.0
 <li><code>0</code> means unhealthy.</li>
 <li><code>1</code> means healthy.</li>
 </ul>
-<p><strong>Command 3 — Check the running firmware</strong></p>
+<p><strong>Command 3 - Check the running firmware</strong></p>
 <pre><code class="language-bash">snmpget -v2c -c public 10.0.1.1 1.3.6.1.4.1.42424.2.0
 </code></pre>
 <p>This reads <code>fwRunningImage</code>.</p>
 <p>It tells us which firmware image the device is currently using.</p>
-<p><strong>Command 4 — Check the last-good firmware</strong></p>
+<p><strong>Command 4 - Check the last-good firmware</strong></p>
 <pre><code class="language-bash">snmpget -v2c -c public 10.0.1.1 1.3.6.1.4.1.42424.3.0
 </code></pre>
 <p>This reads <code>fwLastGoodImage</code>.</p>
@@ -828,7 +828,7 @@ iso.3.6.1.4.1.42424.3.0 = INTEGER: 341
 </tr>
 <tr>
 <td>Device health</td>
-<td><code>0</code> — Unhealthy</td>
+<td><code>0</code> - Unhealthy</td>
 </tr>
 </tbody>
 </table>
@@ -836,7 +836,7 @@ iso.3.6.1.4.1.42424.3.0 = INTEGER: 341
 <p><strong>Important:</strong> Do not try to write directly to <code>fwRunningImage</code>. It is read-only. We must use the recovery procedure.</p>
 </details>
 <hr />
-<h2>Step 2 — Find the SNMP Write Community</h2>
+<h2>Step 2 - Find the SNMP Write Community</h2>
 <p>We can read information using the <code>public</code> community, but we need a different community string to change the device's settings.</p>
 <p>Where can we find it?</p>
 <p>The challenge tells us that the write community is stored inside <code>sysContact</code>.</p>
@@ -877,7 +877,7 @@ iso.3.6.1.4.1.42424.3.0 = INTEGER: 341
 <p><strong>Keep this value. We will use it in the next steps.</strong></p>
 </details>
 <hr />
-<h2>Step 3 — Enter Recovery Mode</h2>
+<h2>Step 3 - Enter Recovery Mode</h2>
 <p>Now that we have the write community, we can start the recovery process.</p>
 <p>But before restoring the firmware, we must put the device into recovery mode.</p>
 <h3>What is recovery mode?</h3>
@@ -895,13 +895,13 @@ iso.3.6.1.4.1.42424.3.0 = INTEGER: 341
 <h3>What does this command do?</h3>
 <p>Let's break it down:</p>
 <ul>
-<li><code>snmpset</code> — Changes a value on the device.</li>
-<li><code>-v2c</code> — Uses SNMP version 2c.</li>
-<li><code>-c r3c0v3ry-07</code> — Uses the write community we discovered in Step 2.</li>
-<li><code>10.0.1.1</code> — Target RTU.</li>
-<li><code>1.3.6.1.4.1.42424.1.0</code> — Points to <code>fwRecoveryMode</code>.</li>
-<li><code>i</code> — Tells SNMP that we are writing an integer.</li>
-<li><code>1</code> — Sets recovery mode to ON.</li>
+<li><code>snmpset</code> - Changes a value on the device.</li>
+<li><code>-v2c</code> - Uses SNMP version 2c.</li>
+<li><code>-c r3c0v3ry-07</code> - Uses the write community we discovered in Step 2.</li>
+<li><code>10.0.1.1</code> - Target RTU.</li>
+<li><code>1.3.6.1.4.1.42424.1.0</code> - Points to <code>fwRecoveryMode</code>.</li>
+<li><code>i</code> - Tells SNMP that we are writing an integer.</li>
+<li><code>1</code> - Sets recovery mode to ON.</li>
 </ul>
 <p>In simple words:</p>
 <p><strong>"Tell the RTU to enter recovery mode."</strong></p>
@@ -919,7 +919,7 @@ iso.3.6.1.4.1.42424.3.0 = INTEGER: 341
 <p><strong>We can now restore the firmware image.</strong></p>
 </details>
 <hr />
-<h2>Step 4 — Restore the Last-Known-Good Firmware</h2>
+<h2>Step 4 - Restore the Last-Known-Good Firmware</h2>
 <p>Remember what we discovered in Step 1?</p>
 <table class="pin-table">
 <thead>
@@ -950,13 +950,13 @@ iso.3.6.1.4.1.42424.3.0 = INTEGER: 341
 </code></pre>
 <h3>What does this command do?</h3>
 <ul>
-<li><code>snmpset</code> — Writes a value to the device.</li>
-<li><code>-v2c</code> — Uses SNMP version 2c.</li>
-<li><code>-c r3c0v3ry-07</code> — Uses the write community.</li>
-<li><code>10.0.1.1</code> — Target RTU.</li>
-<li><code>1.3.6.1.4.1.42424.4.0</code> — Points to <code>fwRestoreImage</code>.</li>
-<li><code>i</code> — Specifies that the value is an integer.</li>
-<li><code>341</code> — Selects the last-known-good firmware image.</li>
+<li><code>snmpset</code> - Writes a value to the device.</li>
+<li><code>-v2c</code> - Uses SNMP version 2c.</li>
+<li><code>-c r3c0v3ry-07</code> - Uses the write community.</li>
+<li><code>10.0.1.1</code> - Target RTU.</li>
+<li><code>1.3.6.1.4.1.42424.4.0</code> - Points to <code>fwRestoreImage</code>.</li>
+<li><code>i</code> - Specifies that the value is an integer.</li>
+<li><code>341</code> - Selects the last-known-good firmware image.</li>
 </ul>
 <p>In simple words:</p>
 <p><strong>"Tell the RTU to restore firmware image 341."</strong></p>
@@ -988,7 +988,7 @@ iso.3.6.1.4.1.42424.3.0 = INTEGER: 341
 <p>We must verify the actual running image later.</p>
 </details>
 <hr />
-<h2>Step 5 — Return the RTU to Normal Mode</h2>
+<h2>Step 5 - Return the RTU to Normal Mode</h2>
 <p>We have requested the firmware restoration.</p>
 <p>Now we need to take the device out of recovery mode.</p>
 <p>Remember:</p>
@@ -1001,13 +1001,13 @@ iso.3.6.1.4.1.42424.3.0 = INTEGER: 341
 </code></pre>
 <h3>What does this command do?</h3>
 <ul>
-<li><code>snmpset</code> — Changes a device setting.</li>
-<li><code>-v2c</code> — Uses SNMP version 2c.</li>
-<li><code>-c r3c0v3ry-07</code> — Uses the write community.</li>
-<li><code>10.0.1.1</code> — Target RTU.</li>
-<li><code>1.3.6.1.4.1.42424.1.0</code> — Points to <code>fwRecoveryMode</code>.</li>
-<li><code>i</code> — Specifies an integer.</li>
-<li><code>0</code> — Turns recovery mode OFF and returns the device to normal mode.</li>
+<li><code>snmpset</code> - Changes a device setting.</li>
+<li><code>-v2c</code> - Uses SNMP version 2c.</li>
+<li><code>-c r3c0v3ry-07</code> - Uses the write community.</li>
+<li><code>10.0.1.1</code> - Target RTU.</li>
+<li><code>1.3.6.1.4.1.42424.1.0</code> - Points to <code>fwRecoveryMode</code>.</li>
+<li><code>i</code> - Specifies an integer.</li>
+<li><code>0</code> - Turns recovery mode OFF and returns the device to normal mode.</li>
 </ul>
 <p>In simple words:</p>
 <p><strong>"Tell the RTU to leave recovery mode and start operating normally."</strong></p>
@@ -1025,7 +1025,7 @@ iso.3.6.1.4.1.42424.3.0 = INTEGER: 341
 <p>However, we still need to check whether the firmware restoration was successful.</p>
 </details>
 <hr />
-<h2>Step 6 — Wait Until the Device Becomes Healthy</h2>
+<h2>Step 6 - Wait Until the Device Becomes Healthy</h2>
 <p>After leaving recovery mode, the RTU needs a few seconds to check its firmware.</p>
 <p>It compares:</p>
 <ul>
@@ -1068,14 +1068,14 @@ done
 <p><strong>Note:</strong> Your terminal output did not separately show the result of this polling command. The next step will help us verify the final device state.</p>
 </details>
 <hr />
-<h2>Step 7 — Verify the Firmware and Retrieve the Flag</h2>
+<h2>Step 7 - Verify the Firmware and Retrieve the Flag</h2>
 <p>Now we need to confirm that the firmware was actually restored.</p>
 <p>We will read two OIDs:</p>
 <ol>
-<li><code>fwRunningImage</code> — To check the currently running firmware.</li>
-<li><code>recoveryFlag</code> — To retrieve the challenge flag.</li>
+<li><code>fwRunningImage</code> - To check the currently running firmware.</li>
+<li><code>recoveryFlag</code> - To retrieve the challenge flag.</li>
 </ol>
-<h3>Command 1 — Check the running firmware</h3>
+<h3>Command 1 - Check the running firmware</h3>
 <pre><code class="language-bash">snmpget -v2c -c public 10.0.1.1 1.3.6.1.4.1.42424.2.0
 </code></pre>
 <h3>What does this command do?</h3>
@@ -1084,7 +1084,7 @@ done
 <pre><code class="language-text">341
 </code></pre>
 <p>That would mean the device is now running the last-known-good firmware.</p>
-<h3>Command 2 — Check the device health</h3>
+<h3>Command 2 - Check the device health</h3>
 <pre><code class="language-bash">snmpget -v2c -c public 10.0.1.1 1.3.6.1.4.1.42424.5.0
 </code></pre>
 <h3>What does this command do?</h3>
@@ -1094,7 +1094,7 @@ done
 <li><code>1</code> means healthy.</li>
 </ul>
 <p>We need this value to be <code>1</code> before considering the recovery fully verified.</p>
-<h3>Command 3 — Retrieve the recovery flag</h3>
+<h3>Command 3 - Retrieve the recovery flag</h3>
 <pre><code class="language-bash">snmpget -v2c -c public 10.0.1.1 1.3.6.1.4.1.42424.9.0
 </code></pre>
 <h3>What does this command do?</h3>
@@ -1147,12 +1147,12 @@ iso.3.6.1.4.1.42424.9.0 = &quot;&quot;
 </tr>
 <tr>
 <td>Recovery mode</td>
-<td style="text-align: right;">—</td>
+<td style="text-align: right;"> - </td>
 <td style="text-align: right;"><code>0</code></td>
 </tr>
 <tr>
 <td>Recovery flag</td>
-<td style="text-align: right;">—</td>
+<td style="text-align: right;"> - </td>
 <td style="text-align: right;">Empty</td>
 </tr>
 </tbody>
@@ -1192,7 +1192,7 @@ iso.3.6.1.4.1.42424.9.0 = &quot;&quot;
     <div class="entry" id="ch03">
 <div class="entry-head"><span class="entry-num">03</span><h2 style="margin:0;">Trojan Historian</h2><span class="diff-tag med">Medium</span></div>
 <p><b>Points:</b> 150</p>
-<p><strong>Type:</strong> Defensive · <strong>Points:</strong> 150 · <strong>Surface:</strong> Web (<code>/mail</code>, <code>/evidence</code>, <code>/investigate</code>) on TCP 80 · <strong>Toolkit module:</strong> None — plain <code>curl</code></p>
+<p><strong>Type:</strong> Defensive · <strong>Points:</strong> 150 · <strong>Surface:</strong> Web (<code>/mail</code>, <code>/evidence</code>, <code>/investigate</code>) on TCP 80 · <strong>Toolkit module:</strong> None - plain <code>curl</code></p>
 <hr />
 <h2>The Story</h2>
 <p>HIST-04, the plant's process historian, has been compromised. A trojan deliberately deleted a sample from the <code>TURBINE.VIB</code> vibration trend to hide evidence of suspicious activity.</p>
@@ -1252,7 +1252,7 @@ cat hist.txt
 <summary>Show result and explanation</summary>
 <p>The evidence was successfully retrieved.</p>
 <p>The response contained two separate exports:</p>
-<p><strong>Export 1 — LIVE TREND</strong></p>
+<p><strong>Export 1 - LIVE TREND</strong></p>
 <pre><code class="language-text"># historian export 1/2 - LIVE TREND (HIST-04)
 # columns: tag,seq,value,quality
 TURBINE.VIB,50,701,Good
@@ -1262,7 +1262,7 @@ TURBINE.VIB,55,760,Good
 TURBINE.VIB,56,772,Good
 TURBINE.VIB,58,795,Good
 </code></pre>
-<p><strong>Export 2 — NIGHTLY BACKUP</strong></p>
+<p><strong>Export 2 - NIGHTLY BACKUP</strong></p>
 <pre><code class="language-text"># historian export 2/2 - NIGHTLY BACKUP (HIST-04, all monitored tags)
 # columns: tag,seq,value,quality
 REACTOR.TEMP,50,312,Good
@@ -1442,8 +1442,8 @@ sort -n bkp_seq
 <p>The form submits the following parameters to <code>/submit</code>:</p>
 <ul>
 <li><code>ch=trojan</code></li>
-<li><code>seq</code> — missing sequence number</li>
-<li><code>value</code> — original recorded value</li>
+<li><code>seq</code> - missing sequence number</li>
+<li><code>value</code> - original recorded value</li>
 </ul>
 <p>We must submit the exact sequence number and value recovered from the backup.</p>
 </details>
@@ -1550,7 +1550,7 @@ sort -n bkp_seq
 </tr>
 <tr>
 <td>Expected flag</td>
-<td><code>wired{...}</code> &mdash; shown on the range itself</td>
+<td><code>wired{...}</code> - shown on the range itself</td>
 </tr>
 </tbody>
 </table>
@@ -1577,7 +1577,7 @@ sort -n bkp_seq
 <li>Submit the MAC address.</li>
 </ol>
 <hr />
-<h2>About the Protocol — PROFINET DCP</h2>
+<h2>About the Protocol - PROFINET DCP</h2>
 <p>PROFINET is a communication protocol used in industrial networks. It allows devices such as PLCs and other controllers to discover and identify each other.</p>
 <p>DCP stands for <strong>Discovery and Configuration Protocol</strong>.</p>
 <p>It helps devices find each other and exchange information such as:</p>
@@ -1609,7 +1609,7 @@ sort -n bkp_seq
 <p><strong>ARP</strong> helps devices find which MAC address belongs to an IP address.</p>
 <p>A MAC address identifies a network interface, while an IP address identifies its network address.</p>
 <hr />
-<h2>Step 1 — Find the Real Devices</h2>
+<h2>Step 1 - Find the Real Devices</h2>
 <p>First, we need to find which devices are actually registered on the network.</p>
 <p>We will use the DCP Identify responses from the capture.</p>
 <h3>Command</h3>
@@ -1667,7 +1667,7 @@ PROFINET DCP, ServiceID: Identify (5) / Response Success
 <p>We now have a list of legitimate device names and IP addresses to compare against the suspicious traffic.</p>
 </details>
 <hr />
-<h2>Step 2 — Find the Device Pretending to Be the PLC</h2>
+<h2>Step 2 - Find the Device Pretending to Be the PLC</h2>
 <p>Now we need to find out whether another device is claiming the identity of <code>plc-01</code>.</p>
 <p>We will search for two types of messages:</p>
 <ul>
@@ -1746,7 +1746,7 @@ IP: 10.0.1.21
 <p>Next, we need to confirm which MAC address is actually the impostor.</p>
 </details>
 <hr />
-<h2>Step 3 — Check the Asset Inventory and MAC Vendor</h2>
+<h2>Step 3 - Check the Asset Inventory and MAC Vendor</h2>
 <p>Finding two devices with the same identity is suspicious, but we need more evidence before identifying the attacker.</p>
 <p>We will check two things:</p>
 <ol>
@@ -1799,7 +1799,7 @@ IP: 10.0.1.21
 <p>is the impostor MAC address in this challenge.</p>
 </details>
 <hr />
-<h2>Step 4 — Submit the Finding</h2>
+<h2>Step 4 - Submit the Finding</h2>
 <p>We have completed the investigation.</p>
 <p>We found that two devices were claiming the identity of <code>plc-01</code>.</p>
 <p>The real device is registered in the Asset Inventory, while the suspicious device is not.</p>
@@ -1836,14 +1836,14 @@ IP: 10.0.1.21
     <div class="entry" id="ch05">
 <div class="entry-head"><span class="entry-num">05</span><h2 style="margin:0;">OPC Scout</h2><span class="diff-tag med">Medium</span></div>
 <p><b>Points:</b> 150</p>
-<p><strong>Protocol:</strong> OPC-UA-lite (custom, non-standard) · <strong>Port:</strong> 9005 · <strong>Toolkit module:</strong> None — custom Python client required</p>
+<p><strong>Protocol:</strong> OPC-UA-lite (custom, non-standard) · <strong>Port:</strong> 9005 · <strong>Toolkit module:</strong> None - custom Python client required</p>
 <hr />
 <h2>The Story</h2>
 <p>Imagine a plant monitoring system that stores information in a folder-like structure. Each item has a unique address called a <strong>NodeId</strong>.</p>
 <p>After a system reconfiguration, one node was removed from the folder tree. However, the node still exists and can be read if we know its address.</p>
 <p>In this challenge, you'll explore the server, find a diagnostic message that reveals the missing node's address, and read that node directly.</p>
 <p><strong>Your mission:</strong> Find the orphaned node and retrieve its hidden flag.</p>
-<h2>About the Protocol — OPC-UA-lite</h2>
+<h2>About the Protocol - OPC-UA-lite</h2>
 <p>OPC UA is a communication protocol used by industrial systems to exchange information between devices and software.</p>
 <p>This challenge uses <strong>OPC-UA-lite</strong>, a custom, simplified protocol. It is not a standard OPC UA server, so normal clients such as UA Expert and <code>python-opcua</code> will not complete the handshake.</p>
 <p>The protocol supports three main operations:</p>
@@ -1868,12 +1868,12 @@ print(&quot;HELLO:&quot;, sock.recv(64))
 </code></pre>
 <h3>What the code does</h3>
 <ul>
-<li><code>import socket</code> — Loads Python's socket library, which allows us to communicate over a network.</li>
-<li><code>HOST, PORT = "10.0.1.1", 9005</code> — Defines the target server's IP address and port.</li>
-<li><code>socket.create_connection(...)</code> — Connects to the server. The connection attempt times out after five seconds if it cannot be established.</li>
-<li><code>sock.sendall(b"\x01")</code> — Sends the one-byte HELLO request (<code>0x01</code>) to the server.</li>
-<li><code>sock.recv(64)</code> — Receives up to 64 bytes from the server.</li>
-<li><code>print(...)</code> — Displays the server's response.</li>
+<li><code>import socket</code> - Loads Python's socket library, which allows us to communicate over a network.</li>
+<li><code>HOST, PORT = "10.0.1.1", 9005</code> - Defines the target server's IP address and port.</li>
+<li><code>socket.create_connection(...)</code> - Connects to the server. The connection attempt times out after five seconds if it cannot be established.</li>
+<li><code>sock.sendall(b"\x01")</code> - Sends the one-byte HELLO request (<code>0x01</code>) to the server.</li>
+<li><code>sock.recv(64)</code> - Receives up to 64 bytes from the server.</li>
+<li><code>print(...)</code> - Displays the server's response.</li>
 </ul>
 <details class="reveal guide">
 <summary>Show result and explanation</summary>
@@ -1915,32 +1915,32 @@ print(&quot;ROOT children:&quot;, root_children)
 <h3>What the code does</h3>
 <p><strong>Part 1: Send a BROWSE request</strong></p>
 <ul>
-<li><code>def browse(sock, node_id):</code> — Defines a function that requests the children of a specified node.</li>
-<li><code>0x02</code> — The opcode that tells the server we want to browse a node.</li>
-<li><code>(node_id &gt;&gt; 8) &amp; 0xff</code> — Extracts the higher eight bits of the NodeId.</li>
-<li><code>node_id &amp; 0xff</code> — Extracts the lower eight bits of the NodeId.</li>
-<li><code>bytes([...])</code> — Combines the opcode and two NodeId bytes into the request.</li>
-<li><code>sock.sendall(...)</code> — Sends the request to the server.</li>
-<li><code>sock.recv(1024)</code> — Receives the server's response, up to 1024 bytes.</li>
+<li><code>def browse(sock, node_id):</code> - Defines a function that requests the children of a specified node.</li>
+<li><code>0x02</code> - The opcode that tells the server we want to browse a node.</li>
+<li><code>(node_id &gt;&gt; 8) &amp; 0xff</code> - Extracts the higher eight bits of the NodeId.</li>
+<li><code>node_id &amp; 0xff</code> - Extracts the lower eight bits of the NodeId.</li>
+<li><code>bytes([...])</code> - Combines the opcode and two NodeId bytes into the request.</li>
+<li><code>sock.sendall(...)</code> - Sends the request to the server.</li>
+<li><code>sock.recv(1024)</code> - Receives the server's response, up to 1024 bytes.</li>
 </ul>
 <p><strong>Part 2: Decode the response</strong></p>
 <ul>
-<li><code>response[1]</code> — Reads the status byte.</li>
-<li><code>response[2]</code> — Reads the number of children returned by the server.</li>
-<li><code>children, offset = [], 3</code> — Creates an empty list and sets the starting position of the child data.</li>
-<li><code>for _ in range(count):</code> — Loops through each child in the response.</li>
-<li><code>(response[offset] &lt;&lt; 8) | response[offset + 1]</code> — Combines two bytes into the child's NodeId.</li>
-<li><code>response[offset + 2]</code> — Reads the length of the child's name.</li>
-<li><code>.decode("utf-8", "replace")</code> — Converts the name's bytes into readable text.</li>
-<li><code>children.append((node_id, name))</code> — Stores the child's NodeId and name.</li>
-<li><code>offset += 3 + name_len</code> — Moves to the next child in the response.</li>
-<li><code>return status, children</code> — Returns the status and decoded child list.</li>
+<li><code>response[1]</code> - Reads the status byte.</li>
+<li><code>response[2]</code> - Reads the number of children returned by the server.</li>
+<li><code>children, offset = [], 3</code> - Creates an empty list and sets the starting position of the child data.</li>
+<li><code>for _ in range(count):</code> - Loops through each child in the response.</li>
+<li><code>(response[offset] &lt;&lt; 8) | response[offset + 1]</code> - Combines two bytes into the child's NodeId.</li>
+<li><code>response[offset + 2]</code> - Reads the length of the child's name.</li>
+<li><code>.decode("utf-8", "replace")</code> - Converts the name's bytes into readable text.</li>
+<li><code>children.append((node_id, name))</code> - Stores the child's NodeId and name.</li>
+<li><code>offset += 3 + name_len</code> - Moves to the next child in the response.</li>
+<li><code>return status, children</code> - Returns the status and decoded child list.</li>
 </ul>
 <p><strong>Part 3: Browse the Root</strong></p>
 <ul>
-<li><code>browse(sock, 0x0000)</code> — Requests the children of the Root node.</li>
-<li><code>decode_browse(...)</code> — Converts the raw response into readable NodeIds and names.</li>
-<li><code>print(...)</code> — Displays the children.</li>
+<li><code>browse(sock, 0x0000)</code> - Requests the children of the Root node.</li>
+<li><code>decode_browse(...)</code> - Converts the raw response into readable NodeIds and names.</li>
+<li><code>print(...)</code> - Displays the children.</li>
 </ul>
 <p>We start at Root because we need to discover which nodes are available before exploring the server.</p>
 <details class="reveal guide">
@@ -1987,13 +1987,13 @@ diag_id = next(
 </code></pre>
 <h3>What the code does</h3>
 <ul>
-<li><code>next(...)</code> — Finds the first matching item in an iterable.</li>
-<li><code>for nid, name in root_children</code> — Examines each NodeId and name discovered in Step 2.</li>
-<li><code>if name == "Server"</code> — Selects the entry named <code>Server</code>.</li>
-<li><code>server_id</code> — Stores the NodeId of the Server node.</li>
-<li><code>browse(sock, server_id)</code> — Requests the children of the Server node.</li>
-<li><code>decode_browse(...)</code> — Decodes the response into readable NodeIds and names.</li>
-<li><code>print(...)</code> — Displays the Server node's children.</li>
+<li><code>next(...)</code> - Finds the first matching item in an iterable.</li>
+<li><code>for nid, name in root_children</code> - Examines each NodeId and name discovered in Step 2.</li>
+<li><code>if name == "Server"</code> - Selects the entry named <code>Server</code>.</li>
+<li><code>server_id</code> - Stores the NodeId of the Server node.</li>
+<li><code>browse(sock, server_id)</code> - Requests the children of the Server node.</li>
+<li><code>decode_browse(...)</code> - Decodes the response into readable NodeIds and names.</li>
+<li><code>print(...)</code> - Displays the Server node's children.</li>
 <li>The second <code>next(...)</code> searches those children for the name <code>Diagnostics</code>.</li>
 <li><code>diag_id</code> stores the Diagnostics node's NodeId for use in the next step.</li>
 </ul>
@@ -2006,8 +2006,8 @@ diag_id = next(
 <p><strong>What does it mean?</strong></p>
 <p>The Server node has two children:</p>
 <ul>
-<li><code>ServerStatus</code> — NodeId <code>513</code> (<code>0x0201</code>).</li>
-<li><code>Diagnostics</code> — NodeId <code>514</code> (<code>0x0202</code>).</li>
+<li><code>ServerStatus</code> - NodeId <code>513</code> (<code>0x0201</code>).</li>
+<li><code>Diagnostics</code> - NodeId <code>514</code> (<code>0x0202</code>).</li>
 </ul>
 <p>We now know the address of the Diagnostics node. Its message may reveal information about the missing node.</p>
 </details>
@@ -2039,33 +2039,33 @@ print(f&quot;Orphaned NodeId: 0x{orphan_id:04x}&quot;)
 <h3>What the code does</h3>
 <p><strong>Part 1: Read a node</strong></p>
 <ul>
-<li><code>import re</code> — Loads Python's regular expression library, which helps search text for a pattern.</li>
-<li><code>def read(sock, node_id):</code> — Defines a function to request a node's value.</li>
-<li><code>0x03</code> — The opcode for a READ request.</li>
+<li><code>import re</code> - Loads Python's regular expression library, which helps search text for a pattern.</li>
+<li><code>def read(sock, node_id):</code> - Defines a function to request a node's value.</li>
+<li><code>0x03</code> - The opcode for a READ request.</li>
 <li>The next two bytes encode the requested NodeId.</li>
-<li><code>sock.sendall(...)</code> — Sends the READ request.</li>
-<li><code>sock.recv(1024)</code> — Receives the response.</li>
+<li><code>sock.sendall(...)</code> - Sends the READ request.</li>
+<li><code>sock.recv(1024)</code> - Receives the response.</li>
 </ul>
 <p><strong>Part 2: Decode the response</strong></p>
 <ul>
-<li><code>response[1]</code> — Reads the status byte.</li>
-<li><code>response[2]</code> — Reads the length of the returned value.</li>
-<li><code>response[3:3 + length]</code> — Extracts the value bytes from the response.</li>
-<li><code>return status, value</code> — Returns the status and extracted value.</li>
+<li><code>response[1]</code> - Reads the status byte.</li>
+<li><code>response[2]</code> - Reads the length of the returned value.</li>
+<li><code>response[3:3 + length]</code> - Extracts the value bytes from the response.</li>
+<li><code>return status, value</code> - Returns the status and extracted value.</li>
 </ul>
 <p><strong>Part 3: Read Diagnostics</strong></p>
 <ul>
-<li><code>read(sock, diag_id)</code> — Requests the Diagnostics node's value.</li>
-<li><code>decode_read(...)</code> — Extracts the returned value.</li>
-<li><code>.decode("utf-8", "replace")</code> — Converts the bytes into readable text.</li>
-<li><code>print(...)</code> — Displays the diagnostic message.</li>
+<li><code>read(sock, diag_id)</code> - Requests the Diagnostics node's value.</li>
+<li><code>decode_read(...)</code> - Extracts the returned value.</li>
+<li><code>.decode("utf-8", "replace")</code> - Converts the bytes into readable text.</li>
+<li><code>print(...)</code> - Displays the diagnostic message.</li>
 </ul>
 <p><strong>Part 4: Extract the orphaned NodeId</strong></p>
 <ul>
-<li><code>re.search(r"i=0x([0-9a-fA-F]+)", diag_text)</code> — Searches the message for a hexadecimal address beginning with <code>i=0x</code>.</li>
-<li><code>m.group(1)</code> — Extracts the hexadecimal digits without the <code>i=0x</code> prefix.</li>
-<li><code>int(m.group(1), 16)</code> — Converts the hexadecimal string into an integer.</li>
-<li><code>f"Orphaned NodeId: 0x{orphan_id:04x}"</code> — Prints the NodeId in hexadecimal, padded to at least four digits.</li>
+<li><code>re.search(r"i=0x([0-9a-fA-F]+)", diag_text)</code> - Searches the message for a hexadecimal address beginning with <code>i=0x</code>.</li>
+<li><code>m.group(1)</code> - Extracts the hexadecimal digits without the <code>i=0x</code> prefix.</li>
+<li><code>int(m.group(1), 16)</code> - Converts the hexadecimal string into an integer.</li>
+<li><code>f"Orphaned NodeId: 0x{orphan_id:04x}"</code> - Prints the NodeId in hexadecimal, padded to at least four digits.</li>
 </ul>
 <p>This step identifies the address we need to access the orphaned node directly.</p>
 <details class="reveal guide">
@@ -2088,11 +2088,11 @@ print(&quot;FLAG:&quot;, flag_value.decode(&quot;utf-8&quot;, &quot;replace&quot
 </code></pre>
 <h3>What the code does</h3>
 <ul>
-<li><code>read(sock, orphan_id)</code> — Sends a READ request for the orphaned node discovered in Step 4.</li>
-<li><code>decode_read(...)</code> — Extracts the node's value from the server's response.</li>
-<li><code>status, flag_value = ...</code> — Stores the response status and the returned value.</li>
-<li><code>flag_value.decode("utf-8", "replace")</code> — Converts the returned bytes into readable text.</li>
-<li><code>print("FLAG:", ...)</code> — Displays the retrieved value.</li>
+<li><code>read(sock, orphan_id)</code> - Sends a READ request for the orphaned node discovered in Step 4.</li>
+<li><code>decode_read(...)</code> - Extracts the node's value from the server's response.</li>
+<li><code>status, flag_value = ...</code> - Stores the response status and the returned value.</li>
+<li><code>flag_value.decode("utf-8", "replace")</code> - Converts the returned bytes into readable text.</li>
+<li><code>print("FLAG:", ...)</code> - Displays the retrieved value.</li>
 </ul>
 <p>Instead of browsing through the tree, we use the discovered NodeId to request the node directly.</p>
 <details class="reveal guide">
@@ -2145,7 +2145,7 @@ print(&quot;FLAG:&quot;, flag_value.decode(&quot;utf-8&quot;, &quot;replace&quot
 <li><code>sqNum</code> increases when the same state is retransmitted.</li>
 <li>The <code>sysrupt sequence</code> command runs multiple commands in order, with optional delays between them.</li>
 </ul>
-<h2>About the Protocol — GOOSE</h2>
+<h2>About the Protocol - GOOSE</h2>
 <p><strong>GOOSE</strong> stands for Generic Object Oriented Substation Event. It is used in electrical substations to share important status information, such as breaker states.</p>
 <p>GOOSE messages can be repeated so that receiving devices continue to receive the latest state.</p>
 <p>Two important fields are:</p>
@@ -2591,16 +2591,16 @@ Verification:         Protocol acknowledgement received
 ./bin/sysrupt modbus write 1 486
 </code></pre>
 <p><strong>What are we doing with each value?</strong></p>
-<p><strong>1. Control rod — Register 0</strong></p>
+<p><strong>1. Control rod - Register 0</strong></p>
 <pre><code class="language-bash">./bin/sysrupt modbus write 0 475
 </code></pre>
 <p>We set the control rod to <code>475</code> to bring neutron flux towards its safe range.</p>
 <p>The challenge specifies that the target flux range is 300–650.</p>
-<p><strong>2. Pressure valve — Register 2</strong></p>
+<p><strong>2. Pressure valve - Register 2</strong></p>
 <pre><code class="language-bash">./bin/sysrupt modbus write 2 0
 </code></pre>
 <p>We set the pressure valve to <code>0</code> so that pressure follows the intended temperature relationship.</p>
-<p><strong>3. Water-flow pump — Register 1</strong></p>
+<p><strong>3. Water-flow pump - Register 1</strong></p>
 <pre><code class="language-bash">./bin/sysrupt modbus write 1 486
 </code></pre>
 <p>We set the water-flow pump to <code>486</code> to balance the heat inside the reactor.</p>
@@ -2976,7 +2976,7 @@ IR74 = Solve Status
 <blockquote>
 <p><strong>Important:</strong> the badge pauses the plant simulation whenever no client is connected. The ~10 s
 stability hold only advances while a connection stays open, so the hold reads <strong>and</strong> the flag read
-must be steps in this one sequence — the toolkit runs every step over a single persistent connection.
+must be steps in this one sequence - the toolkit runs every step over a single persistent connection.
 Doing them as separate commands after a shell <code>sleep</code> opens new connections and the hold never
 completes.</p>
 </blockquote>
@@ -3041,7 +3041,7 @@ completes.</p>
 </ul>
 <p>The three <code>read-input 74</code> steps plus the final read are spaced ~2.6 s apart so the single connection
 stays open for the full ~10 s hold. Keeping one connection open is what lets the stability timer run to
-completion — the final <code>read-input 48</code> then returns the flag.</p>
+completion - the final <code>read-input 48</code> then returns the flag.</p>
 <h3>Validate and execute the sequence</h3>
 <p>First, check whether the JSON file is correct:</p>
 <pre><code class="language-bash">./bin/sysrupt sequence validate maint.seq.json
@@ -3069,7 +3069,7 @@ completion — the final <code>read-input 48</code> then returns the flag.</p>
 <p>Changing the rod to <code>100</code> does not automatically mean the system has accepted the change.</p>
 <p>The background reconciliation loop checks the rod position while the unlock is open and, if it is,
 promotes <code>100</code> to the authorised value. This is the <code>modbus verify 73 100 --input</code> step <strong>inside</strong> the
-sequence — you do not run it separately (a standalone command would open a new connection). It confirms
+sequence - you do not run it separately (a standalone command would open a new connection). It confirms
 input register <code>73</code> now reads <code>100</code>.</p>
 <details class="reveal guide">
 <summary>Show result and explanation</summary>
@@ -3082,7 +3082,7 @@ input register <code>73</code> now reads <code>100</code>.</p>
 <h2>Step 6: Read the Flag from the Sequence Output</h2>
 <h3>What are we doing?</h3>
 <p>Because the hold reads and the flag read are the last steps of the <strong>same</strong> sequence, you do not run
-any separate commands here — the single <code>sequence run</code> above already held the position for ~10 s on one
+any separate commands here - the single <code>sequence run</code> above already held the position for ~10 s on one
 connection and read IR48 at the end. You just read its output.</p>
 <h3>What to look for in the sequence output</h3>
 <ul>
@@ -3100,7 +3100,7 @@ flag in IR48 and the final step reports completion:</p>
 ascii: wired{...}
 </code></pre>
 <p>If the final step is still empty, the hold was interrupted (a dropped connection, or the sequence was
-too short). Re-run the whole sequence — it must complete on one connection without a shell <code>sleep</code>
+too short). Re-run the whole sequence - it must complete on one connection without a shell <code>sleep</code>
 splitting it.</p>
 </details>
 <hr />
@@ -3180,7 +3180,7 @@ splitting it.</p>
 </tr>
 <tr>
 <td>Expected Flag</td>
-<td><code>wired{...}</code> &mdash; shown on the range itself</td>
+<td><code>wired{...}</code> - shown on the range itself</td>
 </tr>
 </tbody>
 </table>
