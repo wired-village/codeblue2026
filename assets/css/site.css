@@ -646,7 +646,12 @@ p + h2, ul + h2, ol + h2, pre + h2, table + h2, .note + h2 { margin-top: var(--s
              /* 25px of artwork -> 45px of tap target, same visual position */
              padding: 10px 2px; margin: -10px -2px; }
 .partner a:hover, .partner a:focus-visible { opacity: 1; }
-.partner img { height: 25px; width: auto; display: block; }
+/* Balanced by eye, not by number: Traboda is a long wordmark (aspect 5.2),
+   bi0s is a compact stacked lockup (aspect 2.2), so equal heights make bi0s
+   look far smaller. */
+.partner img { width: auto; display: block; }
+.partner img.p-traboda { height: 26px; }
+.partner img.p-bi0s { height: 38px; }
 .partner img.p-bi0s { filter: invert(1); }   /* dark mark on a dark footer */
 
 footer { border-top: 1px solid var(--border); padding: 28px 0 32px; margin-top: 34px; }
@@ -867,3 +872,5 @@ body > footer { position: relative; z-index: 1; }
 /* centred closing lines */
 .closing { text-align: center; max-width: none; margin: var(--sp-6) auto var(--sp-2); color: var(--text); }
 .closing + .closing { margin-top: 0; color: var(--text-dim); }
+
+/* the home hero shows the wordmark itself as the heading */
