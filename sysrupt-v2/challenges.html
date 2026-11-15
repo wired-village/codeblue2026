@@ -1480,8 +1480,8 @@ sort -n bkp_seq
 <p>The first correct submission starts the stability timer.</p>
 <p>The second submission, after waiting, checks whether the restoration has remained stable long enough for the challenge to be completed.</p>
 <p><strong>Important:</strong> A wrong sequence number or value can re-corrupt the record and reset the timer.</p>
-<p>The expected completion flag from the challenge description is:</p>
-<pre><code class="language-text">wired{tr0jan_h1st_r3st0r3d}
+<p>The range returns the completion flag at this point:</p>
+<pre><code class="language-text">wired{...}
 </code></pre>
 <p>The actual flag should be recorded only after it is returned by the challenge server.</p>
 </details>
@@ -1550,7 +1550,7 @@ sort -n bkp_seq
 </tr>
 <tr>
 <td>Expected flag</td>
-<td><code>wired{tr0jan_h1st_r3st0r3d}</code></td>
+<td><code>wired{...}</code> &mdash; shown on the range itself</td>
 </tr>
 </tbody>
 </table>
@@ -2098,12 +2098,12 @@ print(&quot;FLAG:&quot;, flag_value.decode(&quot;utf-8&quot;, &quot;replace&quot
 <details class="reveal guide">
 <summary>Show result and explanation</summary>
 <p><strong>Result:</strong></p>
-<pre><code class="language-text">FLAG: wired{0pcu4_h1dd3n_n0d3_r3ad}
+<pre><code class="language-text">FLAG: wired{...}
 </code></pre>
 <p><strong>What does it mean?</strong></p>
 <p>Success! The server returned the flag stored at NodeId <code>0x5000</code>.</p>
 <p>You accessed the node directly using its address, even though it was no longer reachable through the normal <code>Objects</code> tree.</p>
-<p><strong>Flag:</strong> <code>wired{0pcu4_h1dd3n_n0d3_r3ad}</code></p>
+<p><strong>Flag:</strong> <code>wired{...}</code></p>
 </details>
 <hr />
 <h2>What You Learned</h2>
@@ -2248,7 +2248,7 @@ frames:
 <pre><code class="language-text">Operation:            GOOSE send
 Target:               10.0.1.1:6180
 Request:              47 53 01 01 0b b8 00 00 00 06 00 00 00 00 00 01  ::  APPID=0x0bb8 stNum=6 sqNum=0 confRev=1 flags=0x01 (breaker_open=True, test=False)
-Protocol response:    ACCEPTED breaker=OPEN wired{g00se_r3play_bl4ck0ut}
+Protocol response:    ACCEPTED breaker=OPEN wired{...}
 Verification:         Protocol acknowledgement received
 Elapsed:              7.5 ms
 Note:                 frame acknowledged; no flag in reply
@@ -2256,7 +2256,7 @@ Note:                 frame acknowledged; no flag in reply
 <p><strong>What does it mean?</strong></p>
 <p>The training subscriber accepted the frame and reported the breaker as open.</p>
 <p>The response also revealed the challenge flag:</p>
-<p><strong>Flag:</strong> <code>wired{g00se_r3play_bl4ck0ut}</code></p>
+<p><strong>Flag:</strong> <code>wired{...}</code></p>
 <p>This confirms that the single-frame command was enough to solve the challenge in your run. The sequence file in the next step demonstrates how to send multiple frames in order.</p>
 </details>
 <h2>Step 3: Create a Sequence to Repeat the State</h2>
@@ -3097,7 +3097,7 @@ connection and read IR48 at the end. You just read its output.</p>
 <p>Once the override has been held stable for ~10 s on the one connection, the challenge publishes the
 flag in IR48 and the final step reports completion:</p>
 <pre><code class="language-text">[8] OK  modbus read-input 48 16  -&gt;  Challenge completion confirmed
-ascii: wired{t0ct0u_r0d_0verr1d3_pwn}
+ascii: wired{...}
 </code></pre>
 <p>If the final step is still empty, the hold was interrupted (a dropped connection, or the sequence was
 too short). Re-run the whole sequence — it must complete on one connection without a shell <code>sleep</code>
@@ -3180,7 +3180,7 @@ splitting it.</p>
 </tr>
 <tr>
 <td>Expected Flag</td>
-<td><code>wired{t0ct0u_r0d_0verr1d3_pwn}</code></td>
+<td><code>wired{...}</code> &mdash; shown on the range itself</td>
 </tr>
 </tbody>
 </table>
