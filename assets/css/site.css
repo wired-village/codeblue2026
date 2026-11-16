@@ -911,3 +911,33 @@ body > footer { position: relative; z-index: 1; }
 .foot-li { margin-left: 14px; padding-left: 14px; border-left: 1px solid var(--border);
            border-bottom: none; color: var(--text-dim); }
 .foot-li:hover { color: var(--accent-text); }
+
+/* ---------- scoreboard call-to-action (home + badge hub pages) ---------- */
+.scoreboard-cta {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-3) var(--sp-4);
+  border: 1px solid var(--accent-dim); border-radius: 8px;
+  background: var(--bg-alt);
+  padding: var(--sp-4) var(--sp-5);
+  margin: 0 0 var(--sp-6);
+}
+.scoreboard-cta .sb-text { flex: 1 1 320px; min-width: 0; }
+.scoreboard-cta .sb-eyebrow {
+  display: block; font-size: var(--fs-xs); letter-spacing: .08em; text-transform: uppercase;
+  color: var(--accent-text); margin-bottom: 4px;
+}
+.scoreboard-cta p { margin: 0; font-size: var(--fs-ms); line-height: 1.6; color: var(--text-dim); }
+.scoreboard-cta .sb-link {
+  flex: 0 0 auto; display: inline-block;
+  border: 1px solid var(--accent-dim); border-radius: 6px;
+  padding: 10px 18px; font-weight: 600; font-size: var(--fs-ms);
+  color: var(--accent-text); text-decoration: none; white-space: nowrap;
+}
+.scoreboard-cta .sb-link:hover,
+.scoreboard-cta .sb-link:focus-visible { border-color: var(--accent); background: var(--bg-inset); }
+@media (max-width: 560px) {
+  .scoreboard-cta { flex-direction: column; align-items: stretch; }
+  /* flex-basis maps to the main axis, which is the HEIGHT once this is a column -
+     leaving the 320px basis on .sb-text stretched the block and left a dead gap. */
+  .scoreboard-cta .sb-text { flex: 0 0 auto; }
+  .scoreboard-cta .sb-link { width: 100%; text-align: center; }
+}
