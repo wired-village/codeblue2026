@@ -352,7 +352,9 @@
 </div>
 <div class="bm-panel" id="bm-U13" data-ref="U13" hidden>
   <h3>U13: console UART <span class="bm-val">F1_PM2.54-1x7PLT-H8.5-R</span></h3>
-  <p class="bm-note">The console lives here. Your USB-to-UART adapter plugs into this header, not the USB-C port. While the Baud Hunter lab is open this same UART switches to 57600.</p>
+  <p class="bm-note">The console lives here. While the Baud Hunter lab is open this same UART switches to 57600.</p>
+  <p class="bm-note"><b>Careful: the board has three identical 1&times;7 headers</b> &mdash; U13, U14 and U15, same part, same size. Only <b>U13</b> is the console. <b>U15</b> is the STM32 side-channel header and, like U13, has <b>GND on pin 7</b>, so a cable wired to &ldquo;pins 3, 4 and 7&rdquo; of U15 looks perfectly right and is completely silent. Check the silkscreen label before you plug in. The giveaway: U13 also carries the Bus Stop SPI signals (pin 2 = IO15/CS, pin 5 = IO3/MOSI, pin 6 = IO2/SCK); U15 carries <code>SCA_*</code> pins that go to the STM32, not the ESP32.</p>
+  <p class="bm-note">If the console is dead in both directions, this and crossed TX/RX are the two causes worth checking first. The badge console is also mirrored on the <b>USB-C port</b>, which needs no wiring at all &mdash; use that if your adapter is giving you trouble (everything except Baud Hunter works over USB-C).</p>
   <div class="bm-panel-grid">
     <figure class="bm-zoom">
       <img src="../assets/board/zoom/U13.webp" width="760" height="721" loading="lazy" decoding="async"
