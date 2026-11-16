@@ -51,9 +51,15 @@ PAGES = [
     'compatriot/automotive.html',
     'compatriot/embedded.html',
     'compatriot/wireless.html',
-    'sysrupt/challenges.html',
     'sysrupt-v2/challenges.html',
+    'vanguard-x/challenges.html',
 ]
+
+# Per-page override of FREE_CHALLENGES. Vanguard X ships with every walkthrough
+# locked (none open) because its guides carry the exact satellite answers.
+FREE_OVERRIDE = {
+    'vanguard-x/challenges.html': 0,
+}
 
 OPEN_TAG = '<details class="reveal guide">'
 LOCK_PILL = '<span class="lockpill">locked</span>'
@@ -120,9 +126,9 @@ def find_blocks(html: str, tag: str):
 
 
 # Challenge ids differ per page: the Compatriot pages number them c1..c6, the
-# Sysrupt pages ch01..ch10. Anything else (a prologue, a framing block) is not
-# a challenge.
-CHALLENGE_ID = re.compile(r'^ch?\d+$')
+# Sysrupt pages ch01..ch10, the Vanguard page l1..l5. Anything else (a prologue,
+# a framing/reference block) is not a challenge.
+CHALLENGE_ID = re.compile(r'^(?:ch?|l)\d+$')
 
 
 def entry_offsets(html: str):
@@ -204,6 +210,7 @@ def do_lock(root, pin, verify) -> int:
     for rel in PAGES:
         path = os.path.join(root, rel)
         html = open(path, encoding='utf-8').read()
+        free = FREE_OVERRIDE.get(rel, FREE_CHALLENGES)
         entries = entry_offsets(html)
         already = len(find_blocks(html, '<details class="reveal guide locked"'))
         blocks = find_blocks(html, OPEN_TAG)
@@ -212,7 +219,7 @@ def do_lock(root, pin, verify) -> int:
         to_lock, skipped = [], 0
         for start, end in blocks:
             ci = challenge_index(entries, start)
-            if ci < 0 or ci < FREE_CHALLENGES:
+            if ci < 0 or ci < free:
                 continue
             if split_block(html[start:end]) is None:
                 skipped += 1
@@ -242,7 +249,7 @@ def do_lock(root, pin, verify) -> int:
         open(path, 'w', encoding='utf-8').write(''.join(out))
         total += here
         nch = sum(1 for _, eid in entries if CHALLENGE_ID.match(eid))
-        print(f'{rel}: {nch} challenges, first {min(FREE_CHALLENGES, nch)} open, '
+        print(f'{rel}: {nch} challenges, first {min(free, nch)} open, '
               f'{here} guides locked'
               + (f', {skipped} not lockable (no reveal-body)' if skipped else ''))
 
@@ -256,6 +263,7 @@ def do_status(root) -> int:
     for rel in PAGES:
         path = os.path.join(root, rel)
         html = open(path, encoding='utf-8').read()
+        free = FREE_OVERRIDE.get(rel, FREE_CHALLENGES)
         entries = entry_offsets(html)
         locked = find_blocks(html, '<details class="reveal guide locked"')
         openb = find_blocks(html, OPEN_TAG)
@@ -271,7 +279,7 @@ def do_status(root) -> int:
             if ci < 0:
                 print(f'    (framing, always open)  open={o} locked={l}')
                 continue
-            label = 'free' if ci < FREE_CHALLENGES else 'locked'
+            label = 'free' if ci < free else 'locked'
             print(f'    challenge {ci + 1:>2} [{label:>6}]  open={o} locked={l}')
     return 0
 
