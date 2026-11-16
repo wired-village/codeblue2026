@@ -132,8 +132,13 @@
            see "connect at 115200 8N1" below, for Shell Breakout, Bus Stop, and for
            submitting a flag. Everything here assumes Linux (the Arsenal Labs kit).</p>
         <p class="note">The badge console runs on a <b>USB-to-UART TTL adapter</b>, not the
-           USB-C port. Wire the adapter to header <b>U13</b>: adapter <b>RX &rarr; U13 pin 3</b>,
-           adapter <b>TX &rarr; U13 pin 4</b>, and a shared <b>GND</b>. Use 3.3&nbsp;V logic.</p>
+           USB-C port. Wire the adapter to header <b>U13</b>, crossing the data lines:
+           adapter <b>TX &rarr; U13 pin 3</b> (pin 3 is the badge's <i>receive</i> line),
+           adapter <b>RX &rarr; U13 pin 4</b> (pin 4 is the badge's <i>transmit</i> line),
+           and adapter <b>GND &rarr; U13 pin 7</b>. Use 3.3&nbsp;V logic.</p>
+        <p class="note">If the console stays silent in both directions, you have almost
+           certainly wired TX&rarr;TX / RX&rarr;RX, or left GND off. Cross the two data
+           lines and share a ground.</p>
         <ol>
           <li>Wire the TTL adapter to U13 as above and plug the adapter into your computer.</li>
           <li>Find its port name:
@@ -440,7 +445,7 @@
       </div></details>
       <details class="reveal guide"><summary>Full guide</summary><div class="reveal-body">
         <ol>
-          <li>With your TTL adapter already on U13 (RX&rarr;pin3, TX&rarr;pin4, GND),
+          <li>With your TTL adapter already on U13 (adapter TX&rarr;pin 3, adapter RX&rarr;pin 4, GND&rarr;pin 7),
             open <b>Embedded &rarr; Baud Hunter</b> on the badge.</li>
           <li>Your 115200 terminal now shows garbage, that confirms something is
             transmitting at a different rate.</li>
