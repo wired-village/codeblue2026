@@ -46,7 +46,7 @@
   <p class="crumbs"><a href="../index.html">Wired Village</a><span class="sep">/</span>Vanguard X</p>
   <div class="split">
     <div>
-      <h1>Vanguard X &mdash; Hack the Satellite</h1>
+      <h1>Vanguard X - Hack the Satellite</h1>
       <p class="lead">
         Tune in to a satellite. Decode it. Talk your way in.
       </p>
@@ -55,7 +55,7 @@
       </p>
       <p>
         Vanguard X is the same Vanguard badge as <a href="../sysrupt-v2/index.html">Sysrupt V2</a>,
-        running a different firmware. A second board nearby &mdash; the satellite simulator &mdash;
+        running a different firmware. A second board nearby - the satellite simulator -
         is broadcasting over LoRa on a fixed schedule, forever. Your badge tunes to the same radio,
         captures the frames, and works five levels in order: read the protocol, decode the
         satellite&rsquo;s identity, reverse its firmware, transmit a valid uplink, and recover a
@@ -63,9 +63,9 @@
       </p>
       <p>
         No cloud, no internet, no extra radios. Progress and the level count live on the badge&rsquo;s
-        own colour LCD and survive a reboot. The badge is also a full event companion &mdash; PeerDrop
+        own colour LCD and survive a reboot. The badge is also a full event companion - PeerDrop
         contact-trading, five games, a chiptune player, badge-to-badge radio chat and a hardware
-        self-test &mdash; see <a href="#features">Features</a> below.
+        self-test - see <a href="#features">Features</a> below.
       </p>
     </div>
     <img src="../assets/sysrupt-v2/board.webp" alt="The Vanguard ESP32-S3 badge" style="border-radius:4px;" width="512" height="498">
@@ -86,7 +86,7 @@
       <pre># Windows: PuTTY, Serial, the badge's COM port, 115200 8N1
 # macOS / Linux:
 screen /dev/ttyACM0 115200       # or: picocom -b 115200 /dev/ttyACM0</pre>
-      Most of the real work &mdash; reading what the satellite sent, typing an answer &mdash;
+      Most of the real work - reading what the satellite sent, typing an answer -
       happens on that terminal, not the tiny screen.</li>
     <li>Open <b>Hack the Satellite</b> from the main menu. You land on a count of levels cleared,
       with a <b>Submit Flag</b> entry underneath it. Start at Level 1 and work in order.</li>
@@ -98,7 +98,7 @@ screen /dev/ttyACM0 115200       # or: picocom -b 115200 /dev/ttyACM0</pre>
      Both are plain Python 3 and need <code>pyserial</code> (<code>pip install pyserial</code>).</p>
   <p class="note">Nothing in this CTF is solved by guessing. Every level gives you real data; the
     puzzle is working out what it means. Each level has an on-screen hint ladder that gets more
-    specific each time you ask &mdash; use it one step at a time.</p>
+    specific each time you ask - use it one step at a time.</p>
 </section>
 
 <section class="wrap sec">
@@ -107,7 +107,7 @@ screen /dev/ttyACM0 115200       # or: picocom -b 115200 /dev/ttyACM0</pre>
      Levels 1&ndash;4 complete themselves the instant you solve them on the badge; only Level 5&rsquo;s
      flag is typed in by hand at <b>Submit Flag</b>.</p>
   <p class="arsenal-note">Start here: <a href="challenges.html#l1">Level 1 &middot; Satellite Recon</a>
-     &mdash; learn the shape of the frames coming down before anything else.</p>
+     - learn the shape of the frames coming down before anything else.</p>
   <table class="index-table">
     <tr data-href="challenges.html#l1">
       <td class="ix-name"><a href="challenges.html#l1">Level 1 &middot; Satellite Recon</a></td>
@@ -137,13 +137,13 @@ screen /dev/ttyACM0 115200       # or: picocom -b 115200 /dev/ttyACM0</pre>
   </table>
   <p>Each level&rsquo;s guide explains what it is testing, which concept or field to look at, and the
      tool to reach for. The step-by-step answer stays locked behind the passphrase handed out at the
-     event &mdash; on this badge none of the walkthroughs are open by default.</p>
+     event - on this badge none of the walkthroughs are open by default.</p>
   <p><a class="arsenal-note" href="challenges.html">Open the challenge guides &rarr;</a></p>
 </section>
 
 <section class="wrap sec" id="features">
   <h2>Features</h2>
-  <p>Seven items on the main menu &mdash; that is the whole badge. Move the highlight with the joystick,
+  <p>Seven items on the main menu - that is the whole badge. Move the highlight with the joystick,
      <code>OK</code> to open, <code>BACK</code> to climb out. <code>DISP</code> jumps to Settings from
      anywhere; mash <code>BACK</code> to return to the home screen.</p>
 
@@ -153,22 +153,22 @@ screen /dev/ttyACM0 115200       # or: picocom -b 115200 /dev/ttyACM0</pre>
      <a href="challenges.html">challenge guides</a>.</p>
 
   <h3>02 &middot; PeerDrop (BLE)</h3>
-  <p>Trade digital business cards by walking up to someone &mdash; no typing, no QR. Open PeerDrop on
+  <p>Trade digital business cards by walking up to someone - no typing, no QR. Open PeerDrop on
      both badges; they find each other over Bluetooth, each side confirms, and both profiles save
      straight into Contacts. Set up your own profile first (Settings &rarr; Wi-Fi Setup). Bluetooth
-     range is short &mdash; stay close until both badges say done.</p>
+     range is short - stay close until both badges say done.</p>
 
   <h3>03 &middot; Games</h3>
   <p>Five games, one shared control scheme (joystick to move, <code>START</code> to begin/restart,
      <code>PAUSE</code> to pause, <code>BACK</code> to quit): Tetris, Snake, Space Shooter, 2048, and
-     <b>Ship Battle</b> &mdash; real Battleship played badge-versus-badge over the same LoRa link the
+     <b>Ship Battle</b> - real Battleship played badge-versus-badge over the same LoRa link the
      satellite challenges use. One badge hosts and broadcasts; the other joins from a list. Place a
      Carrier, a Battleship, two Cruisers and a Destroyer on your 8&times;8 grid, then take turns firing.
-     It is built to shrug off a flaky link &mdash; a shot result sent twice is not double-counted.</p>
+     It is built to shrug off a flaky link - a shot result sent twice is not double-counted.</p>
 
   <h3>04 &middot; Music Player</h3>
   <p>A retro cassette-deck UI, with no audio files stored anywhere: every note is generated live and
-     played through the badge&rsquo;s buzzer while the reels spin on screen. Six tracks &mdash;
+     played through the badge&rsquo;s buzzer while the reels spin on screen. Six tracks -
      &ldquo;He&rsquo;s a Pirate&rdquo;, &ldquo;Hedwig&rsquo;s Theme&rdquo;, Super Mario Bros., Star
      Wars, Mission: Impossible and the Pink Panther. Joystick to browse, <code>OK</code> to play,
      <code>PAUSE</code> to pause, <code>BACK</code> to eject.</p>
@@ -177,13 +177,13 @@ screen /dev/ttyACM0 115200       # or: picocom -b 115200 /dev/ttyACM0</pre>
   <p>Your profile, Sound toggle, Wi-Fi Setup (also how you set the profile), Clear Contacts DB, Reset
      Challenges (wipes Hack the Satellite progress back to Level 1, no undo), and a hidden
      <b>Secure Badge</b> row that only appears once you have earned it (see Radio Chat). The
-     <b>Hardware Test Suite</b> is a genuine live self-check of the whole board &mdash; the onboard LED
+     <b>Hardware Test Suite</b> is a genuine live self-check of the whole board - the onboard LED
      and LED strip, a buzzer tone sweep, live battery voltage, and a LoRa radio pass/fail. Press
      <code>OK</code> inside it for a live Button Tester that lights up each input&rsquo;s name as you
      press it.</p>
 
   <h3>06 &middot; Contacts Manager</h3>
-  <p>A digital rolodex of everyone you have PeerDropped with &mdash; name, organisation, email, phone.
+  <p>A digital rolodex of everyone you have PeerDropped with - name, organisation, email, phone.
      Joystick to scroll, <code>OK</code> to open a contact, <code>PAUSE</code> to delete the highlighted
      one, <code>BACK</code> to leave. Opening an empty list and pressing <code>OK</code> drops in a
      sample contact so the screen is never bare.</p>
@@ -192,24 +192,24 @@ screen /dev/ttyACM0 115200       # or: picocom -b 115200 /dev/ttyACM0</pre>
   <p>Badge-to-badge messaging over the same LoRa radio as the satellite challenges. Send one of twelve
      ready-made Quick Messages to a saved contact (delivery is confirmed), or open <b>Morse (CW)</b>:
      key your own dots and dashes by hand with real timing, tone and LED flash, or fire eight pre-built
-     phrases &mdash; a known phrase auto-decodes on the far end, anything else arrives as raw Morse.
+     phrases - a known phrase auto-decodes on the far end, anything else arrives as raw Morse.
      At the bottom sits <b>Attack</b>: aim it at anyone with Radio Chat or Ship Battle open and, if it
      lands, their badge glitches, plays an unmistakable buzzer riff and locks its buttons for a few
-     seconds. Land one and your badge unlocks <b>Secure Badge</b> in Settings &mdash; turn it on to
+     seconds. Land one and your badge unlocks <b>Secure Badge</b> in Settings - turn it on to
      become immune to incoming Attacks.</p>
 </section>
 
 <section class="wrap sec">
   <h2>Hardware</h2>
-  <p>The &ldquo;Vanguard&rdquo; badge is a custom ESP32-S3 board &mdash; the same hardware as Sysrupt V2,
+  <p>The &ldquo;Vanguard&rdquo; badge is a custom ESP32-S3 board - the same hardware as Sysrupt V2,
      here running the Hack the Satellite firmware.</p>
   <table class="pin-table">
     <tr><td class="sig">SoC</td><td>ESP32-S3, with Wi-Fi + Bluetooth (PeerDrop and Wi-Fi setup)</td></tr>
-    <tr><td class="sig">Radio</td><td>LoRa &mdash; the satellite link, Ship Battle, and Radio Chat all run on it</td></tr>
-    <tr><td class="sig">Display</td><td>Colour LCD &mdash; every menu, challenge and game</td></tr>
+    <tr><td class="sig">Radio</td><td>LoRa - the satellite link, Ship Battle, and Radio Chat all run on it</td></tr>
+    <tr><td class="sig">Display</td><td>Colour LCD - every menu, challenge and game</td></tr>
     <tr><td class="sig">Input</td><td>5-way joystick + five buttons (S1&ndash;S5: Pause, Disp, Start, Back, Ok)</td></tr>
     <tr><td class="sig">Power</td><td>Rechargeable battery, USB-C charge/serial (e.g. /dev/ttyACM0)</td></tr>
-    <tr><td class="sig">Recovery</td><td>RST / BOOT pair on the back &mdash; RST reboots a frozen badge</td></tr>
+    <tr><td class="sig">Recovery</td><td>RST / BOOT pair on the back - RST reboots a frozen badge</td></tr>
   </table>
   <p class="note">The badge&rsquo;s own Unit number (shown on the home screen) is its identity over
     PeerDrop and Radio Chat.</p>
@@ -218,10 +218,10 @@ screen /dev/ttyACM0 115200       # or: picocom -b 115200 /dev/ttyACM0</pre>
 <section class="wrap sec-last">
   <h2>Tips</h2>
   <ul>
-    <li>Lost in a menu? Mash <code>BACK</code> &mdash; it always climbs toward the home screen.</li>
+    <li>Lost in a menu? Mash <code>BACK</code> - it always climbs toward the home screen.</li>
     <li>Need Settings now? <code>DISP</code> jumps there from anywhere, instantly.</li>
     <li>Frozen badge? The small <code>RST</code> button on the back reboots it.</li>
-    <li>On the satellite challenges, keep a serial terminal open on your laptop the whole time &mdash;
+    <li>On the satellite challenges, keep a serial terminal open on your laptop the whole time -
       most of the real thinking happens there, not on the badge screen.</li>
     <li>Stuck on a level? Use its built-in hint ladder one step at a time rather than jumping to the
       last hint.</li>
