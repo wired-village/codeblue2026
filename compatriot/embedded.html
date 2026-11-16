@@ -423,9 +423,9 @@
 
     <div class="entry" id="c2">
       <div class="entry-head"><span class="entry-num">02</span><h2 style="margin:0;">Baud Hunter (UART)</h2><span class="diff-tag easy">Easy</span></div>
-      <p>While this lab is open, a flag streams out of the badge's UART at a baud rate that
-         isn't the obvious one. At your console's 115200 it is just garbage; the whole
-         puzzle is finding the real rate.</p>
+      <p>While this lab is open, the UART is talking &mdash; but not at the speed your console
+         is set to, so all you see is garbage. It isn&rsquo;t the obvious rate, and it
+         isn&rsquo;t the one you&rsquo;re already using.</p>
       <h3>Tool</h3>
       <p>Your USB-UART TTL adapter and terminal (or a logic analyzer on U13 if you'd
          rather measure the waveform). No extra wiring, it's the pins you're already on.</p>
@@ -529,10 +529,9 @@
 
     <div class="entry" id="c4">
       <div class="entry-head"><span class="entry-num">04</span><h2 style="margin:0;">EEPROM Raider</h2><span class="diff-tag med">Medium</span></div>
-      <p>The flag lives on the external I2C EEPROM (U2), not inside the ESP32's firmware.
-         The catch is how this particular chip is addressed: the default one-byte tooling
-         reads from the wrong place and hands you a perfectly valid-looking dump that is
-         simply wrong. Identify the part first.</p>
+      <p>The flag lives on the external I2C EEPROM (U2), not in the ESP32&rsquo;s firmware.
+         The catch is in how this particular chip wants to be addressed &mdash; get it
+         wrong and the dump comes back looking perfectly valid, and perfectly useless.</p>
       <h3>Tool</h3>
       <p>CH341A programmer in I2C mode + <code>i2c-tools</code>.</p>
       <h4>Approach</h4>

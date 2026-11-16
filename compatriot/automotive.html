@@ -198,9 +198,9 @@ sudo ip link set up vcan0</pre></li>
 
     <div class="entry" id="c1">
       <div class="entry-head"><span class="entry-num">01</span><h2 style="margin:0;">Floor It</h2><span class="diff-tag easy">Easy</span></div>
-      <p>The badge enforces a 90&nbsp;km/h limiter in its own controls, but the dashboard takes
-         its speed straight off the CAN bus and trusts whatever it reads there. Get the
-         displayed speed past the limit. Auto-solves off the bus &mdash; no flag entry.</p>
+      <p>The badge is adamant it will not go past 90&nbsp;km/h. The dashboard, though, is more
+         trusting &mdash; it believes whatever the bus tells it. Auto-solves off the bus, no
+         flag to enter.</p>
       <h3>Tool</h3>
       <p><code>candump</code> / <code>cansend</code> (can-utils).</p>
 
@@ -223,10 +223,9 @@ sudo ip link set up vcan0</pre></li>
 
     <div class="entry" id="c2">
       <div class="entry-head"><span class="entry-num">02</span><h2 style="margin:0;">Tester Present</h2><span class="diff-tag easy">Easy</span></div>
-      <p>The keep-alive request every real UDS diagnostic tool sends to hold a session open.
-         Here it is proof you can form one correctly: the badge validates the actual
-         service and sub-function, not just that a frame arrived. One good frame is the
-         whole challenge.</p>
+      <p>A diagnostic session only stays open while something keeps reassuring the ECU that a
+         tester is still present. It is waiting for one specific, well-formed request &mdash;
+         and it does check, not just that a frame arrived.</p>
       <h3>Tool</h3>
       <p><code>cansend</code>. The badge parses raw ISO-TP single frames, so every byte
          string below starts with a length byte (the frame's PCI byte, <code>0N</code>
@@ -250,8 +249,8 @@ sudo ip link set up vcan0</pre></li>
 
     <div class="entry" id="c3">
       <div class="entry-head"><span class="entry-num">03</span><h2 style="margin:0;">Both Indicators</h2><span class="diff-tag easy">Easy</span></div>
-      <p>Get both turn signals lit at the same moment. The badge's own controls only ever
-         cycle one at a time, so this state can only come from the bus, not the stalk.</p>
+      <p>Left, or right &mdash; the stalk will only ever give you one indicator at a time. The
+         wiring underneath has fewer scruples.</p>
       <h3>Tool</h3>
       <p><code>candump</code> to observe, <code>cansend</code> to inject.</p>
 
@@ -273,10 +272,9 @@ sudo ip link set up vcan0</pre></li>
 
     <div class="entry" id="c4">
       <div class="entry-head"><span class="entry-num">04</span><h2 style="margin:0;">Find the VIN</h2><span class="diff-tag med">Medium</span></div>
-      <p>Recover the vehicle's VIN over UDS. It reads out with no security at all; the only
-         obstacle is that the answer is too long for a single CAN frame, so it comes back
-         the way a real ECU returns large data. The VIN belongs to a
-         real production car, and the flag is that car's name.</p>
+      <p>Every car is stamped with a name the diagnostics can read back, no key required. This
+         one&rsquo;s answer is too long to arrive in a single breath. The VIN is a real
+         production car&rsquo;s, and that car&rsquo;s name is the flag.</p>
       <h3>Tool</h3>
       <p>Something that speaks ISO-TP and handles the Flow Control handshake for you:
          <code>isotpsend</code>/<code>isotprecv</code>, or <code>python-can</code> with
@@ -297,28 +295,29 @@ sudo ip link set up vcan0</pre></li>
 
     <div class="entry" id="c5">
       <div class="entry-head"><span class="entry-num">05</span><h2 style="margin:0;">Seed &amp; Key</h2><span class="diff-tag hard">Hard</span></div>
-      <p>A UDS <code>SecurityAccess</code> seed/key handshake at <b>security level 1</b>,
-         sitting behind the <b>extended diagnostic session</b> that has to be opened first.
-         The ECU hands you a fresh random seed and expects the matching key; the
-         relationship it uses is fixed but never shown. Two worked seed/key pairs are given
-         so you can recover it &mdash; no guessing required.</p>
+      <p>Past the everyday session, the ECU keeps a lock that answers a challenge with a riddle:
+         it hands you a seed and expects the matching key in return. The rule it uses never
+         changes &mdash; and it will show you two worked examples before asking you to solve
+         your own.</p>
       <h3>Tool</h3>
       <p><code>cansend</code>/<code>candump</code> and a calculator.</p>
       <p class="note">A wrong key invalidates the outstanding seed. Request a fresh one
         and try again. No lockout, but every wrong guess costs a round trip.</p>
 
       <details class="reveal hint"><summary>Hint</summary><div class="reveal-body">
-        <p>XOR each example pair together. If you get the same result both times, that
-           result is the constant the badge uses on every seed, including yours.</p>
+        <p>The seed request is refused until you open the extended diagnostic session first.
+           Once a seed comes back: XOR each worked pair together. If both give the same
+           result, that result is the constant the badge uses on every seed, yours
+           included.</p>
       </div></details>
       <details class="reveal guide locked" data-k="+lCYHZOslSEE+4vEwrQKcA==.JJh120nLwG5REjrj.NT9QRcHeTZLcB8OFJASuqgQZJ+hAievZPwRG3O9cdIABbwYyxtO9ddeZ/5vuO3uuYIfLeWCacVopgZmwVAsaHXC4BdqmOlE0UTgAzHz6D7ZopslJNwosCzC0zThJTZeQkv0VfFPL6i3eJOAZ2ZSnI6E11nG+kHUplBLSWyBVVpGkwkyULlFKlIvGMuTCVHoEKtXT9OeWJFUKZgBQ3TXaHlkuttXAzRvJ7dET4L3f5HNbGKKzU0IjZSfFjqaiJ35nj35mTg5eJdgEMRrZynrEPsGqIziycwKfp4rJJ2bcngIks8upmrzRUZRAjZFm3CW5tUK+/TB8P+lZc2ysljF5x1pXX/9eHdofE+JkmzriiK6ZOZTBRtq5W2cc3aXU50Hp04ZalDZrNBd4n1T1NI741INdGREOQDgXmZS383r+Yil8Lh/TcU3qbOCJktZTT7kawM8hwYNOLvPcsvdvGr/bKmrSrK6/19m7OGYvRjzidKrqjYkn1eeJLZYg8G9w+EvWeiL8qpNpa34swKxzqzdoBLi7kX303+cKLZGHHgIXsGIxVXZyyzrK/sbcawiEYDNHueO4Y8QuNXfTVaatNajST3vGTekCbf17xod2P1Z1K5la2eypWs82LCUg1tmDAnxTY/3P69DaA7b8ApkeHK5Npu+PD2O4ORQ95rBYdCFsIGIJFh9mICASzpFeBGMjLwa0KJfLhgYGv/OWCPj22qBamcmPiDEc7fp791N0DapaA1rO3pFwLxsmWcVY2K81nKCtXkxYh5T9AS8MM5HcReNaFlB3s5HWYXfB1wYwfhskiB2ynMMaO2nAuJmNNWtE8oEaBYPfOMhVffNJ67MtU2oRA0Vwo/ENrXtnuW/wuNY617/wnHXg1Lpv4KEsKgErSwoIpEALdO1lR8u2zYvux+A2ckAnMinPXjz3Zj04raDkFqXvM+4fBjFM5yOqYAZBHkFg0z9PZiXZzy3cbzXCZZdYeFfhWbD4xnZCp63VQSBBd0jNqNkqivuwh55D69AkI/KRMKyAIj3CMXMRWBga9E/e98gsjPzSRR05LeB0Jf8NmeKPxOWLj10NvskvHdRlbEsxCA51dwKDoRCApFzENqxn4TMzSkrSVpKD+WjS00rkIrsLa9tHhcpDqYmPLsw7QV7hLRMN8jdEZDO887FPfTr6pdkflQQyXyzZzdHlKnVuceWijZWgxfHG9bbbewbsfLPXIw4UVm3BJlPWNZycKCLi4KpnyySjvhSeglPDVy68kP8RQ8qBu4ZbhCrcGfm6kp2H/qv4GFeYWf4c8wrP+VRQBJKaxdldHGp5AaI/9t1o3AVXC+dAf2/5Ry9JadqOK5UVmNjsqkiP83wixJwOeO95Z9O3EOszpjhYBfMFlhXFAiaoEgjds9anAfQlncGkCz9u8gYEwgZtJ7Ye8anhlL4DGOn2vX6hdIe0QPNfxPcrlovxRrblZgyidswFP36J1foqifefhGEnAnZFxJG18dF4f/wEKkqSctwQTe6TonpyAvHvdzbE9HbwFpy/S3RPjAHCA//R5/ZcSLtTjCxxIIK6rRy93QGcrU62kEIpwigcXZS1C7mmrBceoSya4E7xdRXXGI34xuFqNX2wbOlrFabF//pHOuWs2X94QW6x/qQXp2yJGhldMFuX4ATdvH4zO5cd0XsAd0kDnWFSSKHj8ri9JZAzUkXcheu+R1byc9hWkhqI43hrlS47HmcMmDbpIJ3RwCu6VjIMuwl6l/S/19Hb20xIVbVKcUt0uE+6+Vkc2Sv7a1Y01mEP4hTabvLbdXQkc54t8gqTGBuU5wJTcPdxGy877XxO0znEsfKuNNDIS/lA1F/+NZSwrlcW6/Gdd/XtBmaqvoZOb6Kz3B+N/9f2jwGD"><summary>Full guide <span class="lockpill">locked</span></summary><div class="reveal-body"><form class="pinform" autocomplete="off"><p class="pinlead">This walkthrough is locked. Enter the passphrase given at the event to open it.</p><div class="pinrow"><input type="password" class="pinin" placeholder="passphrase" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="passphrase"><button type="submit" class="pinbtn">Unlock</button></div><p class="pinmsg" role="status"></p></form></div></details>
     </div>
 
     <div class="entry" id="c6">
       <div class="entry-head"><span class="entry-num">06</span><h2 style="margin:0;">Memory Transfer</h2><span class="diff-tag hard">Hard</span></div>
-      <p>Picks up where <b>Seed &amp; Key</b> left off. A calibration record sits in ECU
-         memory at <code>0x40</code>, and the record is self-describing: it carries the
-         address it is meant to be copied to. Complete that copy and the flag unlocks.</p>
+      <p>Picks up where <b>Seed &amp; Key</b> left off. A calibration record in the ECU&rsquo;s
+         memory knows where it is meant to live &mdash; the record says so itself. Read it,
+         put it back where it belongs, and the door it guards opens.</p>
       <p>Memory is off limits until the ECU is already unlocked, and the record is regenerated
          every time the badge boots, so you have to read yours off the live bus. Nobody
          else's value will work.</p>
