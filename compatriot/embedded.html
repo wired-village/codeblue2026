@@ -83,7 +83,7 @@
     <div class="tools-grid">
       <div class="tool-card">
         <div class="shot"><img src="../assets/tools/usb-ttl-adapter.webp" alt="USB-TTL serial adapter" width="380" height="252"></div>
-        <div class="info"><div class="name">Serial adapter</div><div class="desc">USB-TTL / any USB-serial cable. Drives Shell Breakout, Bus Stop, and flag submission.</div></div>
+        <div class="info"><div class="name">Serial adapter</div><div class="desc">A USB-to-UART TTL adapter on header U13. Drives Shell Breakout, Bus Stop, and flag submission.</div></div>
       </div>
       <div class="tool-card">
         <div class="shot"><img src="../assets/tools/logic-analyzer.webp" alt="USB logic analyzer" width="300" height="300"></div>
@@ -383,9 +383,9 @@
 
     <div class="entry" id="c1">
       <div class="entry-head"><span class="entry-num">01</span><h2 style="margin:0;">Shell Breakout</h2><span class="diff-tag easy">Easy</span></div>
-      <p>The badge exposes a minimal UNIX-like shell over USB serial with a small fake
-         filesystem. A flag file sits in a hidden directory. A plain directory listing
-         won't show it, but that doesn't mean it can't be reached.</p>
+      <p>The badge exposes a minimal UNIX-like shell over its serial console, with a small
+         fake filesystem. The flag file is there &mdash; just not where a plain directory
+         listing will show it.</p>
       <h3>Tool</h3>
       <p>A serial terminal at 115200 8N1 (PuTTY, <code>screen</code>, <code>minicom</code>).</p>
 
@@ -423,10 +423,9 @@
 
     <div class="entry" id="c2">
       <div class="entry-head"><span class="entry-num">02</span><h2 style="margin:0;">Baud Hunter (UART)</h2><span class="diff-tag easy">Easy</span></div>
-      <p>While this lab is open, a flag streams on the badge's own UART, the same header
-         U13 pins your console TTL adapter is wired to, but not at your console's baud
-         rate. Your 115200 terminal just shows garbage. The whole puzzle is finding the
-         real baud.</p>
+      <p>While this lab is open, a flag streams out of the badge's UART at a baud rate that
+         isn't the obvious one. At your console's 115200 it is just garbage; the whole
+         puzzle is finding the real rate.</p>
       <h3>Tool</h3>
       <p>Your USB-UART TTL adapter and terminal (or a logic analyzer on U13 if you'd
          rather measure the waveform). No extra wiring, it's the pins you're already on.</p>
@@ -469,8 +468,9 @@
 
     <div class="entry" id="c3">
       <div class="entry-head"><span class="entry-num">03</span><h2 style="margin:0;">Bus Stop (SPI)</h2><span class="diff-tag med">Medium</span></div>
-      <p>Two steps: the SPI bus carries a <i>password</i>, not the flag. Sniff it off the
-         bus, then type it back into the lab's own serial console to get the flag.</p>
+      <p>While this lab runs, the SPI bus is clocking out a secret &mdash; and it is not the
+         flag itself. Recover what the bus is leaking; the lab console does the rest once
+         you have it.</p>
       <h3>Tool</h3>
       <p>Logic analyzer + Logic 2, plus a serial terminal for the console step. Wire to
          <code>SCK (IO2)</code> / <code>MOSI (IO3)</code> / <code>CS (IO15)</code> plus GND.</p>
@@ -529,10 +529,10 @@
 
     <div class="entry" id="c4">
       <div class="entry-head"><span class="entry-num">04</span><h2 style="margin:0;">EEPROM Raider</h2><span class="diff-tag med">Medium</span></div>
-      <p>The flag lives on the external I2C EEPROM (U2), not inside the ESP32's own
-         firmware. Read the part number off the chip before you dump it: how it expects to
-         be addressed is not what the default one-byte tooling assumes, and a dump that
-         ignores that comes back from the wrong place looking perfectly valid.</p>
+      <p>The flag lives on the external I2C EEPROM (U2), not inside the ESP32's firmware.
+         The catch is how this particular chip is addressed: the default one-byte tooling
+         reads from the wrong place and hands you a perfectly valid-looking dump that is
+         simply wrong. Identify the part first.</p>
       <h3>Tool</h3>
       <p>CH341A programmer in I2C mode + <code>i2c-tools</code>.</p>
       <h4>Approach</h4>

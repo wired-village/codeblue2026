@@ -198,10 +198,9 @@ sudo ip link set up vcan0</pre></li>
 
     <div class="entry" id="c1">
       <div class="entry-head"><span class="entry-num">01</span><h2 style="margin:0;">Floor It</h2><span class="diff-tag easy">Easy</span></div>
-      <p>The dashboard's speed reading comes off one CAN ID, and nothing checks whether that
-         frame actually came from the badge's own sensors. Find the ID, work out the byte
-         layout against a couple of known speed readings, and forge a value past the badge's
-         limiter threshold. No flag entry needed, it auto-solves the moment the frame lands.</p>
+      <p>The badge enforces a 90&nbsp;km/h limiter in its own controls, but the dashboard takes
+         its speed straight off the CAN bus and trusts whatever it reads there. Get the
+         displayed speed past the limit. Auto-solves off the bus &mdash; no flag entry.</p>
       <h3>Tool</h3>
       <p><code>candump</code> / <code>cansend</code> (can-utils).</p>
 
@@ -224,11 +223,10 @@ sudo ip link set up vcan0</pre></li>
 
     <div class="entry" id="c2">
       <div class="entry-head"><span class="entry-num">02</span><h2 style="margin:0;">Tester Present</h2><span class="diff-tag easy">Easy</span></div>
-      <p>The simplest valid UDS request there is. Real diagnostic tools send it
-         periodically to keep a session alive. Here it's proof you can form a correctly
-         structured request at all. The badge checks the actual service ID and
-         sub-function, not just that something arrived on <code>0x7E0</code>. One
-         correctly-formed frame is the whole interaction.</p>
+      <p>The keep-alive request every real UDS diagnostic tool sends to hold a session open.
+         Here it is proof you can form one correctly: the badge validates the actual
+         service and sub-function, not just that a frame arrived. One good frame is the
+         whole challenge.</p>
       <h3>Tool</h3>
       <p><code>cansend</code>. The badge parses raw ISO-TP single frames, so every byte
          string below starts with a length byte (the frame's PCI byte, <code>0N</code>
@@ -252,10 +250,8 @@ sudo ip link set up vcan0</pre></li>
 
     <div class="entry" id="c3">
       <div class="entry-head"><span class="entry-num">03</span><h2 style="margin:0;">Both Indicators</h2><span class="diff-tag easy">Easy</span></div>
-      <p>Get left and right turn signals active at the same moment. The badge's own UI
-         can't do this, since it only ever cycles one at a time. Watch the indicator's CAN
-         ID with the badge's own controls to see the bitfield only ever carries one bit,
-         then forge a frame with both set together.</p>
+      <p>Get both turn signals lit at the same moment. The badge's own controls only ever
+         cycle one at a time, so this state can only come from the bus, not the stalk.</p>
       <h3>Tool</h3>
       <p><code>candump</code> to observe, <code>cansend</code> to inject.</p>
 
@@ -277,11 +273,9 @@ sudo ip link set up vcan0</pre></li>
 
     <div class="entry" id="c4">
       <div class="entry-head"><span class="entry-num">04</span><h2 style="margin:0;">Find the VIN</h2><span class="diff-tag med">Medium</span></div>
-      <p>A UDS <code>ReadDataByIdentifier</code> read of the vehicle's VIN. Requests go to
-         <code>0x7E0</code>, the ECU answers on <code>0x7E8</code>, and nothing is locked:
-         it reads in the <b>default session</b>, no SecurityAccess. The 20-byte answer
-         won't fit one CAN frame, so the ECU sends an <b>ISO-TP</b> First Frame and waits
-         for a <b>Flow Control</b> frame from you before the rest. The VIN belongs to a
+      <p>Recover the vehicle's VIN over UDS. It reads out with no security at all; the only
+         obstacle is that the answer is too long for a single CAN frame, so it comes back
+         the way a real ECU returns large data. The VIN belongs to a
          real production car, and the flag is that car's name.</p>
       <h3>Tool</h3>
       <p>Something that speaks ISO-TP and handles the Flow Control handshake for you:
@@ -303,13 +297,11 @@ sudo ip link set up vcan0</pre></li>
 
     <div class="entry" id="c5">
       <div class="entry-head"><span class="entry-num">05</span><h2 style="margin:0;">Seed &amp; Key</h2><span class="diff-tag hard">Hard</span></div>
-      <p>A real UDS <code>SecurityAccess</code> seed/key handshake at <b>security level 1</b>:
-         sub-function <code>01</code> asks for the seed, <code>02</code> sends the key back.
-         It sits behind the <b>extended diagnostic session</b>, a separate thing from the
-         security level, which has to be opened first or the seed request is refused. Each
-         request returns a fresh random seed. The badge gives two worked seed/key pairs, and
-         the relationship is identical across both. Find it, then apply it to your own live
-         seed.</p>
+      <p>A UDS <code>SecurityAccess</code> seed/key handshake at <b>security level 1</b>,
+         sitting behind the <b>extended diagnostic session</b> that has to be opened first.
+         The ECU hands you a fresh random seed and expects the matching key; the
+         relationship it uses is fixed but never shown. Two worked seed/key pairs are given
+         so you can recover it &mdash; no guessing required.</p>
       <h3>Tool</h3>
       <p><code>cansend</code>/<code>candump</code> and a calculator.</p>
       <p class="note">A wrong key invalidates the outstanding seed. Request a fresh one
@@ -325,8 +317,8 @@ sudo ip link set up vcan0</pre></li>
     <div class="entry" id="c6">
       <div class="entry-head"><span class="entry-num">06</span><h2 style="margin:0;">Memory Transfer</h2><span class="diff-tag hard">Hard</span></div>
       <p>Picks up where <b>Seed &amp; Key</b> left off. A calibration record sits in ECU
-         memory at <code>0x40</code>. Read the whole record, not just the first few bytes:
-         the end of it tells you where the rest of it belongs.</p>
+         memory at <code>0x40</code>, and the record is self-describing: it carries the
+         address it is meant to be copied to. Complete that copy and the flag unlocks.</p>
       <p>Memory is off limits until the ECU is already unlocked, and the record is regenerated
          every time the badge boots, so you have to read yours off the live bus. Nobody
          else's value will work.</p>
