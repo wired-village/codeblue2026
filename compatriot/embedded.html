@@ -131,12 +131,11 @@
         <p><b>Connecting to the badge's serial port.</b> This is the same every time you
            see "connect at 115200 8N1" below, for Shell Breakout, Bus Stop, and for
            submitting a flag. Everything here assumes Linux (the Arsenal Labs kit).</p>
-        <p class="note">The badge console is mirrored on <b>two</b> transports: the badge's
-           own <b>USB-C</b> port, which needs no wiring at all, and <b>UART0 on header U13</b>
-           for a USB-to-UART TTL adapter. Everything except Baud Hunter can be done over
-           USB-C &mdash; Baud Hunter is the one challenge that needs the U13 adapter, because
-           its whole mechanic is the odd baud rate on that line.</p>
-        <p class="note">To wire the adapter to header <b>U13</b>, cross the data lines:
+        <p class="note">The badge console is <b>UART0 on header U13</b> and nothing else.
+           The USB-C port powers and flashes the badge but carries no console, so you need a
+           <b>USB-to-UART TTL adapter</b> wired to U13 before you can submit a single flag.
+           Getting that link up is the first piece of hardware work on this badge.</p>
+        <p class="note">Wire the adapter to header <b>U13</b>, crossing the data lines:
            adapter <b>TX &rarr; U13 pin 3</b> (pin 3 is the badge's <i>receive</i> line),
            adapter <b>RX &rarr; U13 pin 4</b> (pin 4 is the badge's <i>transmit</i> line),
            and adapter <b>GND &rarr; U13 pin 7</b>. Use 3.3&nbsp;V logic.</p>
@@ -147,8 +146,9 @@
           <li>Wire the TTL adapter to U13 as above and plug the adapter into your computer.</li>
           <li>Find its port name:
             <pre>ls /dev/ttyUSB*</pre>
-            A TTL adapter is usually <code>/dev/ttyUSB0</code> (native USB-C would be
-            <code>/dev/ttyACM*</code> instead).</li>
+            A TTL adapter is usually <code>/dev/ttyUSB0</code>. If you only see
+            <code>/dev/ttyACM*</code>, that is the badge's USB-C port, which carries power
+            and flashing but no console &mdash; you still need the adapter on U13.</li>
           <li>Open it with your serial terminal at 115200 baud, 8 data bits, no parity,
             1 stop bit (written as "115200 8N1"). Any of these work:
             <pre>minicom -D /dev/ttyUSB0 -b 115200</pre>
@@ -274,7 +274,7 @@
     <li class="bm-leg" data-ref="U3"><span><span class="bm-leg-n">8</span><span class="bm-leg-t">ESP32-C6-WROOM-1</span><span class="bm-leg-s">the main chip, WiFi and BLE</span></span></li>
     <li class="bm-leg" data-ref="U7"><span><span class="bm-leg-n">9</span><span class="bm-leg-t">STM32F103C8</span><span class="bm-leg-s">the STM32 you reverse in Target Acquired</span></span></li>
     <li class="bm-leg" data-ref="RJ1"><span><span class="bm-leg-n">10</span><span class="bm-leg-t">RJ45 (W5500)</span><span class="bm-leg-s">CAN over Ethernet</span></span></li>
-    <li class="bm-leg" data-ref="J1"><span><span class="bm-leg-n">11</span><span class="bm-leg-t">USB-C</span><span class="bm-leg-s">power, and the console (USB-CDC)</span></span></li>
+    <li class="bm-leg" data-ref="J1"><span><span class="bm-leg-n">11</span><span class="bm-leg-t">USB-C</span><span class="bm-leg-s">power and flashing, not the console</span></span></li>
     <li class="bm-leg" data-ref="DISP"><span><span class="bm-leg-n">12</span><span class="bm-leg-t">2.4″ TFT display</span><span class="bm-leg-s">the badge screen</span></span></li>
     <li class="bm-leg" data-ref="LED1"><span><span class="bm-leg-n">13</span><span class="bm-leg-t">LED1 / LED2</span><span class="bm-leg-s">the two NeoPixels</span></span></li>
   </ol>
@@ -358,7 +358,7 @@
   <h3>U13: console UART <span class="bm-val">F1_PM2.54-1x7PLT-H8.5-R</span></h3>
   <p class="bm-note">The console lives here. While the Baud Hunter lab is open this same UART switches to 57600.</p>
   <p class="bm-note"><b>Careful: the board has three identical 1&times;7 headers</b> &mdash; U13, U14 and U15, same part, same size. Only <b>U13</b> is the console. <b>U15</b> is the STM32 side-channel header and, like U13, has <b>GND on pin 7</b>, so a cable wired to &ldquo;pins 3, 4 and 7&rdquo; of U15 looks perfectly right and is completely silent. Check the silkscreen label before you plug in. The giveaway: U13 also carries the Bus Stop SPI signals (pin 2 = IO15/CS, pin 5 = IO3/MOSI, pin 6 = IO2/SCK); U15 carries <code>SCA_*</code> pins that go to the STM32, not the ESP32.</p>
-  <p class="bm-note">If the console is dead in both directions, this and crossed TX/RX are the two causes worth checking first. The badge console is also mirrored on the <b>USB-C port</b>, which needs no wiring at all &mdash; use that if your adapter is giving you trouble (everything except Baud Hunter works over USB-C).</p>
+  <p class="bm-note">If the console is dead in both directions, the two causes worth checking first are the wrong header and crossed TX/RX. There is no USB-C fallback &mdash; U13 is the only console on this badge, so the adapter has to work. <code>setup/tools/check_console.py</code> tells you which wire is wrong, and <code>check_adapter.py</code> loopback-tests the adapter on its own.</p>
   <div class="bm-panel-grid">
     <figure class="bm-zoom">
       <img src="../assets/board/zoom/U13.webp" width="760" height="721" loading="lazy" decoding="async"
@@ -390,9 +390,10 @@
       <p>A serial terminal at 115200 8N1 (PuTTY, <code>screen</code>, <code>minicom</code>).</p>
 
       <details class="reveal conn"><summary>Connection</summary><div class="reveal-body">
-        <p>No extra wiring. Just the badge's own USB cable, plugged into your computer.
+        <p>Your USB-to-UART TTL adapter on header <b>U13</b> &mdash; the same console link
+           every challenge here uses. The badge's own USB-C cable only supplies power.
            See <a href="#tools">Connecting to the badge's serial port</a> above for the
-           exact commands.</p>
+           wiring and the exact commands.</p>
       
         <p class="bm-jump"><a href="#bm-U13">↑ See U13 on the board map</a> <span class="bm-jump-note">every pin numbered</span></p>
       </div></details>
