@@ -131,8 +131,12 @@
         <p><b>Connecting to the badge's serial port.</b> This is the same every time you
            see "connect at 115200 8N1" below, for Shell Breakout, Bus Stop, and for
            submitting a flag. Everything here assumes Linux (the Arsenal Labs kit).</p>
-        <p class="note">The badge console runs on a <b>USB-to-UART TTL adapter</b>, not the
-           USB-C port. Wire the adapter to header <b>U13</b>, crossing the data lines:
+        <p class="note">The badge console is mirrored on <b>two</b> transports: the badge's
+           own <b>USB-C</b> port, which needs no wiring at all, and <b>UART0 on header U13</b>
+           for a USB-to-UART TTL adapter. Everything except Baud Hunter can be done over
+           USB-C &mdash; Baud Hunter is the one challenge that needs the U13 adapter, because
+           its whole mechanic is the odd baud rate on that line.</p>
+        <p class="note">To wire the adapter to header <b>U13</b>, cross the data lines:
            adapter <b>TX &rarr; U13 pin 3</b> (pin 3 is the badge's <i>receive</i> line),
            adapter <b>RX &rarr; U13 pin 4</b> (pin 4 is the badge's <i>transmit</i> line),
            and adapter <b>GND &rarr; U13 pin 7</b>. Use 3.3&nbsp;V logic.</p>
@@ -270,7 +274,7 @@
     <li class="bm-leg" data-ref="U3"><span><span class="bm-leg-n">8</span><span class="bm-leg-t">ESP32-C6-WROOM-1</span><span class="bm-leg-s">the main chip, WiFi and BLE</span></span></li>
     <li class="bm-leg" data-ref="U7"><span><span class="bm-leg-n">9</span><span class="bm-leg-t">STM32F103C8</span><span class="bm-leg-s">the STM32 you reverse in Target Acquired</span></span></li>
     <li class="bm-leg" data-ref="RJ1"><span><span class="bm-leg-n">10</span><span class="bm-leg-t">RJ45 (W5500)</span><span class="bm-leg-s">CAN over Ethernet</span></span></li>
-    <li class="bm-leg" data-ref="J1"><span><span class="bm-leg-n">11</span><span class="bm-leg-t">USB-C</span><span class="bm-leg-s">power only, not the console</span></span></li>
+    <li class="bm-leg" data-ref="J1"><span><span class="bm-leg-n">11</span><span class="bm-leg-t">USB-C</span><span class="bm-leg-s">power, and the console (USB-CDC)</span></span></li>
     <li class="bm-leg" data-ref="DISP"><span><span class="bm-leg-n">12</span><span class="bm-leg-t">2.4″ TFT display</span><span class="bm-leg-s">the badge screen</span></span></li>
     <li class="bm-leg" data-ref="LED1"><span><span class="bm-leg-n">13</span><span class="bm-leg-t">LED1 / LED2</span><span class="bm-leg-s">the two NeoPixels</span></span></li>
   </ol>
